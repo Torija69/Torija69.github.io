@@ -1,0 +1,102 @@
+/* Dossier v1.3.0: Torija / Taller v1.0.0, layered over the existing layout. */
+body.torija {
+  --paper:var(--tj-bg); --surface:var(--tj-surface); --ink:var(--tj-text);
+  --muted:var(--tj-muted); --faint:var(--tj-muted); --line:var(--tj-border);
+  --accent:var(--tj-text); --accent-soft:var(--tj-soft);
+  --local:var(--tj-text); --local-soft:var(--tj-soft);
+  --radius:var(--tj-radius-card); --serif:var(--tj-font-display); --sans:var(--tj-font-body);
+  -webkit-font-smoothing:antialiased;
+}
+.torija .wrap { max-width:1200px; padding-inline:32px; }
+.torija .skip-link { position:absolute; left:16px; top:-100px; z-index:10; background:var(--tj-accent); color:var(--tj-text); padding:12px 20px; border-radius:8px; }
+.torija .skip-link:focus { top:12px; }
+.torija header.top { background:var(--tj-text); color:var(--tj-surface); border-bottom:0; }
+.torija header.top .wrap { min-height:84px; height:auto; padding-block:12px; }
+.torija .brand { color:var(--tj-surface); gap:16px; flex-shrink:0; font-size:14px; min-height:44px; }
+.torija .brand svg { color:var(--tj-accent); width:28px; height:28px; }
+.torija .brand-title { font-family:var(--tj-font-display); font-size:24px; font-weight:700; letter-spacing:-.025em; }
+.torija .brand-caption { font-size:13px; font-weight:400; color:var(--tj-surface); opacity:.85; padding-left:16px; border-left:1px solid rgb(251 250 245 / 30%); }
+.torija nav.top { display:flex; gap:24px; }
+.torija nav.top a { display:inline-flex; align-items:center; min-height:44px; margin:0; color:var(--tj-surface); font-size:14px; }
+.torija nav.top a:hover { color:var(--tj-accent); text-decoration:underline; }
+.torija header.top :where(a,button):focus-visible { outline-color:var(--tj-accent); }
+.torija .hero { padding:64px 0 40px; }
+.torija .eyebrow { font-size:12px; font-weight:700; letter-spacing:.12em; }
+.torija h1 { font-family:var(--tj-font-display); font-size:clamp(36px,5vw,64px); font-weight:700; line-height:1.05; letter-spacing:-.035em; max-width:20ch; margin:18px 0 24px; }
+.torija .lead { font-size:clamp(16px,1.3vw,19px); max-width:72ch; line-height:1.7; }
+.torija .stats { background:var(--tj-accent); color:var(--tj-text); padding:24px 32px; border-radius:16px; gap:64px; margin-top:32px; }
+.torija .stat { display:flex; align-items:center; gap:16px; }
+.torija .stat b { font-family:var(--tj-font-display); font-size:40px; font-weight:700; }
+.torija .stat span { max-width:120px; font-size:14px; color:var(--tj-text); line-height:1.4; }
+.torija .modes { gap:24px; margin:0 0 56px; }
+.torija .mode { padding:24px; }
+.torija .mode h2 { font-family:var(--tj-font-display); font-size:24px; font-weight:700; line-height:1.2; }
+.torija .mode p { font-size:15px; line-height:1.7; }
+.torija .tag { font-size:12px; letter-spacing:.045em; padding:6px 12px; }
+.torija .tag.web { background:var(--tj-soft); color:var(--tj-text); }
+.torija .tag.loc { background:var(--tj-text); color:var(--tj-surface); }
+.torija .sechead { border-top:1px solid var(--tj-field-border); padding-top:24px; gap:24px; }
+.torija .sechead h2 { font-family:var(--tj-font-display); font-size:32px; font-weight:700; line-height:1.2; letter-spacing:-.025em; }
+.torija .sechead p { font-size:15px; max-width:55ch; }
+.torija .grid { gap:24px; }
+.torija .card { border-radius:16px; box-shadow:none; }
+.torija .card img { background:var(--tj-soft); }
+.torija .card .body { padding:24px; gap:16px; }
+.torija .card h3 { font-family:var(--tj-font-display); font-size:24px; font-weight:700; letter-spacing:-.02em; line-height:1.2; overflow-wrap:anywhere; }
+.torija .card p { line-height:1.7; }
+.torija .meta { color:var(--tj-muted); align-items:center; font-size:13px; }
+.torija code { background:var(--tj-soft); color:var(--tj-text); }
+.torija dl { font-size:14px; }
+.torija dd { min-width:0; overflow-wrap:anywhere; }
+.torija .btn { min-height:44px; background:var(--tj-accent); color:var(--tj-text); border:1px solid transparent; border-radius:8px; padding:12px 20px; font-size:14px; line-height:1.4; }
+.torija .btn:hover { background:var(--tj-accent); color:var(--tj-text); border-color:var(--tj-text); }
+.torija .btn:active { background:var(--tj-soft); }
+.torija .note { border-left-color:var(--tj-field-border); }
+.torija .tablewrap { max-width:100%; overflow-x:auto; border:1px solid var(--tj-border); border-radius:16px; }
+.torija table { border:0; border-radius:0; }
+.torija th { background:var(--tj-soft); color:var(--tj-text); }
+.torija td { overflow-wrap:anywhere; }
+.torija .step b { font-family:var(--tj-font-display); font-size:20px; font-weight:700; }
+.torija footer { color:var(--tj-muted); margin-top:16px; }
+@media(max-width:1000px) {
+  .torija header.top .wrap { flex-wrap:wrap; gap:8px 24px; }
+  .torija nav.top { flex-wrap:wrap; gap:20px; }
+  .torija .stats { gap:32px; }
+}
+@media(max-width:600px) {
+  .torija .wrap { padding-inline:16px; }
+  .torija .brand { gap:10px; }
+  .torija .brand-title { font-size:22px; }
+  .torija .brand-caption { padding-left:12px; font-size:12px; }
+  .torija nav.top { width:100%; justify-content:space-between; gap:8px; }
+  .torija nav.top a { font-size:13px; }
+  .torija .hero { padding:40px 0 24px; }
+  .torija h1 { font-size:40px; margin-block:16px 20px; }
+  .torija .stats { padding:20px; gap:20px; display:grid; grid-template-columns:1fr; }
+  .torija .stat b { min-width:48px; font-size:36px; }
+  .torija .stat span { max-width:none; }
+  .torija .modes { margin-bottom:32px; gap:16px; }
+  .torija .mode,.torija .card .body,.torija .step { padding:20px; }
+  .torija .sechead h2 { font-size:28px; }
+  .torija .sechead { gap:12px; margin-bottom:20px; }
+  .torija .grid { gap:20px; }
+  .torija dl { grid-template-columns:80px minmax(0,1fr); gap:8px 12px; }
+  .torija table { min-width:640px; }
+  .torija section.block { padding-bottom:40px; }
+}
+@media print {
+  body.torija { background:#fff; color:#000; font-size:11pt; }
+  .torija header.top { background:#fff; color:#000; border-bottom:1px solid #bbb; }
+  .torija .brand,.torija .brand-title,.torija .brand-caption,.torija .brand svg { color:#000; opacity:1; }
+  .torija header.top nav,.torija .btn,.torija .skip-link { display:none; }
+  .torija .hero { padding:24px 0; }
+  .torija h1 { font-size:32pt; }
+  .torija .stats { background:#fff; border:1px solid #bbb; padding:16px; margin-top:20px; }
+  .torija .stat span,.torija .tag { color:#000; }
+  .torija .tag { background:#fff; border:1px solid #bbb; }
+  .torija .card,.torija .mode,.torija .step { background:#fff; border-color:#bbb; }
+  .torija .tablewrap { overflow:visible; border-color:#bbb; }
+  .torija table { min-width:0; }
+  .torija th { background:#fff; }
+  .torija a { color:#000; }
+}
