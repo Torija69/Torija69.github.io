@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iron Tangle · Red ferroviaria del Libro 3 de Dungeon Crawler Carl</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141210'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e3a43b' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e3a43b'/%3E%3C/svg%3E">
+<link href="../styles/torija-fonts.css" rel="stylesheet">
+<link href="../styles/torija-tokens.css" rel="stylesheet">
+<link href="../styles/torija-components.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link href="../styles/iron-torija.css" rel="stylesheet">
+</head>
+<body class="torija" data-app-version="1.3.0" data-design-version="1.0.0">
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="brand">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <div>
+        <div class="kicker">Piso 4 · Libro 3 · The Dungeon Anarchist's Cookbook</div>
+        <div class="brand-name">Iron Tangle <span class="torija-signature">/ Torija</span></div>
+      </div>
+    </div>
+    <a class="back" href="../index.html?libro=3">← Mapa de Crawlers</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#resumen">Resumen</a>
+      <a href="#estaciones">Estaciones</a>
+      <a href="#lineas">Líneas de colores</a>
+      <a href="#nombre">Trenes con nombre</a>
+      <a href="#vehiculos">Trenes y vagonetas</a>
+      <a href="#portales">Portales</a>
+      <a href="#monstruos">Monstruos</a>
+      <a href="#recorrido">Recorrido</a>
+      <a href="#fuentes">Fuentes</a>
+    </nav>
+  </div>
+</header>
+
+<div class="notice" role="note">
+  <div class="wrap notice-inner">
+    <span class="tag">Spoilers</span>
+    <p>Esta página destripa <b>todo el libro 3</b> (<i>The Dungeon Anarchist's Cookbook</i>), incluido el final. <i>Dungeon Crawler Carl</i> y todos sus personajes, nombres, lugares y textos citados pertenecen a su autor, <b>Matt Dinniman</b>, y a sus editoriales. Web de fans no oficial y sin ánimo de lucro.</p>
+  </div>
+</div>
+<main>
+<section id="resumen" class="wrap section hero">
+  <div class="hero-text">
+    <h1>La red ferroviaria del cuarto piso</h1>
+    <p class="lead">Miles de túneles de metro anudados entre sí. Las líneas de colores van en un solo sentido, del patio de trenes al Abismo; los trenes con nombre recorren bucles por encima de todo. Las escaleras están en estaciones que quedan atrás.</p>
+    <div class="stats" id="stats"></div>
+    <p class="note">Advertencia: el propio Dinniman pide al lector que no intente seguir el mapa. Estos datos combinan wikis y análisis de fans, y en algunos puntos se contradicen; las fichas indican la fuente.</p>
+  </div>
+  <figure class="target-fig">
+    <svg id="target" viewBox="0 0 440 440" role="img" aria-label="Esquema en diana del Iron Tangle: patios en el borde y Abismo en el centro"></svg>
+    <figcaption>Esquema en diana: la estación 1 sería el anillo exterior y la 436 el centro. No está a escala.</figcaption>
+  </figure>
+</section>
+
+<section id="estaciones" class="wrap section">
+  <div class="sec-head">
+    <h2>Estaciones 10–436</h2>
+    <p>Cada casilla es un número de estación. El tipo sale de las reglas del piso y lo documentado en cada estación lo concreta. Pulsa una casilla o escribe un número.</p>
+  </div>
+  <div class="station-tools">
+    <label class="search">
+      <span class="sr">Número de estación</span>
+      <input id="stationInput" type="number" min="10" max="436" placeholder="Nº de estación, p. ej. 83" inputmode="numeric">
+    </label>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="station-layout">
+    <div class="grid" id="grid" role="listbox" aria-label="Estaciones"></div>
+    <aside class="detail" id="detail" aria-live="polite"></aside>
+  </div>
+  <div class="rules">
+    <h3>Reglas de numeración</h3>
+    <ul id="rules"></ul>
+  </div>
+</section>
+
+<section id="lineas" class="wrap section">
+  <div class="sec-head">
+    <h2>Líneas de colores</h2>
+    <p>Metro de 20 vagones en un solo sentido, de la 10 a la 435. Todas llevan monstruos en los vagones de pasajeros. Hay unas dos mil y pico estimadas; estas son las que tienen nombre.</p>
+  </div>
+  <div class="filters" id="lineFilters"></div>
+  <div class="lines" id="lines"></div>
+</section>
+
+<section id="nombre" class="wrap section">
+  <div class="sec-head">
+    <h2>Trenes con nombre y líneas especiales</h2>
+    <p>Trenes grandes en bucle, con war mages y mobs potentes, además de dos líneas especiales que van hacia atrás o están reservadas al personal.</p>
+  </div>
+  <div class="named" id="named"></div>
+</section>
+
+<section id="vehiculos" class="wrap section">
+  <div class="sec-head">
+    <h2>Tipos de tren, vagones y vagonetas</h2>
+    <p>Así es por dentro un tren de línea de color. Pulsa un vagón.</p>
+  </div>
+  <div class="consist" id="consist" aria-label="Composición de un tren de 20 vagones"></div>
+  <div class="car-info" id="carInfo"></div>
+  <div class="vehicles" id="vehicles"></div>
+</section>
+
+<section id="portales" class="wrap section">
+  <div class="sec-head">
+    <h2>Portales</h2>
+    <p>La clave del piso: casi todo el camino de vuelta hacia las escaleras pasa por un portal.</p>
+  </div>
+  <div class="portals" id="portals"></div>
+</section>
+
+<section id="monstruos" class="wrap section">
+  <div class="sec-head">
+    <h2>Con monstruos y sin monstruos</h2>
+    <p>Resumen de qué trenes y estaciones tienen mobs y cuáles son seguros.</p>
+  </div>
+  <div class="mob-cols">
+    <div class="mob-col yes">
+      <h3>Con monstruos</h3>
+      <ul id="mobYes"></ul>
+    </div>
+    <div class="mob-col no">
+      <h3>Sin monstruos o seguros</h3>
+      <ul id="mobNo"></ul>
+    </div>
+  </div>
+  <div class="cycle">
+    <h3>El ciclo de la droga</h3>
+    <ol class="cycle-steps" id="cycle"></ol>
+  </div>
+</section>
+
+<section id="recorrido" class="wrap section">
+  <div class="sec-head">
+    <h2>Recorrido de Carl por líneas</h2>
+    <p>Qué línea o tren usa el grupo en cada capítulo del libro.</p>
+  </div>
+  <ol class="journey" id="journey"></ol>
+</section>
+
+<section id="fuentes" class="wrap section">
+  <div class="sec-head">
+    <h2>Fuentes</h2>
+  </div>
+  <ul class="sources" id="sources"></ul>
+</section>
+</main>
+
+<footer class="wrap foot">Parte de <a href="../index.html?libro=3">Mapa de Crawlers</a>. Los nombres subrayados abren la ficha del personaje en el mapa. <i>Dungeon Crawler Carl</i> © Matt Dinniman. Todos los personajes, nombres, lugares y textos citados pertenecen a su autor y a sus editoriales. Web de fans no oficial y sin ánimo de lucro; los datos proceden de wikis de aficionados (ver Fuentes).</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

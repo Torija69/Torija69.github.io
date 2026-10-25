@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Crawlers · Dungeon Crawler Carl</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141210'/%3E%3Cpath d='M8 24V11l8-5 8 5v13' fill='none' stroke='%23e3a43b' stroke-width='2.5'/%3E%3Cpath d='M13 24v-6h6v6' fill='none' stroke='%23e3a43b' stroke-width='2.5'/%3E%3C/svg%3E">
+<link href="./styles/torija-fonts.css" rel="stylesheet">
+<link href="./styles/torija-tokens.css" rel="stylesheet">
+<link href="./styles/torija-components.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#12100e; --panel:#1a1714; --panel2:#221e1a; --line:#3a332b; --line2:#2a251f;
+  --text:#ece4d8; --muted:#a3998b; --faint:#6f665a; --accent:#e3a43b; --accent2:#f2c774;
+  --ally:#4fb3bf; --family:#e3a43b; --enemy:#e0605e; --work:#8c8577;
+  --r:10px; --sans:'Space Grotesk',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+.app{display:grid;grid-template-rows:auto auto 1fr;height:100vh;height:100dvh}
+.notice{display:flex;align-items:flex-start;gap:12px;padding:9px 18px;background:#2a1d0c;border-bottom:1px solid #5a3f17;font-size:13px;color:#f1dfc0;line-height:1.45}
+.notice b{color:var(--accent2)}
+.notice .tag{flex:none;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#1a1409;border-radius:4px;padding:2px 7px;margin-top:1px}
+.notice p{flex:1}
+.notice button{flex:none;background:transparent;border:1px solid #5a3f17;border-radius:6px;color:#f1dfc0;padding:2px 10px;cursor:pointer;font-size:12px}
+.notice button:hover{border-color:var(--accent)}
+.notice[hidden]{display:none}
+header{display:flex;align-items:center;gap:18px;padding:12px 18px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand svg{color:var(--accent)}
+.brand h1{font-size:17px;font-weight:600;letter-spacing:.01em}
+.brand small{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
+.spoiler{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.spoiler .books{display:flex;gap:3px}
+.spoiler button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:transparent;font-family:var(--mono);font-size:13px;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.spoiler button.on{background:rgba(227,164,59,.16);border-color:var(--accent);color:var(--accent2)}
+.spoiler button.cur{background:var(--accent);color:#1a1409;border-color:var(--accent);font-weight:600}
+.spoiler button:hover{border-color:var(--accent)}
+.tabs{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.tabs button{padding:6px 14px;background:transparent;border:0;cursor:pointer;font-size:13px;color:var(--muted)}
+.tabs button.on{background:var(--panel2);color:var(--text)}
+.navlink{padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.navlink:hover{border-color:var(--accent);color:var(--accent2)}
+main{display:grid;grid-template-columns:1fr 360px;min-height:0;grid-row:3}
+.stage{position:relative;min-height:0;overflow:hidden}
+#graph{width:100%;height:100%;display:block;cursor:grab}
+#graph:active{cursor:grabbing}
+.search{position:absolute;top:14px;left:14px;width:min(300px,calc(100% - 28px));z-index:3}
+.search input{width:100%;padding:10px 12px 10px 36px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);outline:none}
+.search input:focus{border-color:var(--accent)}
+.search svg{position:absolute;left:11px;top:11px;color:var(--faint)}
+.results{margin-top:6px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:none}
+.results button{display:flex;width:100%;justify-content:space-between;gap:10px;padding:8px 12px;background:none;border:0;text-align:left;cursor:pointer;font-size:14px}
+.results button:hover,.results button.hl{background:var(--panel2)}
+.results span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.legend{position:absolute;left:14px;bottom:14px;display:flex;flex-wrap:wrap;gap:6px 12px;max-width:calc(100% - 28px);font-size:12px;color:var(--muted);background:rgba(18,16,14,.96);padding:8px 10px;border-radius:8px;border:1px solid var(--line2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+.legend b{display:inline-block;width:16px;height:0;border-top:2px solid;margin-right:5px;vertical-align:3px}
+.legend .sep{width:1px;background:var(--line);align-self:stretch}
+.zoom{position:absolute;right:14px;top:14px;display:flex;flex-direction:column;gap:4px}
+.zoom button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:16px}
+aside{border-left:1px solid var(--line2);background:var(--panel);overflow-y:auto;padding:20px}
+.empty{color:var(--muted);font-size:14px}
+.empty h2{font-size:20px;color:var(--text);margin-bottom:8px;font-weight:600}
+.empty p{margin-bottom:10px}
+.empty kbd{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.chip i{width:8px;height:8px;border-radius:50%}
+.dname{font-size:26px;font-weight:700;line-height:1.1;margin:6px 0 14px}
+.met{border:1px solid var(--accent);background:rgba(227,164,59,.08);border-radius:var(--r);padding:12px 14px;margin-bottom:14px}
+.met .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.met .v{font-size:18px;font-weight:600;margin-top:2px}
+.met .t{font-size:13px;color:var(--muted)}
+.desc{color:var(--text);margin-bottom:18px;font-size:14.5px}
+h3{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:18px 0 8px;font-weight:600}
+.tl{list-style:none;border-left:1px solid var(--line);margin-left:6px}
+.tl li{position:relative;padding:0 0 10px 16px;font-size:14px}
+.tl li::before{content:"";position:absolute;left:-4px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--panel);border:1px solid var(--muted)}
+.tl li.first::before{background:var(--accent);border-color:var(--accent)}
+.tl li.dead::before{background:var(--enemy);border-color:var(--enemy)}
+.tl .lb{font-family:var(--mono);font-size:12px;color:var(--muted);display:block}
+.rels{display:flex;flex-direction:column;gap:4px}
+.rel{display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:center;padding:7px 10px;border-radius:8px;background:var(--panel2);border:1px solid transparent;cursor:pointer;text-align:left;font-size:14px}
+.rel:hover{border-color:var(--line)}
+.rel i{width:10px;height:3px;border-radius:2px}
+.rel small{color:var(--muted);font-size:12.5px;display:block}
+.rel span{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.hidden-note{font-size:12.5px;color:var(--faint);margin-top:14px;font-style:normal}
+/* Por libro */
+.list{position:absolute;inset:0;overflow-y:auto;padding:70px 18px 24px;display:none}
+.list.on{display:block}
+.bk{margin-bottom:22px}
+.bk h2{display:flex;gap:10px;align-items:baseline;font-size:16px;font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--line2);margin-bottom:10px}
+.bk h2 span{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.bk h2 em{font-style:normal;font-size:13px;color:var(--muted);font-weight:400;margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+.card{display:flex;gap:9px;align-items:center;padding:8px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--panel);cursor:pointer;text-align:left}
+.card:hover{border-color:var(--line)}
+.card i{width:8px;height:8px;border-radius:50%;flex:none}
+.card b{font-weight:500;font-size:14px;flex:1}
+.card span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.node text{font-family:var(--sans);font-size:11.5px;fill:var(--text);pointer-events:none;paint-order:stroke;stroke:var(--bg);stroke-width:3px;stroke-linejoin:round}
+.node circle{cursor:pointer;stroke:var(--bg);stroke-width:1.5px}
+.node.sel circle{stroke:#fff;stroke-width:2px}
+.dim{opacity:.12}
+.edge-label{font-family:var(--mono);font-size:9.5px;fill:var(--muted);pointer-events:none;paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+footer.src{font-size:11.5px;color:var(--faint);margin-top:26px;border-top:1px solid var(--line2);padding-top:10px}
+footer.src a{color:var(--muted)}
+@media (max-width:860px){
+  .app{height:auto;min-height:100dvh}
+  main{grid-template-columns:1fr}
+  .stage{height:auto;display:flex;flex-direction:column}
+  #graph{height:64vh;height:64dvh}
+  .legend{position:static;margin:0 10px 10px;max-width:none;font-size:11px;gap:4px 10px}
+  .list{padding-top:70px}
+  aside{border-left:0;border-top:1px solid var(--line2)}
+  header{gap:10px}
+  .spoiler .lbl{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<link href="./styles/mapa-torija.css" rel="stylesheet">
+</head>
+<body class="torija" data-app-version="1.3.0" data-design-version="1.0.0">
+<div class="app">
+<header>
+  <div class="brand">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-label="Logo Mapa de Crawlers"><rect x="1" y="1" width="30" height="30" rx="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 25V12l8-5 8 5v13" stroke="currentColor" stroke-width="2.2"/><path d="M13 25v-6h6v6" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="13.5" r="1.6" fill="currentColor"/></svg>
+    <div><h1>Mapa de Crawlers</h1><small><span class="torija-signature">Torija</span> / Dungeon Crawler Carl · quién es quién</small></div>
+  </div>
+  <div class="spoiler" title="Oculta todo lo que ocurre después del libro elegido">
+    <span class="lbl">Voy por el libro</span>
+    <div class="books" id="books"></div>
+  </div>
+  <div class="tabs"><button id="tMap" class="on">Mapa</button><button id="tList">Por libro</button></div>
+  <a class="navlink" href="iron-tangle/index.html" title="Líneas, estaciones, trenes y portales del piso 4">Trenes del Iron Tangle</a>
+</header>
+<div class="notice" id="notice" role="note">
+  <span class="tag">Spoilers</span>
+  <p>Este mapa contiene <b>spoilers de los libros 1 a 8</b>. Marca arriba en «Voy por el libro» hasta dónde has leído para ocultar lo posterior. <i>Dungeon Crawler Carl</i> y todos sus personajes, nombres, lugares y textos citados pertenecen a su autor, <b>Matt Dinniman</b>, y a sus editoriales. Web de fans no oficial y sin ánimo de lucro.</p>
+  <button type="button" id="noticeClose" aria-label="Cerrar aviso">Entendido</button>
+</div>
+<main>
+  <div class="stage">
+    <svg id="graph" role="img" aria-label="Grafo de relaciones de personajes"></svg>
+    <div class="list" id="list"></div>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" aria-label="Buscar personaje por nombre, alias o descripción" placeholder="¿Con quién está hablando Carl?" autocomplete="off">
+      <div class="results" id="results"></div>
+    </div>
+    <div class="zoom" id="zoomCtl"><button id="zin" aria-label="Acercar">+</button><button id="zout" aria-label="Alejar">−</button><button id="zfit" aria-label="Encajar">⤢</button></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <aside id="panel"></aside>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

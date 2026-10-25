@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Tres direcciones visuales para el sistema de diseño personal de Antonio Torija.">
+  <title>Estudio de diseño · Antonio Torija</title>
+  <link href="./assets/fonts/satoshi.css" rel="stylesheet">
+  <link href="./assets/fonts/boska.css" rel="stylesheet">
+  <link href="./assets/fonts/cabinet-grotesk.css" rel="stylesheet">
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#propuestas">Saltar a las propuestas</a>
+<header class="studio-header"><a href="./index.html" class="wordmark">ANTONIO TORIJA <span>/ Estudio de diseño</span></a><span class="edition">EXPLORACIÓN 01 · OCTUBRE 2026</span></header>
+<main>
+  <section class="intro">
+    <div><p class="eyebrow">TU SISTEMA DE DISEÑO PERSONAL</p><h1>Una identidad.<br>Tres formas de expresarla.</h1></div>
+    <div class="intro-note"><p>La misma aplicación, tres lenguajes visuales. Explora cada propuesta y descubre cuál se parece más a ti.</p><span>Prototipo independiente. Tus aplicaciones no cambian.</span></div>
+  </section>
+  <section id="propuestas" aria-label="Propuestas de diseño">
+    <div class="directions" role="group" aria-label="Elegir propuesta">
+      <button class="direction" data-theme="precision" aria-pressed="false"><span class="direction-number">01</span><span><strong>Precisión</strong><small>Sobria · Tecnológica · Nítida</small></span><span class="direction-dot precision-dot"></span></button>
+      <button class="direction" data-theme="margen" aria-pressed="false"><span class="direction-number">02</span><span><strong>Margen</strong><small>Cálida · Editorial · Serena</small></span><span class="direction-dot margen-dot"></span></button>
+      <button class="direction active" data-theme="taller" aria-pressed="true"><span class="direction-number">03</span><span><strong>Taller</strong><small>Visual · Creativa · Directa</small></span><span class="direction-dot taller-dot"></span></button>
+    </div>
+    <div class="preview-toolbar"><span><span id="current-name">03 / TALLER</span> <span class="demo-tag">DATOS DE EJEMPLO</span></span><div class="view-switch" role="group" aria-label="Anchura de vista"><button data-view="desktop" aria-pressed="true">Escritorio</button><button data-view="mobile" aria-pressed="false">Móvil</button></div></div>
+    <div class="preview-stage" id="stage">
+      <div class="prototype" data-design="taller" id="prototype">
+        <div class="app-header"><div class="app-brand">Torija<span> / personal</span></div><nav aria-label="Navegación de ejemplo"><button class="nav-item active" data-section="projects" aria-pressed="true">Proyectos</button><button class="nav-item" data-section="favorites" aria-pressed="false">Favoritos <span id="fav-count">0</span></button></nav><span class="avatar" aria-label="Antonio Torija">AT</span></div>
+        <div class="app-content">
+          <div class="app-title-row"><div><p class="eyebrow app-eyebrow">UN ESPACIO PARA TUS IDEAS</p><h2>Mis proyectos</h2><p class="app-subtitle">Lo que construyes, lees y exploras.</p></div><button class="primary" id="new-project">+ Nuevo proyecto</button></div>
+          <div class="summary"><div><strong id="total-count">06</strong><span>proyectos en tu espacio</span></div><div><strong>03</strong><span>áreas para explorar</span></div><p>Ideas con su propio lugar.<br>Una forma común de organizarlas.</p></div>
+          <div class="filter-row"><div class="filters" role="group" aria-label="Filtrar proyectos"><button data-filter="Todos" aria-pressed="true" class="selected">Todos</button><button data-filter="Aplicaciones" aria-pressed="false">Aplicaciones</button><button data-filter="Lecturas" aria-pressed="false">Lecturas</button><button data-filter="Creatividad" aria-pressed="false">Creatividad</button></div><label class="search"><span class="sr-only">Buscar proyectos</span><input type="search" id="search" placeholder="Buscar un proyecto…"></label></div>
+          <div id="project-grid" class="project-grid" aria-live="polite"></div>
+          <div class="app-footer"><span>Tu espacio. Tu manera de hacer.</span><span>Prototipo interactivo · Sin conexión a tus datos</span></div>
+        </div>
+        <dialog id="project-dialog"><form id="project-form"><div class="dialog-heading"><h2>Nuevo proyecto</h2><button type="button" class="close secondary" id="close-dialog" aria-label="Cerrar formulario">×</button></div><p>Prueba el formulario. El proyecto solo existe durante esta visita.</p><label for="project-name">Nombre del proyecto</label><input id="project-name" name="name" required maxlength="65" placeholder="Una nueva idea"><label for="project-category">Categoría</label><select id="project-category" name="category"><option>Aplicaciones</option><option>Lecturas</option><option>Creatividad</option></select><button class="primary" type="submit">Crear proyecto de prueba</button></form></dialog>
+      </div>
+    </div>
+    <section class="design-notes" aria-labelledby="design-heading">
+      <div class="note-main"><p class="eyebrow">EL CARÁCTER DE LA PROPUESTA</p><h2 id="design-heading">Ideas con presencia propia.</h2><p id="design-description"></p><p class="fit" id="design-fit"></p></div>
+      <div class="spec"><span class="eyebrow">PALETA</span><div id="swatches" class="swatches"></div><p id="palette-caption"></p></div>
+      <div class="spec typography"><span class="eyebrow">TIPOGRAFÍA</span><span class="type-sample" id="type-sample">Aa Bb 012</span><p id="font-caption"></p></div>
+    </section>
+    <div class="decision"><div><h2>¿Con cuál te quedas?</h2><p>Puedes elegir una base y tomar detalles de las otras. Nada se aplica hasta que lo decidamos.</p></div><button id="choose" class="choose">Elegir Taller ↗</button><p id="choice-result" role="status"></p></div>
+  </section>
+</main>
+<footer class="studio-footer"><span>Antonio Torija · Sistema de diseño personal</span><span>Propuestas v0.1 · Hecho con Perplexity</span></footer>
+</body>
+</html>

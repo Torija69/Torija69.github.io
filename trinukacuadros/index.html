@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certámenes de pintura 2026–2027 · Trinuka Cuadros</title>
+<meta name="description" content="Gestor de concursos de pintura en España: bases, plazos de presentación, fallos y exposiciones 2026–2027.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,500,600&f[]=switzer@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top">
+  <div class="top__inner">
+    <div class="brand">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="4" width="22" height="24" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 22c3-5 5-7 7-7s3 2 7-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="21" cy="10" r="2" fill="currentColor"/></svg>
+      <div>
+        <p class="brand__kicker">Trinuka Cuadros</p>
+        <h1 class="brand__title">Certámenes de pintura <span>2026–2027</span></h1>
+      </div>
+    </div>
+    <div class="top__actions">
+      <button class="btn btn--ghost" id="btnIcs" title="Exportar los concursos filtrados al calendario (.ics)">Exportar calendario</button>
+      <button class="btn btn--ghost" id="btnMenu" aria-haspopup="true" aria-expanded="false">Datos ▾</button>
+      <div class="menu" id="menu" hidden>
+        <button data-act="export">Guardar copia (JSON)</button>
+        <label class="menu__file">Restaurar copia (JSON)<input type="file" id="fileImport" accept="application/json"></label>
+        <button data-act="print">Imprimir listado</button>
+        <button data-act="reset">Borrar mis datos</button>
+      </div>
+      <button class="btn btn--primary" id="btnAdd">+ Añadir concurso</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Vistas">
+    <button role="tab" class="tab is-active" data-view="agenda" aria-selected="true">Agenda</button>
+    <button role="tab" class="tab" data-view="lista" aria-selected="false">Concursos</button>
+    <button role="tab" class="tab" data-view="calendario" aria-selected="false">Calendario</button>
+    <button role="tab" class="tab" data-view="cronologia" aria-selected="false">Cronología</button>
+    <button role="tab" class="tab" data-view="mias" aria-selected="false">Mis candidaturas <span class="tab__count" id="countMias">0</span></button>
+  </nav>
+</header>
+
+<section class="filters" aria-label="Filtros">
+  <div class="filters__inner">
+    <label class="field field--search"><span class="sr">Buscar</span>
+      <input type="search" id="fSearch" placeholder="Buscar por nombre, localidad, tema…">
+    </label>
+    <label class="field"><span>Año</span>
+      <select id="fYear"><option value="all">2026 y 2027</option><option value="2026">2026</option><option value="2027">2027</option></select>
+    </label>
+    <label class="field"><span>Estado</span>
+      <select id="fEstado">
+        <option value="vigentes">Vigentes (abiertas, próximas y en curso)</option>
+        <option value="abierta">Inscripción abierta</option>
+        <option value="proxima">Próximas</option>
+        <option value="curso">Cerradas con fallo o exposición pendiente</option>
+        <option value="prevision">Previsiones 2027</option>
+        <option value="finalizada">Finalizadas</option>
+        <option value="all">Todas</option>
+      </select>
+    </label>
+    <label class="field"><span>Comunidad</span><select id="fCcaa"><option value="all">Todas</option></select></label>
+    <label class="field"><span>Premio mínimo</span>
+      <select id="fPremio"><option value="0">Cualquiera</option><option value="1000">1.000 €</option><option value="3000">3.000 €</option><option value="5000">5.000 €</option><option value="10000">10.000 €</option></select>
+    </label>
+    <label class="field"><span>Edad</span>
+      <select id="fEdad"><option value="mayores35">Abiertos a mayores de 35</option><option value="all">Todas las edades</option><option value="jovenes">Solo jóvenes (≤35)</option></select>
+    </label>
+    <label class="check"><input type="checkbox" id="fGratis"> Gratuitos</label>
+  </div>
+</section>
+
+<main id="main" class="main">
+  <section class="view is-active" id="view-agenda" aria-label="Agenda">
+    <div class="kpis" id="kpis"></div>
+    <div class="agenda">
+      <div class="agenda__col">
+        <h2 class="h2">Próximos plazos de presentación</h2>
+        <ol class="deadlines" id="deadlines"></ol>
+      </div>
+      <div class="agenda__col">
+        <h2 class="h2">Entregas, fallos y exposiciones</h2>
+        <ol class="deadlines" id="otherEvents"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-lista" aria-label="Concursos">
+    <div class="listbar">
+      <p class="muted" id="resultCount"></p>
+      <label class="field field--inline"><span>Ordenar</span>
+        <select id="fSort"><option value="plazo">Fecha límite</option><option value="premio">Premio</option><option value="nombre">Nombre</option><option value="expo">Exposición</option></select>
+      </label>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="view" id="view-calendario" aria-label="Calendario">
+    <div class="calbar">
+      <button class="btn btn--ghost" id="calPrev" aria-label="Mes anterior">‹</button>
+      <h2 class="h2 calbar__title" id="calTitle"></h2>
+      <button class="btn btn--ghost" id="calNext" aria-label="Mes siguiente">›</button>
+      <button class="btn btn--ghost" id="calToday">Hoy</button>
+      <div class="legend">
+        <span><i class="dot dot--insc"></i>Presentación</span>
+        <span><i class="dot dot--entrega"></i>Entrega de obra</span>
+        <span><i class="dot dot--fallo"></i>Fallo</span>
+        <span><i class="dot dot--expo"></i>Exposición</span>
+      </div>
+    </div>
+    <div class="cal" id="cal"></div>
+  </section>
+
+  <section class="view" id="view-cronologia" aria-label="Cronología">
+    <div class="calbar">
+      <h2 class="h2">Cronología octubre 2026 – diciembre 2027</h2>
+      <div class="legend">
+        <span><i class="bar bar--insc"></i>Inscripción</span>
+        <span><i class="bar bar--entrega"></i>Entrega</span>
+        <span><i class="dot dot--fallo"></i>Fallo</span>
+        <span><i class="bar bar--expo"></i>Exposición</span>
+        <span><i class="bar bar--est"></i>Previsión</span>
+      </div>
+    </div>
+    <div class="gantt-wrap"><div class="gantt" id="gantt"></div></div>
+  </section>
+
+  <section class="view" id="view-mias" aria-label="Mis candidaturas">
+    <div class="board" id="board"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot__v">TrinukaCuadros · v1.1.1</p>
+  <p>Datos iniciales reunidos el <span id="dataVersion"></span> a partir de las bases, fichas oficiales y agregadores enlazados en cada concurso. Las fechas marcadas como <strong>previsión</strong> se calculan a partir de la edición 2026: confírmalas en las bases antes de presentarte. Tus cambios se guardan en este navegador; usa «Datos → Guardar copia» para llevarlos a otro dispositivo.</p>
+</footer>
+
+<!-- Ficha -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="dTitle" role="dialog">
+  <div class="drawer__head">
+    <div>
+      <p class="drawer__kicker" id="dKicker"></p>
+      <h2 class="drawer__title" id="dTitle"></h2>
+    </div>
+    <button class="btn btn--icon" id="dClose" aria-label="Cerrar ficha">✕</button>
+  </div>
+  <div class="drawer__body" id="dBody"></div>
+</aside>
+
+<!-- Formulario -->
+<dialog class="modal" id="modal">
+  <form method="dialog" id="form" class="form">
+    <h2 class="h2" id="formTitle">Añadir concurso</h2>
+    <div class="form__grid">
+      <label class="field field--wide"><span>Nombre *</span><input name="nombre" required></label>
+      <label class="field"><span>Organizador</span><input name="organizador"></label>
+      <label class="field"><span>Modalidad</span><input name="modalidad" placeholder="Pintura"></label>
+      <label class="field"><span>Localidad</span><input name="localidad"></label>
+      <label class="field"><span>Provincia</span><input name="provincia"></label>
+      <label class="field"><span>Comunidad autónoma</span><input name="ccaa" list="ccaaList"></label>
+      <label class="field"><span>Ámbito</span><select name="ambito"><option>Abierto</option><option>Local</option><option>Regional</option><option>Nacional</option><option>Internacional</option></select></label>
+      <label class="field"><span>Primer premio (€)</span><input name="primerPremio" type="number" min="0" step="50"></label>
+      <label class="field"><span>Premios (texto)</span><input name="premioTexto"></label>
+      <label class="field"><span>Cuota</span><input name="cuota" placeholder="Gratuita"></label>
+      <label class="field"><span>Edad máxima (si la hay)</span><input name="edadMax" type="number" min="0" max="120" placeholder="Sin límite"></label>
+      <fieldset class="field--wide dates">
+        <legend>Calendario</legend>
+        <label class="field"><span>Inscripción desde</span><input name="inscripcionInicio" type="date"></label>
+        <label class="field"><span>Inscripción hasta</span><input name="inscripcionFin" type="date"></label>
+        <label class="field"><span>Entrega obra desde</span><input name="entregaInicio" type="date"></label>
+        <label class="field"><span>Entrega obra hasta</span><input name="entregaFin" type="date"></label>
+        <label class="field"><span>Fallo</span><input name="fallo" type="date"></label>
+        <label class="field"><span>Exposición desde</span><input name="expoInicio" type="date"></label>
+        <label class="field"><span>Exposición hasta</span><input name="expoFin" type="date"></label>
+        <label class="field"><span>Lugar de exposición</span><input name="expoLugar"></label>
+      </fieldset>
+      <label class="field field--wide"><span>Requisitos</span><textarea name="requisitos" rows="2"></textarea></label>
+      <label class="field field--wide"><span>Medidas y técnica</span><textarea name="medidas" rows="2"></textarea></label>
+      <label class="field"><span>Tema</span><input name="tema"></label>
+      <label class="field"><span>Forma de inscripción</span><input name="inscripcion"></label>
+      <label class="field field--wide"><span>Enlace a las bases</span><input name="urlBases" type="url" placeholder="https://"></label>
+      <label class="field field--wide"><span>Fuente / ficha</span><input name="fuente" type="url" placeholder="https://"></label>
+      <label class="check field--wide"><input type="checkbox" name="estimado"> Fechas estimadas (aún sin bases oficiales)</label>
+    </div>
+    <datalist id="ccaaList"></datalist>
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" id="formCancel">Cancelar</button>
+      <button type="submit" class="btn btn--primary" value="ok">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

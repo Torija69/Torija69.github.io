@@ -1,0 +1,98 @@
+/* Mapa de Crawlers v1.3.0 · Sistema Torija v1.0.0.
+   Dark visualization surfaces retain the original semantic palette. */
+body.torija {
+  --bg:var(--tj-bg); --panel:var(--tj-surface); --panel2:var(--tj-soft);
+  --line:var(--tj-border); --line2:var(--tj-border);
+  --text:var(--tj-text); --muted:var(--tj-muted); --faint:var(--tj-muted);
+  --accent:var(--tj-text); --accent2:var(--tj-text);
+  --r:var(--tj-radius-card); --sans:var(--tj-font-body);
+  --mono:var(--tj-font-body);
+}
+.torija .app { grid-template-rows:auto auto minmax(0,1fr); }
+.torija .app > header { background:var(--tj-text); color:var(--tj-surface); padding:16px 20px; gap:16px; }
+.torija .brand { gap:12px; }
+.torija .brand svg { color:var(--tj-accent); flex:none; }
+.torija .brand h1 { font-family:var(--tj-font-display); font-size:22px; font-weight:700; letter-spacing:-.025em; }
+.torija .brand small { color:var(--tj-surface); font-family:var(--tj-font-body); font-size:12px; letter-spacing:.02em; text-transform:none; margin-top:3px; }
+.torija .torija-signature { color:var(--tj-accent); font-weight:700; }
+.torija .app > header :where(button,a):focus-visible { outline-color:var(--tj-accent); }
+.torija .spoiler { color:var(--tj-surface); }
+.torija .spoiler button { width:44px; height:44px; min-width:44px; background:transparent; color:var(--tj-surface); border-color:#737865; border-radius:8px; font-family:var(--tj-font-body); font-size:14px; }
+.torija .spoiler button.on { background:#3d4430; color:var(--tj-surface); border-color:#879269; }
+.torija .spoiler button.cur { background:var(--tj-accent); color:var(--tj-text); border-color:var(--tj-accent); font-weight:700; }
+.torija .spoiler button:hover { border-color:var(--tj-accent); }
+.torija .tabs { border-color:#737865; border-radius:8px; }
+.torija .tabs button { min-height:44px; padding:10px 14px; color:var(--tj-surface); }
+.torija .tabs button.on { background:var(--tj-surface); color:var(--tj-text); font-weight:700; }
+.torija .navlink { display:inline-flex; align-items:center; min-height:44px; background:var(--tj-accent); color:var(--tj-text); border-color:transparent; border-radius:8px; padding:10px 14px; }
+.torija .navlink:hover { border-color:var(--tj-surface); color:var(--tj-text); }
+.torija .notice { background:var(--tj-soft); color:var(--tj-text); border-color:var(--tj-border); padding:12px 20px; font-size:13px; gap:12px; }
+.torija .notice b { color:var(--tj-text); }
+.torija .notice .tag { color:var(--tj-text); background:var(--tj-accent); font-family:var(--tj-font-body); font-size:12px; padding:4px 10px; border-radius:8px; }
+.torija .notice button { min-height:44px; border-color:var(--tj-field-border); color:var(--tj-text); background:var(--tj-surface); border-radius:8px; padding:8px 12px; font-size:13px; }
+.torija .stage { background:#12100e; }
+.torija #graph { background:#12100e; }
+.torija .node text { font-family:var(--tj-font-body); fill:#ece4d8; stroke:#12100e; }
+.torija .node circle { stroke:#12100e; }
+.torija .node.sel circle { stroke:#fff; }
+.torija .edge-label { fill:#a3998b; stroke:#12100e; font-family:var(--tj-font-body); }
+.torija .legend { background:rgb(18 16 14 / 97%); border-color:#3a332b; color:#c7beaf; border-radius:12px; font-family:var(--tj-font-body); }
+.torija .legend .sep { background:#3a332b; }
+.torija .search { width:min(320px,calc(100% - 80px)); }
+.torija .search input { min-height:48px; background:var(--tj-surface); color:var(--tj-text); border-color:var(--tj-field-border); border-radius:8px; font-size:16px; }
+.torija .search input::placeholder { color:var(--tj-muted); opacity:1; }
+.torija .search input:focus-visible { outline:3px solid var(--tj-accent); outline-offset:2px; }
+.torija .search svg { top:15px; color:var(--tj-muted); }
+.torija .results { border-radius:12px; border-color:var(--tj-field-border); }
+.torija .results button { min-height:44px; padding:10px 12px; }
+.torija .results button.hl { background:var(--tj-soft); }
+.torija .zoom button { width:44px; height:44px; border-radius:8px; background:var(--tj-surface); color:var(--tj-text); border-color:var(--tj-field-border); font-size:20px; }
+.torija .zoom button:focus-visible { outline-color:var(--tj-accent); }
+.torija aside { padding:24px; }
+.torija .empty h2,.torija .dname { font-family:var(--tj-font-display); }
+.torija .empty h2 { font-size:24px; font-weight:700; }
+.torija .dname { font-size:32px; letter-spacing:-.025em; }
+.torija .chip,.torija h3 { font-family:var(--tj-font-body); font-size:12px; }
+.torija .chip { color:var(--tj-muted); }
+.torija .met { background:var(--tj-soft); border-color:var(--tj-border); border-radius:16px; padding:16px; }
+.torija .met .k { color:var(--tj-muted); font-family:var(--tj-font-body); font-size:12px; }
+.torija .met .v { font-family:var(--tj-font-display); font-size:22px; }
+.torija .desc { font-size:15px; line-height:1.65; }
+.torija .tl .lb,.torija .rel span { font-family:var(--tj-font-body); font-size:12px; }
+.torija .tl li.first::before { background:var(--tj-text); border-color:var(--tj-text); }
+.torija .rel { min-height:48px; padding:10px 12px; background:var(--tj-soft); border-radius:8px; }
+.torija footer.src { font-size:12px; line-height:1.6; }
+.torija .list { background:var(--tj-bg); padding:80px 20px 24px; }
+.torija .bk h2 { font-family:var(--tj-font-display); font-size:20px; }
+.torija .bk h2 span,.torija .card span { font-family:var(--tj-font-body); font-size:12px; }
+.torija .cards { gap:8px; }
+.torija .card { min-height:48px; border-radius:12px; padding:12px; }
+.torija .hidden-note { font-size:13px; }
+@media(max-width:1100px) { .torija .brand { flex-basis:100%; } }
+@media(max-width:860px) {
+  .torija .app { height:auto; min-height:100dvh; }
+  .torija main { grid-template-columns:1fr; }
+  .torija .stage { min-height:64dvh; }
+  .torija .spoiler .lbl { display:inline; }
+}
+@media(max-width:600px) {
+  .torija .app > header { padding:16px; gap:12px; }
+  .torija .brand h1 { font-size:22px; }
+  .torija .brand small { font-size:12px; }
+  .torija .spoiler { display:grid; grid-template-columns:1fr; width:100%; gap:8px; }
+  .torija .spoiler .books { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .torija .spoiler button { width:100%; }
+  .torija .tabs { flex:1; }
+  .torija .tabs button { flex:1; padding-inline:12px; }
+  .torija .navlink { font-size:12px; padding-inline:12px; }
+  .torija .notice { display:grid; grid-template-columns:1fr auto; padding:12px 16px; gap:8px; }
+  .torija .notice .tag { justify-self:start; }
+  .torija .notice button { grid-column:2; grid-row:1; }
+  .torija .notice p { grid-column:1/-1; }
+  .torija .notice[hidden] { display:none; }
+  .torija aside { padding:20px 16px; }
+  .torija .legend { margin:0 12px 12px; padding:12px; font-size:12px; gap:8px 12px; }
+  .torija .bk h2 { flex-wrap:wrap; gap:6px 10px; }
+  .torija .bk h2 em { margin-left:0; width:100%; }
+  .torija .cards { grid-template-columns:1fr; }
+}

@@ -1,0 +1,105 @@
+/* Iron Tangle v1.3.0 · Torija chrome; railway data colors stay unchanged. */
+body.torija {
+  --bg:var(--tj-bg); --surface:var(--tj-surface); --surface-2:var(--tj-soft);
+  --line:var(--tj-border); --text:var(--tj-text); --muted:var(--tj-muted); --faint:var(--tj-muted);
+  --font-display:var(--tj-font-display); --font-body:var(--tj-font-body);
+  --font-mono:var(--tj-font-body); --r:var(--tj-radius-card);
+}
+.torija a { color:var(--tj-text); text-underline-offset:3px; }
+.torija .top { background:var(--tj-text); color:var(--tj-surface); backdrop-filter:none; border-color:var(--tj-border); position:relative; }
+.torija .top-inner { padding-block:16px; gap:16px 24px; }
+.torija .brand-dot { border-color:var(--tj-accent); box-shadow:none; }
+.torija .brand-name { font-size:24px; letter-spacing:-.025em; }
+.torija .kicker { color:var(--tj-surface); font-size:12px; letter-spacing:.02em; text-transform:none; }
+.torija .torija-signature { color:var(--tj-accent); font-weight:700; }
+.torija .back { display:inline-flex; align-items:center; min-height:44px; background:var(--tj-accent); color:var(--tj-text); border:1px solid transparent; border-radius:8px; padding:10px 16px; }
+.torija .back:hover { color:var(--tj-text); border-color:var(--tj-surface); }
+.torija .nav { width:100%; margin-left:0; gap:4px 12px; }
+.torija .nav a { display:inline-flex; align-items:center; min-height:44px; padding:8px; color:var(--tj-surface); font-size:13px; }
+.torija .nav a:hover { background:#414632; color:var(--tj-surface); }
+.torija .top :where(a,button):focus-visible { outline-color:var(--tj-accent); }
+.torija .notice { background:var(--tj-soft); color:var(--tj-text); border-color:var(--tj-border); }
+.torija .notice-inner { padding-block:14px; }
+.torija .notice b { color:var(--tj-text); }
+.torija .notice .tag { background:var(--tj-accent); color:var(--tj-text); font-family:var(--tj-font-body); font-size:12px; padding:4px 10px; border-radius:8px; }
+.torija .section { padding-top:56px; }
+.torija .hero { padding-top:40px; gap:40px; }
+.torija h1 { font-size:clamp(32px,3.7vw,48px); line-height:1.1; letter-spacing:-.03em; }
+.torija h2 { letter-spacing:-.025em; }
+.torija .lead { color:var(--tj-muted); line-height:1.7; }
+.torija .stats { background:var(--tj-border); border-color:var(--tj-border); border-radius:16px; }
+.torija .stat { background:var(--tj-accent); padding:16px; }
+.torija .stat-v { font-family:var(--tj-font-display); font-size:28px; color:var(--tj-text); }
+.torija .stat-l { color:var(--tj-text); font-size:13px; }
+.torija .note { border-color:var(--tj-field-border); color:var(--tj-muted); line-height:1.65; }
+.torija .target-fig { background:#12100e; border-radius:16px; padding:16px; }
+.torija #target { --bg:#12100e; --text:#ece4d8; --line:#3a332b; }
+.torija .target-fig figcaption { color:#c7beaf; font-size:12px; padding:8px; }
+.torija .search input { min-height:48px; max-width:100%; border-color:var(--tj-field-border); font-family:var(--tj-font-body); font-size:16px; }
+.torija .search input:focus-visible { outline:3px solid var(--tj-text); outline-offset:3px; }
+.torija .search input::placeholder { color:var(--tj-muted); opacity:1; }
+.torija .grid { background:#1a1714; border-color:#3a332b; grid-template-columns:repeat(auto-fill,minmax(44px,1fr)); padding:8px; gap:4px; }
+.torija .cell { min-height:44px; min-width:44px; font-size:12px; }
+.torija .cell:focus-visible,.torija .cell.sel { outline:2px solid #fff; outline-offset:1px; }
+.torija .cell:hover { filter:brightness(1.12); }
+.torija .known-sw { background:#1a1714; border-color:var(--signal); }
+.torija .t-near { color:#c7beaf; }
+.torija .detail { position:static; }
+.torija .detail p,.torija .rules li span,.torija .line-body p,.torija .named-card p,.torija .veh p,.torija .portal p,.torija .mob-col ul,.torija .cycle-steps li,.torija .j-txt,.torija .car-info { color:var(--tj-text); line-height:1.65; }
+.torija .detail .d-src,.torija .line-body .d-src,.torija .named-card .d-src { color:var(--tj-muted); font-size:12px; }
+.torija .d-num { font-family:var(--tj-font-display); }
+.torija .rules li b { color:var(--tj-text); }
+.torija .rules,.torija .detail,.torija .named-card,.torija .veh,.torija .portal,.torija .mob-col,.torija .cycle { padding:24px; }
+.torija .fbtn { min-height:44px; border-color:var(--tj-field-border); color:var(--tj-text); }
+.torija .fbtn.on { background:var(--tj-accent); color:var(--tj-text); border-color:var(--tj-field-border); font-weight:700; }
+.torija .line-body .en { color:var(--tj-muted); }
+.torija .line-body header { flex-wrap:wrap; gap:4px 12px; }
+.torija .line-body { padding:20px; }
+.torija .stop { min-height:44px; min-width:44px; border-width:2px; color:var(--tj-text); font-family:var(--tj-font-body); }
+.torija .named-card header { flex-wrap:wrap; }
+.torija .named-card h3 { font-size:24px; }
+.torija .mob-badge.yes,.torija .mob-badge.no { background:#1a1714; }
+.torija .mob-badge { font-size:12px; }
+.torija .consist { grid-template-columns:repeat(20,minmax(44px,1fr)); overflow-x:auto; background:#1a1714; border-color:#3a332b; }
+.torija .car { min-width:44px; color:#ece4d8; border-color:#3a332b; font-size:12px; }
+.torija .car-eng { color:#1b1404; }
+.torija .car-safe { color:#04150e; }
+.torija .car-port,.torija .car-jan { color:#fff; }
+.torija .car:focus-visible { outline-color:#fff; }
+.torija .p-idx { color:var(--tj-text); }
+.torija .tag { color:var(--tj-muted); font-size:12px; }
+.torija .cycle-steps li::before { color:var(--tj-text); }
+.torija .named-pill { background:#1a1714; color:#ece4d8; border-left-color:#fff; }
+.torija .pj { text-decoration-color:var(--tj-text); }
+.torija .pj:hover { color:var(--tj-text); background:var(--tj-soft); }
+.torija .foot { font-size:12px; line-height:1.7; }
+.torija .lines,.torija .named,.torija .vehicles,.torija .portals,.torija .sources { grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); }
+@media(max-width:960px) {
+  .torija .hero { gap:24px; }
+  .torija .target-fig { max-width:560px; margin-inline:auto; width:100%; }
+  .torija .consist { grid-template-columns:repeat(10,minmax(44px,1fr)); }
+}
+@media(max-width:600px) {
+  .torija .top-inner { gap:12px; padding-block:16px; }
+  .torija .kicker { font-size:12px; }
+  .torija .brand { min-width:0; align-items:flex-start; }
+  .torija .brand-dot { flex:none; margin-top:4px; }
+  .torija .back { order:initial; margin-left:0; }
+  .torija .nav { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; width:100%; padding-bottom:4px; }
+  .torija .nav a { flex:none; white-space:nowrap; border:1px solid #737865; border-radius:8px; }
+  .torija .notice-inner { display:block; }
+  .torija .notice .tag { display:inline-block; margin-bottom:8px; }
+  .torija .hero { padding-top:32px; }
+  .torija h1 { font-size:36px; }
+  .torija .section { padding-top:40px; }
+  .torija .target-fig { padding:8px; }
+  .torija .stat { padding:14px; }
+  .torija .station-tools { align-items:stretch; }
+  .torija .grid { max-height:408px; }
+  .torija .rules,.torija .detail,.torija .named-card,.torija .veh,.torija .portal,.torija .mob-col,.torija .cycle { padding:20px; }
+  .torija .consist { grid-template-columns:repeat(5,minmax(44px,1fr)); }
+  .torija .named-card header { gap:8px; }
+  .torija .journey li { grid-template-columns:64px minmax(0,1fr); gap:8px 12px; }
+  .torija .sources span { font-size:12px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
