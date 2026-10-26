@@ -7,6 +7,7 @@ Webs públicas de Antonio Torija, servidas con GitHub Pages. Este repositorio co
 | `/` | Dossier de desarrollos | Torija69/dossier-desarrollos (privado) |
 | `/dcc-mapa/` | Mapa de Crawlers · Dungeon Crawler Carl e Iron Tangle | Torija69/dcc-mapa (privado) |
 | `/trinukacuadros/` | TrinukaCuadros · Certámenes de pintura | Torija69/TrinukaCuadros (privado) |
+| `/repaso-permiso-b/` | Repaso de errores · Permiso B | Torija69/repaso-permiso-b (privado) |
 | `/toridesign/` | Torija · Comparador del sistema de diseño | Sin repositorio propio |
 
 ## Cómo actualizar una web

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="app-version" content="1.0.0">
+<meta name="description" content="Repaso de los errores de los tests del permiso B, clasificados por tema y tipo de fallo, con tarjetas de memoria.">
+<title>Repaso de errores · Permiso B</title>
+<link rel="stylesheet" href="./styles/torija-fonts.css">
+<link rel="stylesheet" href="./styles/torija-tokens.css">
+<link rel="stylesheet" href="./styles/torija-components.css">
+<link rel="stylesheet" href="./styles/app.css">
+</head>
+<body>
+<div class="torija app">
+  <header class="tj-header">
+    <div class="marca"><span class="tj-brand">Torija</span><span class="sub">Repaso de errores · Permiso B</span></div>
+    <nav class="tabs" aria-label="Secciones">
+      <button type="button" class="tab" data-vista="repasar" aria-current="page">Repasar</button>
+      <button type="button" class="tab" data-vista="errores">Errores</button>
+      <button type="button" class="tab" data-vista="progreso">Progreso</button>
+      <button type="button" class="tab" data-vista="anadir">Añadir</button>
+    </nav>
+  </header>
+
+  <main class="tj-container">
+    <!-- REPASAR -->
+    <section id="v-repasar" class="vista" aria-labelledby="t-repasar">
+      <h1 class="tj-title" id="t-repasar">Repasar errores</h1>
+      <p class="tj-muted intro">Lee la situación, piensa la respuesta y gira la tarjeta. Las que todavía no sabes vuelven a salir antes.</p>
+      <div class="tj-filters" id="filtros-repaso" role="group" aria-label="Grupo para repasar"></div>
+      <div id="repaso-estado" class="repaso-estado" aria-live="polite"></div>
+      <article id="tarjeta" class="tj-card tarjeta" aria-live="polite"></article>
+    </section>
+
+    <!-- ERRORES -->
+    <section id="v-errores" class="vista" hidden aria-labelledby="t-errores">
+      <h1 class="tj-title" id="t-errores">Errores clasificados</h1>
+      <p class="tj-muted intro">Todos los fallos agrupados por tema. Filtra por tipo de error para ver si el problema es la regla o la lectura.</p>
+      <div class="tj-filters" id="filtros-tipo" role="group" aria-label="Tipo de error"></div>
+      <div id="lista-errores"></div>
+    </section>
+
+    <!-- PROGRESO -->
+    <section id="v-progreso" class="vista" hidden aria-labelledby="t-progreso">
+      <h1 class="tj-title" id="t-progreso">Progreso</h1>
+      <div class="tj-summary resumen" id="resumen"></div>
+      <div class="tj-grid">
+        <div class="tj-card">
+          <h2>Fallos por test</h2>
+          <p class="tj-muted peq">La línea discontinua verde marca el objetivo: 3 fallos como máximo.</p>
+          <div id="graf-tests" class="barras-v" role="img"></div>
+        </div>
+        <div class="tj-card">
+          <h2>Errores por grupo</h2>
+          <p class="tj-muted peq">Barra oscura: tarjetas que ya domina (acertadas 3 veces seguidas).</p>
+          <div id="graf-grupos"></div>
+        </div>
+        <div class="tj-card">
+          <h2>Errores por tipo</h2>
+          <div id="graf-tipos"></div>
+        </div>
+      </div>
+      <div class="tj-card copia">
+        <h2>Copia de seguridad</h2>
+        <p class="tj-muted peq">El progreso se guarda en este navegador. Exporta una copia para pasarla a otro dispositivo.</p>
+        <div class="acciones">
+          <button type="button" class="tj-button tj-button--secondary" id="exportar">Exportar copia</button>
+          <label class="tj-button tj-button--secondary" for="importar">Importar copia</label>
+          <input type="file" id="importar" accept="application/json" class="oculto">
+          <button type="button" class="tj-button tj-button--secondary" id="reiniciar">Reiniciar repaso</button>
+        </div>
+        <p id="copia-estado" class="peq" role="status"></p>
+      </div>
+    </section>
+
+    <!-- AÑADIR -->
+    <section id="v-anadir" class="vista" hidden aria-labelledby="t-anadir">
+      <h1 class="tj-title" id="t-anadir">Añadir un test nuevo</h1>
+      <p class="tj-muted intro">Primero registra el resultado del test y después añade cada fallo con su regla.</p>
+      <div class="tj-grid formularios">
+        <form class="tj-card" id="form-resultado" novalidate>
+          <h2>Resultado del test</h2>
+          <label class="tj-label" for="r-test">Número de test</label>
+          <input class="tj-input" id="r-test" type="number" min="1" required>
+          <label class="tj-label" for="r-fallos">Fallos totales</label>
+          <input class="tj-input" id="r-fallos" type="number" min="0" max="30" required>
+          <p class="error-campo" id="r-error" role="alert"></p>
+          <button class="tj-button" type="submit">Guardar resultado</button>
+          <p class="ok-campo" id="r-ok" role="status"></p>
+        </form>
+        <form class="tj-card" id="form-error" novalidate>
+          <h2>Nuevo fallo</h2>
+          <div class="dos">
+            <div><label class="tj-label" for="e-test">Test</label><input class="tj-input" id="e-test" type="number" min="1" required></div>
+            <div><label class="tj-label" for="e-q">Pregunta</label><input class="tj-input" id="e-q" type="number" min="1" max="30" required></div>
+          </div>
+          <label class="tj-label" for="e-grupo">Grupo</label>
+          <select class="tj-input" id="e-grupo" required></select>
+          <label class="tj-label" for="e-tipo">Tipo de error</label>
+          <select class="tj-input" id="e-tipo" required></select>
+          <label class="tj-label" for="e-pregunta">Situación o pregunta</label>
+          <input class="tj-input" id="e-pregunta" required placeholder="Ej.: ¿Quién pasa primero en un estrechamiento?">
+          <label class="tj-label" for="e-marcaste">Respuesta marcada</label>
+          <input class="tj-input" id="e-marcaste" required>
+          <label class="tj-label" for="e-correcta">Respuesta correcta</label>
+          <input class="tj-input" id="e-correcta" required>
+          <label class="tj-label" for="e-regla">Regla que hay que recordar</label>
+          <textarea class="tj-input" id="e-regla" rows="3" required></textarea>
+          <label class="tj-label" for="e-truco">Frase para memorizar (opcional)</label>
+          <input class="tj-input" id="e-truco">
+          <p class="error-campo" id="e-error" role="alert"></p>
+          <button class="tj-button" type="submit">Añadir fallo</button>
+          <p class="ok-campo" id="e-ok" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="tj-container pie tj-muted">Repaso de errores v1.0.0 · Diseño Torija v1.0.0 · Preguntas de los tests de <a href="https://www.todotest.com/">TodoTest</a>.</footer>
+</div>
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
