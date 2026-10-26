@@ -1,35 +1,142 @@
 (() => {
-  const CLAVE = "torija-repaso-permisob-v1";
+  const CLAVE_V1 = "torija-repaso-permisob-v1"; // progreso local de la v1.0.0 (se migra al entrar)
+  const CLAVE_SESION = "torija-repaso-permisob-sesion";
   const MAX = 3; // acertada 3 veces seguidas = dominada
+  const { url: SB, clave: APIKEY, esquema: ESQUEMA } = window.SUPABASE;
   const $ = (s) => document.querySelector(s);
   const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const grupo = (id) => GRUPOS.find((g) => g.id === id) || { nombre: id };
   const tipo = (id) => TIPOS.find((t) => t.id === id) || { nombre: id };
 
-  let estado = cargar();
+  let estado = { fallos: [], resultados: [], cajas: {} };
   let filtroGrupo = "todos";
   let filtroTipo = "todos";
   let actual = null;
   let girada = false;
   let sesion = { vistas: 0, sabidas: 0 };
   let repasarIgual = false;
+  let vistaActual = "repasar";
 
-  function cargar() {
-    try {
-      const d = JSON.parse(localStorage.getItem(CLAVE));
-      if (d && typeof d === "object") return { cajas: d.cajas || {}, extras: d.extras || [], resultados: d.resultados || [] };
-    } catch (e) { /* datos corruptos: empezar de cero */ }
-    return { cajas: {}, extras: [], resultados: [] };
+  /* ---------- Sesión (Supabase Auth, sin dependencias) ---------- */
+  let auth = leerSesion();
+  function leerSesion() { try { return JSON.parse(localStorage.getItem(CLAVE_SESION)); } catch { return null; } }
+  function guardarSesion(d) {
+    auth = d ? { access_token: d.access_token, refresh_token: d.refresh_token, expires_at: d.expires_at || Math.floor(Date.now() / 1000) + (d.expires_in || 3600), user: { id: d.user.id, email: d.user.email } } : null;
+    if (auth) localStorage.setItem(CLAVE_SESION, JSON.stringify(auth)); else localStorage.removeItem(CLAVE_SESION);
   }
-  function guardar() { localStorage.setItem(CLAVE, JSON.stringify(estado)); }
-  const errores = () => [...ERRORES_BASE, ...estado.extras];
+  async function token(grant, body) {
+    const r = await fetch(`${SB}/auth/v1/token?grant_type=${grant}`, { method: "POST", headers: { apikey: APIKEY, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { const e = new Error(d.error_description || d.msg || "Error de acceso"); e.code = d.error_code || d.error; throw e; }
+    guardarSesion(d); return d;
+  }
+  let renovando = null;
+  async function renovar() {
+    if (!auth?.refresh_token) throw new Error("sin sesión");
+    renovando = renovando || token("refresh_token", { refresh_token: auth.refresh_token }).finally(() => { renovando = null; });
+    return renovando;
+  }
+  async function api(ruta, { method = "GET", body, prefer } = {}, reintento = true) {
+    if (auth && auth.expires_at - 60 < Date.now() / 1000) { try { await renovar(); } catch { return caducada(); } }
+    const h = { apikey: APIKEY, Authorization: `Bearer ${auth?.access_token}`, "Accept-Profile": ESQUEMA, "Content-Profile": ESQUEMA };
+    if (body !== undefined) h["Content-Type"] = "application/json";
+    if (prefer) h.Prefer = prefer;
+    const r = await fetch(`${SB}/rest/v1/${ruta}`, { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body) });
+    if (r.status === 401 && reintento) { try { await renovar(); return api(ruta, { method, body, prefer }, false); } catch { return caducada(); } }
+    if (!r.ok) { const d = await r.json().catch(() => ({})); const e = new Error(d.message || r.statusText); e.code = d.code; e.status = r.status; throw e; }
+    return r.status === 204 ? null : r.json().catch(() => null);
+  }
+  function caducada() { guardarSesion(null); pantallaLogin("La sesión ha caducado. Vuelve a entrar."); throw new Error("sesión caducada"); }
+
+  /* ---------- Datos ---------- */
+  async function cargarTodo() {
+    const [fallos, resultados, progreso] = await Promise.all([
+      api("fallos?select=*&order=test,q"),
+      api("resultados?select=test,fallos,fecha&order=test"),
+      api(`progreso?select=fallo_id,caja&user_id=eq.${auth.user.id}`),
+    ]);
+    estado = { fallos: fallos.map((f) => ({ ...f, base: f.origen !== "app" })), resultados, cajas: Object.fromEntries(progreso.map((p) => [p.fallo_id, p.caja])) };
+  }
+  const errores = () => estado.fallos;
   const caja = (id) => estado.cajas[id] || 0;
-  const resultados = () => {
-    const m = new Map(RESULTADOS_BASE.map((r) => [r.test, r.fallos]));
-    estado.resultados.forEach((r) => m.set(r.test, r.fallos));
-    return [...m].map(([test, fallos]) => ({ test, fallos })).sort((a, b) => a.test - b.test);
-  };
+  const resultados = () => estado.resultados.map((r) => ({ test: r.test, fallos: r.fallos })).sort((a, b) => a.test - b.test);
+  const guardarCaja = (id, n) => api("progreso?on_conflict=user_id,fallo_id", { method: "POST", body: [{ user_id: auth.user.id, fallo_id: id, caja: n, actualizado: new Date().toISOString() }], prefer: "resolution=merge-duplicates,return=minimal" });
   const cajasHTML = (n) => `<span class="cajas" title="Aciertos seguidos (3 = dominada)" aria-label="Aciertos seguidos: ${n} de ${MAX}">${Array.from({ length: MAX }, (_, i) => `<i class="${i < n ? "on" : ""}"></i>`).join("")}</span>`;
+
+  // Sube una copia con el formato de la v1.0.0 ({cajas, extras, resultados}). Conserva lo mejor de cada lado.
+  async function subirCopia(d) {
+    const extras = (d.extras || []).filter((e) => e && e.id && e.test && e.q);
+    if (extras.length) await api("fallos?on_conflict=id", { method: "POST", prefer: "resolution=ignore-duplicates,return=minimal",
+      body: extras.map((e) => ({ id: `t${e.test}-p${e.q}`, test: +e.test, q: +e.q, grupo: e.grupo, tipo: e.tipo, pregunta: e.pregunta, marcaste: e.marcaste, correcta: e.correcta, regla: e.regla, truco: e.truco || null, enlace: `https://www.todotest.com/tests/test.asp?tip=3&t=${+e.test}`, origen: "app" })) });
+    const res = (d.resultados || []).filter((r) => Number.isInteger(+r.test) && Number.isInteger(+r.fallos));
+    if (res.length) await api("resultados?on_conflict=test", { method: "POST", prefer: "resolution=merge-duplicates,return=minimal", body: res.map((r) => ({ test: +r.test, fallos: +r.fallos, origen: "app" })) });
+    await cargarTodo();
+    const ids = new Set(estado.fallos.map((f) => f.id));
+    const cajas = Object.entries(d.cajas || {}).filter(([id, n]) => ids.has(id) && +n > caja(id)).map(([id, n]) => ({ user_id: auth.user.id, fallo_id: id, caja: Math.min(MAX, Math.max(0, +n)) }));
+    if (cajas.length) await api("progreso?on_conflict=user_id,fallo_id", { method: "POST", body: cajas, prefer: "resolution=merge-duplicates,return=minimal" });
+    if (cajas.length) await cargarTodo();
+    return { extras: extras.length, resultados: res.length, cajas: cajas.length };
+  }
+  async function migrarLocal() {
+    let d; try { d = JSON.parse(localStorage.getItem(CLAVE_V1)); } catch { d = null; }
+    if (!d || typeof d !== "object") return null;
+    const r = await subirCopia(d);
+    localStorage.setItem(CLAVE_V1 + "-migrado", localStorage.getItem(CLAVE_V1));
+    localStorage.removeItem(CLAVE_V1);
+    return r;
+  }
+
+  /* ---------- Acceso ---------- */
+  function pantallaLogin(msg) {
+    $("#nav").hidden = true; $("#cargando").hidden = true;
+    document.querySelectorAll(".vista").forEach((s) => (s.hidden = s.id !== "v-login"));
+    $("#l-error").textContent = msg || "";
+    $("#l-boton").disabled = false; $("#l-boton").textContent = "Entrar";
+  }
+  async function entrarApp() {
+    document.querySelectorAll(".vista").forEach((s) => (s.hidden = true));
+    $("#cargando").hidden = false; $("#cargando").textContent = "Cargando tus errores…";
+    try {
+      const m = await api("miembros?select=email");
+      if (!m.length) { await salir(); return pantallaLogin("Esta cuenta no tiene acceso a este repaso."); }
+      await cargarTodo();
+      const mig = await migrarLocal().catch(() => null);
+      $("#cargando").hidden = true; $("#nav").hidden = false; $("#c-email").textContent = auth.user.email;
+      const inicio = location.hash.slice(1);
+      mostrar(["repasar", "errores", "progreso", "anadir"].includes(inicio) ? inicio : "repasar");
+      if (mig && (mig.cajas || mig.extras || mig.resultados)) { $("#copia-estado").className = "peq ok-campo"; $("#copia-estado").textContent = `Se ha pasado a la nube el progreso guardado en este navegador (${mig.cajas} tarjetas, ${mig.extras} fallos y ${mig.resultados} resultados).`; }
+    } catch (e) {
+      if (e.message === "sesión caducada") return;
+      $("#cargando").textContent = "No se han podido cargar los datos. Comprueba la conexión y recarga la página.";
+      $("#cargando").className = "tj-state tj-state--error cargando";
+    }
+  }
+  async function salir() {
+    try { if (auth) await fetch(`${SB}/auth/v1/logout`, { method: "POST", headers: { apikey: APIKEY, Authorization: `Bearer ${auth.access_token}` } }); } catch { /* sin red */ }
+    guardarSesion(null); estado = { fallos: [], resultados: [], cajas: {} }; actual = null;
+  }
+  $("#form-login").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const email = $("#l-email").value.trim().toLowerCase(), password = $("#l-pass").value;
+    if (!email || !password) { $("#l-error").textContent = "Escribe el correo y la contraseña."; return; }
+    $("#l-boton").disabled = true; $("#l-boton").textContent = "Entrando…"; $("#l-error").textContent = "";
+    try { await token("password", { email, password }); $("#l-pass").value = ""; await entrarApp(); }
+    catch (e) { pantallaLogin(e.code === "invalid_credentials" || /invalid/i.test(e.message) ? "Correo o contraseña incorrectos." : "No se ha podido entrar. Inténtalo de nuevo."); }
+  });
+  $("#salir").addEventListener("click", async () => { await salir(); pantallaLogin("Has salido."); });
+  $("#form-pass").addEventListener("submit", async (ev) => {
+    ev.preventDefault(); $("#c-ok").textContent = ""; $("#c-error").textContent = "";
+    const p = $("#c-pass").value;
+    if (p.length < 8) { $("#c-error").textContent = "La contraseña debe tener al menos 8 caracteres."; return; }
+    const r = await fetch(`${SB}/auth/v1/user`, { method: "PUT", headers: { apikey: APIKEY, Authorization: `Bearer ${auth.access_token}`, "Content-Type": "application/json" }, body: JSON.stringify({ password: p }) });
+    if (r.ok) { $("#c-ok").textContent = "Contraseña cambiada."; $("#c-pass").value = ""; }
+    else { const d = await r.json().catch(() => ({})); $("#c-error").textContent = d.error_code === "same_password" ? "Es la misma contraseña que ya tenías." : d.error_code === "weak_password" ? "La contraseña es demasiado débil." : "No se ha podido cambiar la contraseña."; }
+  });
+  // Al volver a la pestaña, recargar para ver los fallos dados de alta desde la conversación.
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState !== "visible" || !auth || $("#nav").hidden) return;
+    try { await cargarTodo(); if (vistaActual !== "repasar") mostrar(vistaActual); else if (!girada) { actual = null; pintarRepaso(); } } catch { /* se reintenta la próxima vez */ }
+  });
 
   /* ---------- Navegación ---------- */
   document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => mostrar(b.dataset.vista)));
@@ -39,6 +146,7 @@
     if (v === "repasar") pintarRepaso();
     if (v === "errores") pintarLista();
     if (v === "progreso") pintarProgreso();
+    vistaActual = v;
     history.replaceState(null, "", `#${v}`);
     window.scrollTo(0, 0);
   }
@@ -107,9 +215,10 @@
   }
   function responder(sabe) {
     const id = actual.id;
-    estado.cajas[id] = sabe ? Math.min(MAX, caja(id) + 1) : 0;
+    const n = sabe ? Math.min(MAX, caja(id) + 1) : 0;
+    estado.cajas[id] = n;
     sesion.vistas++; if (sabe) sesion.sabidas++;
-    guardar();
+    guardarCaja(id, n).catch(() => { $("#repaso-estado").insertAdjacentHTML("beforeend", `<span class="error-campo">No se ha guardado la última respuesta. Revisa la conexión.</span>`); });
     const prev = actual;
     actual = siguiente(); girada = false;
     if (!actual && repasarIgual) actual = prev;
@@ -141,9 +250,10 @@
             ${e.base ? "" : `<p><button type="button" class="borrar" data-id="${esc(e.id)}">Eliminar este fallo</button></p>`}</details>
           </article>`).join("")}</div></section>`;
     }).join("");
-    document.querySelectorAll(".borrar").forEach((b) => b.addEventListener("click", () => {
-      if (!confirm("¿Eliminar este fallo añadido?")) return;
-      estado.extras = estado.extras.filter((e) => e.id !== b.dataset.id); delete estado.cajas[b.dataset.id]; guardar(); pintarLista();
+    document.querySelectorAll(".borrar").forEach((b) => b.addEventListener("click", async () => {
+      if (!confirm("¿Eliminar este fallo añadido? Se borra para los dos.")) return;
+      try { await api(`fallos?id=eq.${encodeURIComponent(b.dataset.id)}`, { method: "DELETE" }); await cargarTodo(); if (actual?.id === b.dataset.id) actual = null; pintarLista(); }
+      catch { alert("No se ha podido eliminar. Revisa la conexión."); }
     }));
   }
 
@@ -179,28 +289,30 @@
     $("#graf-tipos").innerHTML = porT.map((x) => barra(x.n, x.t, x.d, mT)).join("");
   }
 
+  const avisoCopia = (ok, t) => { $("#copia-estado").className = `peq ${ok ? "ok-campo" : "error-campo"}`; $("#copia-estado").textContent = t; };
   $("#exportar").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(estado, null, 2)], { type: "application/json" });
+    const copia = { version: "2.0.0", usuario: auth.user.email, cajas: estado.cajas, extras: estado.fallos.filter((f) => f.origen === "app"), fallos: estado.fallos, resultados: estado.resultados };
+    const blob = new Blob([JSON.stringify(copia, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = `repaso-permiso-b-${new Date().toISOString().slice(0, 10)}.json`; a.click();
     URL.revokeObjectURL(a.href);
-    $("#copia-estado").textContent = "Copia exportada.";
+    avisoCopia(true, "Copia exportada.");
   });
   $("#importar").addEventListener("change", async (ev) => {
     const f = ev.target.files[0]; if (!f) return;
     try {
       const d = JSON.parse(await f.text());
-      if (!d || typeof d.cajas !== "object" || !Array.isArray(d.extras)) throw new Error();
-      estado = { cajas: d.cajas, extras: d.extras, resultados: d.resultados || [] }; guardar(); actual = null;
-      $("#copia-estado").className = "peq ok-campo"; $("#copia-estado").textContent = "Copia importada correctamente.";
+      if (!d || typeof d.cajas !== "object" || !Array.isArray(d.extras)) throw new Error("formato");
+      const r = await subirCopia(d); actual = null;
+      avisoCopia(true, `Copia importada: ${r.cajas} tarjetas, ${r.extras} fallos y ${r.resultados} resultados.`);
       pintarProgreso();
-    } catch { $("#copia-estado").className = "peq error-campo"; $("#copia-estado").textContent = "El archivo no es una copia válida de esta app."; }
+    } catch (e) { avisoCopia(false, e.message === "formato" || e instanceof SyntaxError ? "El archivo no es una copia válida de esta app." : "No se ha podido importar la copia. Revisa la conexión."); }
     ev.target.value = "";
   });
-  $("#reiniciar").addEventListener("click", () => {
-    if (!confirm("¿Reiniciar el repaso? Se borra lo aprendido, pero se conservan los fallos y resultados añadidos.")) return;
-    estado.cajas = {}; guardar(); actual = null; sesion = { vistas: 0, sabidas: 0 }; pintarProgreso();
-    $("#copia-estado").className = "peq ok-campo"; $("#copia-estado").textContent = "Repaso reiniciado.";
+  $("#reiniciar").addEventListener("click", async () => {
+    if (!confirm("¿Reiniciar tu repaso? Se borra lo aprendido por ti, pero se conservan los fallos y resultados.")) return;
+    try { await api(`progreso?user_id=eq.${auth.user.id}`, { method: "DELETE" }); estado.cajas = {}; actual = null; sesion = { vistas: 0, sabidas: 0 }; pintarProgreso(); avisoCopia(true, "Repaso reiniciado."); }
+    catch { avisoCopia(false, "No se ha podido reiniciar. Revisa la conexión."); }
   });
 
   /* ---------- Añadir ---------- */
@@ -216,27 +328,27 @@
     errEl.textContent = ok ? "" : "Revisa los campos marcados: faltan datos o hay un número fuera de rango.";
     return ok;
   }
-  $("#form-resultado").addEventListener("submit", (ev) => {
+  $("#form-resultado").addEventListener("submit", async (ev) => {
     ev.preventDefault(); $("#r-ok").textContent = "";
     if (!validar(ev.target, $("#r-error"))) return;
     const test = +$("#r-test").value, fallos = +$("#r-fallos").value;
-    estado.resultados = estado.resultados.filter((r) => r.test !== test).concat({ test, fallos }); guardar();
+    try { await api("resultados?on_conflict=test", { method: "POST", body: [{ test, fallos, origen: "app", actualizado: new Date().toISOString() }], prefer: "resolution=merge-duplicates,return=minimal" }); await cargarTodo(); }
+    catch { $("#r-error").textContent = "No se ha podido guardar. Revisa la conexión."; return; }
     $("#r-ok").textContent = `Test ${test} guardado con ${fallos} fallos. ${fallos <= 3 ? "Aprobado." : "Suspendido."}`;
     $("#e-test").value = test; ev.target.reset();
   });
-  $("#form-error").addEventListener("submit", (ev) => {
+  $("#form-error").addEventListener("submit", async (ev) => {
     ev.preventDefault(); $("#e-ok").textContent = "";
     if (!validar(ev.target, $("#e-error"))) return;
     const test = +$("#e-test").value, q = +$("#e-q").value, id = `t${test}-p${q}`;
     if (errores().some((e) => e.id === id)) { $("#e-error").textContent = `Ya existe un fallo para el test ${test}, pregunta ${q}.`; $("#e-q").setAttribute("aria-invalid", "true"); return; }
     const v = (s) => $(s).value.trim();
-    estado.extras.push({ id, test, q, grupo: v("#e-grupo"), tipo: v("#e-tipo"), pregunta: v("#e-pregunta"), marcaste: v("#e-marcaste"), correcta: v("#e-correcta"), regla: v("#e-regla"), truco: v("#e-truco"), enlace: `https://www.todotest.com/tests/test.asp?tip=3&t=${test}` });
-    guardar();
+    try { await api("fallos", { method: "POST", body: { id, test, q, grupo: v("#e-grupo"), tipo: v("#e-tipo"), pregunta: v("#e-pregunta"), marcaste: v("#e-marcaste"), correcta: v("#e-correcta"), regla: v("#e-regla"), truco: v("#e-truco") || null, enlace: `https://www.todotest.com/tests/test.asp?tip=3&t=${test}`, origen: "app" }, prefer: "return=minimal" }); await cargarTodo(); }
+    catch (e) { $("#e-error").textContent = e.code === "23505" ? `Ya existe un fallo para el test ${test}, pregunta ${q}.` : "No se ha podido guardar. Revisa los datos y la conexión."; return; }
     $("#e-ok").textContent = `Fallo T${test} · P${q} añadido a «${grupo(v("#e-grupo")).nombre}». Saldrá pronto en el repaso.`;
     ["#e-q", "#e-pregunta", "#e-marcaste", "#e-correcta", "#e-regla", "#e-truco"].forEach((s) => ($(s).value = ""));
     $("#e-q").focus();
   });
 
-  const inicio = location.hash.slice(1);
-  mostrar(["repasar", "errores", "progreso", "anadir"].includes(inicio) ? inicio : "repasar");
+  if (auth?.refresh_token) entrarApp(); else pantallaLogin();
 })();

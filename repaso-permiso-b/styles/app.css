@@ -89,3 +89,13 @@ textarea.tj-input { resize: vertical; }
   #filtros-repaso { flex-wrap: nowrap; overflow-x: auto; padding-bottom: var(--tj-space-2); margin-inline: calc(var(--tj-space-4) * -1); padding-inline: var(--tj-space-4); scrollbar-width: thin; }
   #filtros-repaso .tj-filter { flex: 0 0 auto; }
 }
+
+/* v2.0.0: acceso y cuenta */
+.form-acceso { max-width: 26rem; }
+.form-acceso .tj-button { margin-top: var(--tj-space-5); width: 100%; }
+.cargando { margin-top: var(--tj-space-8); }
+.tab.salir { color: var(--tj-surface); opacity: .85; }
+.cuenta { margin-top: var(--tj-space-4); align-items: start; }
+#form-pass .acciones { margin-top: var(--tj-space-4); }
+.aviso-nube { margin: 0 0 var(--tj-space-4); }
+.tabs[hidden], .vista[hidden], .cargando[hidden] { display: none; }

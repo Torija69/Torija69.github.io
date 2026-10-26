@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="1.0.0">
+<meta name="app-version" content="2.0.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src https://ymkojmxilsitilfpmfxc.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="description" content="Repaso de los errores de los tests del permiso B, clasificados por tema y tipo de fallo, con tarjetas de memoria.">
 <title>Repaso de errores · Permiso B</title>
 <link rel="stylesheet" href="./styles/torija-fonts.css">
@@ -15,17 +17,33 @@
 <div class="torija app">
   <header class="tj-header">
     <div class="marca"><span class="tj-brand">Torija</span><span class="sub">Repaso de errores · Permiso B</span></div>
-    <nav class="tabs" aria-label="Secciones">
+    <nav class="tabs" aria-label="Secciones" id="nav" hidden>
       <button type="button" class="tab" data-vista="repasar" aria-current="page">Repasar</button>
       <button type="button" class="tab" data-vista="errores">Errores</button>
       <button type="button" class="tab" data-vista="progreso">Progreso</button>
       <button type="button" class="tab" data-vista="anadir">Añadir</button>
+      <button type="button" class="tab salir" id="salir">Salir</button>
     </nav>
   </header>
 
   <main class="tj-container">
+    <!-- ACCESO -->
+    <section id="v-login" class="vista acceso" aria-labelledby="t-login">
+      <h1 class="tj-title" id="t-login">Entrar</h1>
+      <p class="tj-muted intro">Esta app es privada: solo pueden entrar Ángel y Antonio. El progreso de cada uno se guarda en su cuenta y se ve igual en el móvil y en el ordenador.</p>
+      <form class="tj-card form-acceso" id="form-login" novalidate>
+        <label class="tj-label" for="l-email">Correo</label>
+        <input class="tj-input" id="l-email" type="email" autocomplete="username" required>
+        <label class="tj-label" for="l-pass">Contraseña</label>
+        <input class="tj-input" id="l-pass" type="password" autocomplete="current-password" required>
+        <p class="error-campo" id="l-error" role="alert"></p>
+        <button class="tj-button" type="submit" id="l-boton">Entrar</button>
+      </form>
+    </section>
+    <div id="cargando" class="tj-state cargando" hidden role="status">Cargando tus errores…</div>
+
     <!-- REPASAR -->
-    <section id="v-repasar" class="vista" aria-labelledby="t-repasar">
+    <section id="v-repasar" class="vista" hidden aria-labelledby="t-repasar">
       <h1 class="tj-title" id="t-repasar">Repasar errores</h1>
       <p class="tj-muted intro">Lee la situación, piensa la respuesta y gira la tarjeta. Las que todavía no sabes vuelven a salir antes.</p>
       <div class="tj-filters" id="filtros-repaso" role="group" aria-label="Grupo para repasar"></div>
@@ -61,23 +79,36 @@
           <div id="graf-tipos"></div>
         </div>
       </div>
-      <div class="tj-card copia">
-        <h2>Copia de seguridad</h2>
-        <p class="tj-muted peq">El progreso se guarda en este navegador. Exporta una copia para pasarla a otro dispositivo.</p>
-        <div class="acciones">
-          <button type="button" class="tj-button tj-button--secondary" id="exportar">Exportar copia</button>
-          <label class="tj-button tj-button--secondary" for="importar">Importar copia</label>
-          <input type="file" id="importar" accept="application/json" class="oculto">
-          <button type="button" class="tj-button tj-button--secondary" id="reiniciar">Reiniciar repaso</button>
+      <div class="tj-grid cuenta">
+        <div class="tj-card">
+          <h2>Cuenta</h2>
+          <p class="peq">Has entrado como <strong id="c-email"></strong>. El repaso de cada persona es independiente; los errores y resultados son comunes.</p>
+          <form id="form-pass" novalidate>
+            <label class="tj-label" for="c-pass">Nueva contraseña (mínimo 8 caracteres)</label>
+            <input class="tj-input" id="c-pass" type="password" autocomplete="new-password" minlength="8" required>
+            <p class="error-campo" id="c-error" role="alert"></p>
+            <div class="acciones"><button class="tj-button tj-button--secondary" type="submit">Cambiar contraseña</button></div>
+            <p class="ok-campo" id="c-ok" role="status"></p>
+          </form>
         </div>
-        <p id="copia-estado" class="peq" role="status"></p>
+        <div class="tj-card">
+          <h2>Copia de seguridad</h2>
+          <p class="tj-muted peq">Todo se guarda en la nube. Puedes exportar una copia o importar una de la versión anterior.</p>
+          <div class="acciones">
+            <button type="button" class="tj-button tj-button--secondary" id="exportar">Exportar copia</button>
+            <label class="tj-button tj-button--secondary" for="importar">Importar copia</label>
+            <input type="file" id="importar" accept="application/json" class="oculto">
+            <button type="button" class="tj-button tj-button--secondary" id="reiniciar">Reiniciar mi repaso</button>
+          </div>
+          <p id="copia-estado" class="peq" role="status"></p>
+        </div>
       </div>
     </section>
 
     <!-- AÑADIR -->
     <section id="v-anadir" class="vista" hidden aria-labelledby="t-anadir">
       <h1 class="tj-title" id="t-anadir">Añadir un test nuevo</h1>
-      <p class="tj-muted intro">Primero registra el resultado del test y después añade cada fallo con su regla.</p>
+      <p class="tj-muted intro">Los tests que se corrigen en la conversación del proyecto se dan de alta solos. Usa este formulario solo para añadir algo a mano.</p>
       <div class="tj-grid formularios">
         <form class="tj-card" id="form-resultado" novalidate>
           <h2>Resultado del test</h2>
@@ -116,7 +147,7 @@
       </div>
     </section>
   </main>
-  <footer class="tj-container pie tj-muted">Repaso de errores v1.0.0 · Diseño Torija v1.0.0 · Preguntas de los tests de <a href="https://www.todotest.com/">TodoTest</a>.</footer>
+  <footer class="tj-container pie tj-muted">Repaso de errores v2.0.0 · Diseño Torija v1.0.0 · Preguntas de los tests de <a href="https://www.todotest.com/">TodoTest</a>.</footer>
 </div>
 <script src="./data.js"></script>
 <script src="./app.js"></script>
