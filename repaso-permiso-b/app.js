@@ -9,6 +9,8 @@
   const tipo = (id) => TIPOS.find((t) => t.id === id) || { nombre: id };
 
   let estado = { fallos: [], resultados: [], cajas: {} };
+  let urlsImagen = {}; // id del fallo -> URL firmada (bucket privado permiso-b)
+  const BUCKET = "permiso-b";
   let filtroGrupo = "todos";
   let filtroTipo = "todos";
   let actual = null;
@@ -46,6 +48,48 @@
     if (!r.ok) { const d = await r.json().catch(() => ({})); const e = new Error(d.message || r.statusText); e.code = d.code; e.status = r.status; throw e; }
     return r.status === 204 ? null : r.json().catch(() => null);
   }
+  async function tokenVigente() {
+    if (auth && auth.expires_at - 60 < Date.now() / 1000) { try { await renovar(); } catch { return caducada(); } }
+    return auth.access_token;
+  }
+  async function storage(ruta, init = {}) {
+    const t = await tokenVigente();
+    const r = await fetch(`${SB}/storage/v1/${ruta}`, { ...init, headers: { apikey: APIKEY, Authorization: `Bearer ${t}`, ...(init.headers || {}) } });
+    if (!r.ok) { const e = new Error(`storage ${r.status}`); e.status = r.status; throw e; }
+    return r.json().catch(() => null);
+  }
+  async function firmarImagenes() {
+    const conImagen = estado.fallos.filter((f) => f.imagen);
+    if (!conImagen.length) { urlsImagen = {}; return; }
+    try {
+      const r = await storage(`object/sign/${BUCKET}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expiresIn: 21600, paths: conImagen.map((f) => f.imagen) }) });
+      const porRuta = Object.fromEntries((r || []).filter((x) => x.signedURL && !x.error).map((x) => [x.path, `${SB}/storage/v1${x.signedURL}`]));
+      urlsImagen = Object.fromEntries(conImagen.filter((f) => porRuta[f.imagen]).map((f) => [f.id, porRuta[f.imagen]]));
+    } catch { urlsImagen = {}; }
+  }
+  // Reduce la foto a 1200 px como máximo y la convierte en JPEG antes de subirla.
+  async function prepararFoto(file) {
+    if (!/^image\//.test(file.type) && !/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name)) throw new Error("tipo");
+    const bmp = await createImageBitmap(file).catch(() => { throw new Error("leer"); });
+    const k = Math.min(1, 1200 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas"); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise((ok) => c.toBlob(ok, "image/jpeg", 0.85));
+    if (!blob || blob.size > 2 * 1024 * 1024) throw new Error("grande");
+    return blob;
+  }
+  const fotoHTML = (e, clase = "") => urlsImagen[e.id]
+    ? `<figure class="foto ${clase}"><button type="button" class="foto-btn" data-src="${esc(urlsImagen[e.id])}" aria-label="Ampliar la imagen de la pregunta ${e.q} del test ${e.test}"><img src="${esc(urlsImagen[e.id])}" alt="Imagen de la pregunta ${e.q} del test ${e.test}" loading="lazy" decoding="async"></button></figure>`
+    : "";
+  function activarFotos(raiz) {
+    raiz.querySelectorAll(".foto-btn").forEach((b) => b.addEventListener("click", () => {
+      $("#visor-img").src = b.dataset.src; $("#visor-img").alt = b.querySelector("img").alt;
+      $("#visor").showModal();
+    }));
+  }
+  $("#visor").addEventListener("click", () => $("#visor").close());
+  $("#visor").addEventListener("close", () => { $("#visor-img").removeAttribute("src"); });
+
   function caducada() { guardarSesion(null); pantallaLogin("La sesión ha caducado. Vuelve a entrar."); throw new Error("sesión caducada"); }
 
   /* ---------- Datos ---------- */
@@ -56,6 +100,7 @@
       api(`progreso?select=fallo_id,caja&user_id=eq.${auth.user.id}`),
     ]);
     estado = { fallos: fallos.map((f) => ({ ...f, base: f.origen !== "app" })), resultados, cajas: Object.fromEntries(progreso.map((p) => [p.fallo_id, p.caja])) };
+    await firmarImagenes();
   }
   const errores = () => estado.fallos;
   const caja = (id) => estado.cajas[id] || 0;
@@ -189,6 +234,7 @@
     const e = actual;
     t.innerHTML = `
       <div class="meta"><span class="chip chip--osc">Test ${e.test} · Pregunta ${e.q}</span><span class="chip">${esc(grupo(e.grupo).nombre)}</span><span class="chip">${esc(tipo(e.tipo).nombre)}</span>${cajasHTML(caja(e.id))}</div>
+      ${fotoHTML(e, "foto--tarjeta")}
       <h2 class="pregunta">${esc(e.pregunta)}</h2>
       ${girada ? `
         <div class="reverso">
@@ -207,6 +253,7 @@
         <p class="pista">Piensa la respuesta y por qué es así. Después gira la tarjeta.</p>
         <div class="acciones"><button type="button" class="tj-button" id="girar">Ver la respuesta</button></div>`}
     `;
+    activarFotos(t);
     if (!girada) $("#girar").addEventListener("click", () => { girada = true; pintarRepaso(); $("#sabe").focus(); });
     else {
       $("#sabe").addEventListener("click", () => responder(true));
@@ -242,6 +289,7 @@
         <div class="items">${items.map((e) => `
           <article class="tj-card item">
             <div class="meta"><span class="chip chip--osc">T${e.test} · P${e.q}</span><span class="chip">${esc(tipo(e.tipo).nombre)}</span>${cajasHTML(caja(e.id))}</div>
+            ${fotoHTML(e, "foto--lista")}
             <h3>${esc(e.pregunta)}</h3>
             <p class="correcta"><strong>Correcta:</strong> ${esc(e.correcta)}</p>
             ${e.truco ? `<p class="truco">${esc(e.truco)}</p>` : ""}
@@ -250,9 +298,14 @@
             ${e.base ? "" : `<p><button type="button" class="borrar" data-id="${esc(e.id)}">Eliminar este fallo</button></p>`}</details>
           </article>`).join("")}</div></section>`;
     }).join("");
+    activarFotos($("#lista-errores"));
     document.querySelectorAll(".borrar").forEach((b) => b.addEventListener("click", async () => {
       if (!confirm("¿Eliminar este fallo añadido? Se borra para los dos.")) return;
-      try { await api(`fallos?id=eq.${encodeURIComponent(b.dataset.id)}`, { method: "DELETE" }); await cargarTodo(); if (actual?.id === b.dataset.id) actual = null; pintarLista(); }
+      const f = estado.fallos.find((x) => x.id === b.dataset.id);
+      try {
+        await api(`fallos?id=eq.${encodeURIComponent(b.dataset.id)}`, { method: "DELETE" });
+        if (f?.imagen) await storage(`object/${BUCKET}`, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prefixes: [f.imagen] }) }).catch(() => {});
+        await cargarTodo(); if (actual?.id === b.dataset.id) actual = null; pintarLista(); }
       catch { alert("No se ha podido eliminar. Revisa la conexión."); }
     }));
   }
@@ -343,10 +396,22 @@
     const test = +$("#e-test").value, q = +$("#e-q").value, id = `t${test}-p${q}`;
     if (errores().some((e) => e.id === id)) { $("#e-error").textContent = `Ya existe un fallo para el test ${test}, pregunta ${q}.`; $("#e-q").setAttribute("aria-invalid", "true"); return; }
     const v = (s) => $(s).value.trim();
-    try { await api("fallos", { method: "POST", body: { id, test, q, grupo: v("#e-grupo"), tipo: v("#e-tipo"), pregunta: v("#e-pregunta"), marcaste: v("#e-marcaste"), correcta: v("#e-correcta"), regla: v("#e-regla"), truco: v("#e-truco") || null, enlace: `https://www.todotest.com/tests/test.asp?tip=3&t=${test}`, origen: "app" }, prefer: "return=minimal" }); await cargarTodo(); }
+    const archivo = $("#e-imagen").files[0];
+    let imagen = null;
+    if (archivo) {
+      try {
+        const blob = await prepararFoto(archivo);
+        await storage(`object/${BUCKET}/${id}.jpg`, { method: "POST", headers: { "Content-Type": "image/jpeg", "x-upsert": "true" }, body: blob });
+        imagen = `${id}.jpg`;
+      } catch (e) {
+        $("#e-error").textContent = e.message === "tipo" || e.message === "leer" ? "La imagen no se puede leer. Usa una foto JPEG, PNG o WebP." : e.message === "grande" ? "La imagen es demasiado grande." : "No se ha podido subir la imagen. Revisa la conexión.";
+        return;
+      }
+    }
+    try { await api("fallos", { method: "POST", body: { id, test, q, grupo: v("#e-grupo"), tipo: v("#e-tipo"), pregunta: v("#e-pregunta"), marcaste: v("#e-marcaste"), correcta: v("#e-correcta"), regla: v("#e-regla"), truco: v("#e-truco") || null, enlace: `https://www.todotest.com/tests/test.asp?tip=3&t=${test}`, origen: "app", imagen, imagen_origen: imagen ? "app" : null }, prefer: "return=minimal" }); await cargarTodo(); }
     catch (e) { $("#e-error").textContent = e.code === "23505" ? `Ya existe un fallo para el test ${test}, pregunta ${q}.` : "No se ha podido guardar. Revisa los datos y la conexión."; return; }
     $("#e-ok").textContent = `Fallo T${test} · P${q} añadido a «${grupo(v("#e-grupo")).nombre}». Saldrá pronto en el repaso.`;
-    ["#e-q", "#e-pregunta", "#e-marcaste", "#e-correcta", "#e-regla", "#e-truco"].forEach((s) => ($(s).value = ""));
+    ["#e-q", "#e-pregunta", "#e-marcaste", "#e-correcta", "#e-regla", "#e-truco", "#e-imagen"].forEach((s) => ($(s).value = ""));
     $("#e-q").focus();
   });
 

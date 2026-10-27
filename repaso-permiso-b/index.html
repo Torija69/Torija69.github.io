@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="2.0.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src https://ymkojmxilsitilfpmfxc.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="app-version" content="2.1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://ymkojmxilsitilfpmfxc.supabase.co; connect-src https://ymkojmxilsitilfpmfxc.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="Repaso de los errores de los tests del permiso B, clasificados por tema y tipo de fallo, con tarjetas de memoria.">
 <title>Repaso de errores · Permiso B</title>
@@ -140,6 +140,9 @@
           <textarea class="tj-input" id="e-regla" rows="3" required></textarea>
           <label class="tj-label" for="e-truco">Frase para memorizar (opcional)</label>
           <input class="tj-input" id="e-truco">
+          <label class="tj-label" for="e-imagen">Imagen de la pregunta (opcional)</label>
+          <input class="tj-input" id="e-imagen" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+          <p class="tj-muted peq">Si la respuesta depende de la imagen, añádela. Se reduce a 1200 px y solo la veis vosotros dos.</p>
           <p class="error-campo" id="e-error" role="alert"></p>
           <button class="tj-button" type="submit">Añadir fallo</button>
           <p class="ok-campo" id="e-ok" role="status"></p>
@@ -147,7 +150,8 @@
       </div>
     </section>
   </main>
-  <footer class="tj-container pie tj-muted">Repaso de errores v2.0.0 · Diseño Torija v1.0.0 · Preguntas de los tests de <a href="https://www.todotest.com/">TodoTest</a>.</footer>
+  <dialog id="visor" class="visor" aria-label="Imagen ampliada"><img id="visor-img" alt=""><p class="peq">Toca para cerrar</p></dialog>
+  <footer class="tj-container pie tj-muted">Repaso de errores v2.1.0 · Diseño Torija v1.0.0 · Preguntas de los tests de <a href="https://www.todotest.com/">TodoTest</a>.</footer>
 </div>
 <script src="./data.js"></script>
 <script src="./app.js"></script>
