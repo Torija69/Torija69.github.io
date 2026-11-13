@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="./assets/torija-fonts.css">
     <link rel="stylesheet" href="./assets/torija-tokens.css">
     <link rel="stylesheet" href="./assets/torija-components.css">
-    <script type="module" crossorigin src="./assets/index-DRFSBlTT.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CKdFlq7K.css">
+    <script type="module" crossorigin src="./assets/index-C2JMFsgg.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BUbPzcnO.css">
   </head>
   <body class="torija">
     <a class="skip" href="#principal">Saltar al contenido</a>
@@ -25,6 +25,7 @@
           <button type="button" class="nav-button" data-view="cola" data-admin hidden>Cola Vinted <span class="nav-count" id="nav-cola">0</span></button>
           <button type="button" class="nav-button" data-view="solicitudes" data-admin hidden>Solicitudes <span class="nav-count" id="nav-solicitudes">0</span></button>
           <button type="button" class="nav-button" data-view="ventas" data-admin hidden>Ventas</button>
+          <button type="button" class="nav-button" data-view="mis-ventas" data-admin hidden>Mis ventas</button>
         </nav>
         <button type="button" id="account" class="account-button"></button>
       </div>
@@ -78,8 +79,14 @@
         <div id="ventas-resumen" class="stats"></div>
         <div id="ventas-lista" class="admin-list"></div>
       </section>
+      <section id="vista-mis-ventas" class="admin-view" aria-labelledby="mis-ventas-titulo" hidden>
+        <div class="section-heading"><div><p class="eyebrow">ADMINISTRACIÓN · PRIVADO</p><h2 id="mis-ventas-titulo">Mis ventas</h2></div>
+          <div class="form-actions"><button type="button" id="nueva-venta" class="tj-button"><span data-icon="euro"></span>Registrar venta</button><button type="button" id="exportar-ventas" class="tj-button tj-button--secondary"><span data-icon="copiar"></span>Exportar CSV</button><button type="button" id="recargar-mis-ventas" class="tj-button tj-button--secondary"><span data-icon="recargar"></span>Actualizar</button></div></div>
+        <p class="tj-muted">Lo que has cobrado, los gastos y el neto de cada venta. Solo lo ves tú.</p>
+        <div id="mis-ventas-contenido"></div>
+      </section>
     </main>
-    <footer class="site-footer"><span>Ludoteca del Tori</span><span>Datos de juegos: <a href="https://boardgamegeek.com/" rel="noopener noreferrer" target="_blank">BoardGameGeek</a></span><span>Torija · v1.1.0</span></footer>
+    <footer class="site-footer"><span>Ludoteca del Tori</span><span>Datos de juegos: <a href="https://boardgamegeek.com/" rel="noopener noreferrer" target="_blank">BoardGameGeek</a></span><span>Torija · v1.2.0</span></footer>
 
     <dialog id="ficha" aria-labelledby="ficha-titulo"></dialog>
     <dialog id="login" aria-labelledby="login-titulo">
@@ -94,6 +101,7 @@
       </form>
       <p class="fine-print">Sin registro público. La sesión dura mientras la pestaña esté abierta; no se guarda en el navegador.</p>
     </dialog>
+    <dialog id="venta-dialog" aria-labelledby="venta-dialog-titulo"></dialog>
     <dialog id="confirmar" aria-labelledby="confirmar-titulo">
       <h2 id="confirmar-titulo">¿Seguro?</h2><p id="confirmar-texto" class="tj-muted"></p>
       <div class="dialog-actions"><button type="button" class="tj-button tj-button--secondary" value="no">Cancelar</button><button type="button" class="tj-button danger" value="si">Borrar</button></div>
