@@ -73,8 +73,8 @@
     const lines = hist.map(h => `<li><b>Libro ${h[0]}.</b> ${esc(h[1])}</li>`);
     if (ended) lines.push(`<li class="end"><b>Libro ${it.end[0]} · fin.</b> ${esc(it.end[1])}</li>`);
     return `<article class="item${ended ? ' gone' : ''}" style="--who:${w.c}">
-      <header><h3>${esc(it.n)}</h3><span class="type t-${it.t}">${TYPE_L[it.t] || esc(it.t)}</span></header>
-      ${it.es ? `<div class="es">${esc(it.es)}${mode === 'actual' ? ` · desde el libro ${it.b}` : ''}</div>` : ''}
+      <header><h3><span class="n-en" lang="en">${esc(it.n)}</span>${it.es ? ` <span class="n-es">· ${esc(it.es)}</span>` : ''}</h3><span class="type t-${it.t}">${TYPE_L[it.t] || esc(it.t)}</span></header>
+      ${mode === 'actual' ? `<div class="es">Desde el libro ${it.b}</div>` : ''}
       <p>${esc(it.d)}</p>
       ${lines.length ? `<ul>${lines.join('')}</ul>` : ''}
       ${(laterH || laterEnd) ? `<p class="hidden-note">Hay más sobre este objeto en libros posteriores al ${level}, oculto para evitar spoilers.</p>` : ''}

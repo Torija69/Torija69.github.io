@@ -46,6 +46,8 @@
 .torija .item { background:var(--tj-surface); border:1px solid var(--tj-border); border-left:4px solid var(--who); border-radius:12px; padding:16px; margin-bottom:12px; overflow-wrap:anywhere; }
 .torija .item header { display:flex; gap:8px; align-items:flex-start; justify-content:space-between; }
 .torija .item h3 { font-family:var(--tj-font-display); font-size:18px; line-height:1.25; margin:0; }
+.torija .item h3 .n-es { font-family:var(--tj-font-body); font-weight:500; font-size:15px; color:var(--tj-muted); letter-spacing:0; }
+.torija .item h3 { margin-bottom:8px; }
 .torija .item .es { color:var(--tj-muted); font-size:14px; margin:2px 0 8px; }
 .torija .item p { margin:0 0 8px; font-size:15px; line-height:1.6; }
 .torija .type { flex:none; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:3px 8px; border-radius:999px; background:var(--tj-soft); border:1px solid var(--tj-border); }

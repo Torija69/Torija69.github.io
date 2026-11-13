@@ -9,7 +9,7 @@ window.INVENTORY = {
     {
       id: "war-gauntlet",
       n: "Enchanted War Gauntlet of the Exalted Grull",
-      es: "Guantelete de guerra de Grull",
+      es: "Guantelete de guerra encantado del Exaltado Grull",
       t: "arma",
       b: 1,
       d: "Brazal que se transforma en un guantelete de acero orco con pinchos al cerrar el puño: +3 Fuerza, +1 Destreza, +2 a Iron Punch, +1 a Powerful Strike y un 2 % de aturdir. Es el arma insignia de su estilo a puño limpio.",
@@ -19,7 +19,7 @@ window.INVENTORY = {
     {
       id: "trollskin-shirt",
       n: "Enchanted Trollskin Shirt of Pummeling",
-      es: "Camisa de piel de trol",
+      es: "Camisa encantada de piel de trol del vapuleo",
       t: "equipo",
       b: 1,
       d: "Su armadura base desde el tutorial: +7 a Regeneración y anula aturdimiento, derribo, desarme y falta de aliento. Le permite encajar golpes brutales sin gastar pociones.",
@@ -29,7 +29,7 @@ window.INVENTORY = {
     {
       id: "bigboi-boxers",
       n: "Enchanted BigBoi Boxers",
-      es: "Calzoncillos BigBoi",
+      es: "Calzoncillos encantados BigBoi",
       t: "equipo",
       b: 1,
       d: "Calzoncillos blancos con corazones rojos que le dan +2 Constitución y el hechizo Protective Shell a nivel 15, sin coste de maná. Ese escudo le salva la vida ante la carga del elemental de ira.",
@@ -39,7 +39,7 @@ window.INVENTORY = {
     {
       id: "jug-o-boom",
       n: "Carl's Jug O' Boom",
-      es: "Jarra explosiva de Carl",
+      es: "La jarra del bum de Carl",
       t: "arma",
       b: 1,
       d: "Incendiario inventado por Carl con una jarra de licor Rev-Up, aceite de goblin y una antorcha como mecha. Entra en el códice del calabozo y le reporta un canon (muy gravado) por cada muerte que causa.",
@@ -49,7 +49,7 @@ window.INVENTORY = {
     {
       id: "goblin-pass",
       n: "Goblin Pass",
-      es: "Pase de los trasgos (calavera de trasgo)",
+      es: "Pase de los trasgos",
       t: "tatuaje",
       b: 1,
       d: "Calavera de trasgo grabada a fuego en la cara interna del antebrazo izquierdo al abrir una de sus primeras cajas del tutorial. Quita la hostilidad automática de los trasgos y permite cruzar su territorio, a cambio de recibir un 20 % más de daño de las criaturas feéricas.",
@@ -59,7 +59,7 @@ window.INVENTORY = {
     {
       id: "desperado-pass-carl",
       n: "Desperado Pass",
-      es: "Pase Desperado (daga que gotea sangre)",
+      es: "Pase Desperado",
       t: "tatuaje",
       b: 1,
       d: "Daga que gotea sangre grabada en el cuello, del mismo botín que el de Donut. Da acceso al Desperado Club e impide conseguir un pase Vanquisher.",
@@ -68,7 +68,7 @@ window.INVENTORY = {
     {
       id: "nightgaunt-cloak",
       n: "Enchanted Nightgaunt Cloak of Stoutness",
-      es: "Capa de nightgaunt de la robustez",
+      es: "Capa encantada de nightgaunt de la robustez",
       t: "equipo",
       b: 1,
       d: "Capa de la misma caja dorada del tutorial que la camisa de piel de trol (Mordecai ahoga un grito al verlas juntas): +4 Constitución, resistencia a veneno y hielo y resistencia antiperforación para toda la armadura. «Te hace parecer un Batman de todo a cien».",
@@ -78,7 +78,7 @@ window.INVENTORY = {
     {
       id: "toe-ring-splatter-skunk",
       n: "Enchanted Toe Ring of the Splatter Skunk",
-      es: "Anillo de pie de la mofeta",
+      es: "Anillo de pie encantado de la mofeta salpicona",
       t: "equipo",
       b: 1,
       d: "Anillo de pie de sus primeras cajas del tutorial: +3 Fuerza y +3 a Powerful Strike.",
@@ -88,7 +88,7 @@ window.INVENTORY = {
     {
       id: "pedicure-kit-sylph",
       n: "Enchanted Pedicure Kit of the Sylph",
-      es: "Kit de pedicura de la sílfide",
+      es: "Kit de pedicura encantado de la sílfide",
       t: "objeto",
       b: 1,
       d: "Kit de doce útiles para los pies que solo se aplica en un espacio seguro y exige ir descalzo: durante 30 horas da +15 % de daño a los ataques descalzos, +3 a Smush, Unbreakable (solo pies) y Celestially Nimble and Tidy, que avisa y retrasa 5 segundos las trampas de pisada. El pie irrompible le salva la vida en una explosión.",
@@ -97,7 +97,7 @@ window.INVENTORY = {
     {
       id: "xistera",
       n: "Xistera",
-      es: "Cesta de jai alai",
+      es: "Xistera (cesta de jai alai)",
       t: "arma",
       b: 2,
       d: "Cesta de cesta punta, que sabe usar gracias a la habilidad aleatoria de su Earth Hobby Potion. Saca bombas del inventario directamente a la cesta y las lanza a unos 400 km/h; sustituye a su tirachinas.",
@@ -107,7 +107,7 @@ window.INVENTORY = {
     {
       id: "doomsday-scenario",
       n: "Carl's Doomsday Scenario",
-      es: "El escenario apocalíptico de Carl",
+      es: "El escenario del fin del mundo de Carl",
       t: "arma",
       b: 2,
       d: "Superarma inestable nacida en el clímax de la misión de Miss Quill y Remex: Carl encierra un cristal de almas sobrecargado en un Sheol Glass Reaper Case, que no frena la explosión sino que se funde con ella, y la mete a mano en su inventario dos segundos antes de estallar, quemándose. «Capaz de arrasar una ciudad entera y sus suburbios»; no se puede estabilizar ni sacar con seguridad. Da título al libro 2.",
@@ -117,7 +117,7 @@ window.INVENTORY = {
     {
       id: "anarchists-cookbook",
       n: "The Dungeon Anarchist's Cookbook",
-      es: "El libro de cocina del anarquista del calabozo",
+      es: "El libro de cocina del anarquista de la mazmorra",
       t: "objeto",
       b: 3,
       d: "Premio de \"broma\" del carrusel de Chaco que resulta ser un manual secreto, invisible para la IA, escrito por 24 crawlers anteriores: explosivos, portales, dioses y recetas. Carl se convierte en su 25.º autor.",
@@ -127,7 +127,7 @@ window.INVENTORY = {
     {
       id: "haute-bourgeoisie",
       n: "Enchanted Necklace of the Haute Bourgeoisie",
-      es: "Collar de la alta burguesía",
+      es: "Collar encantado de la alta burguesía",
       t: "equipo",
       b: 3,
       d: "Cadena de liderazgo de una caja Platinum Tyrant por convertirse en magistrado del asentamiento skyfowl de Miss Quill. Gana una joya por cada asentamiento que controla: el zafiro del piso 3 le da +5 Destreza, Talon Strike nivel 5 y 432 de oro de impuestos cada 10 días.",
@@ -136,7 +136,7 @@ window.INVENTORY = {
     {
       id: "ring-divine-suffering",
       n: "Enchanted Night Wyrm's Ring of Divine Suffering",
-      es: "Anillo del sufrimiento divino del Night Wyrm",
+      es: "Anillo encantado del sufrimiento divino del Wyrm Nocturno",
       t: "equipo",
       b: 3,
       d: "Lo saquea del cadáver de Frank Q: +5 % a todas las estadísticas y la habilidad Marked for Death, que da puntos de estadística por cada objetivo marcado que mata. Es un cebo: sus portadores son los primeros cazados en el piso 6, y Mordecai le pega en la cabeza para que se lo quite.",
@@ -147,7 +147,7 @@ window.INVENTORY = {
     {
       id: "auto-buckler",
       n: "Enchanted Auto Buckler of the Peach Pit",
-      es: "Rodela automática del hueso de melocotón",
+      es: "Rodela automática encantada del hueso de melocotón",
       t: "equipo",
       b: 3,
       d: "Brazal que forma una rodela metálica con un giro de muñeca, con un 1,5 % de desarmar al atacante (Shatter). Se lo pasa Katia cuando su escudo antidisturbios lo deja redundante.",
@@ -157,7 +157,7 @@ window.INVENTORY = {
     {
       id: "battle-rattle",
       n: "Enchanted Anarchist's Battle Rattle",
-      es: "Chaqueta de guerra del anarquista",
+      es: "Arreos de batalla encantados del anarquista",
       t: "equipo",
       b: 4,
       d: "Chaqueta sin mangas que sustituye a su cazadora destrozada: +1 a todas las estadísticas, +50 % de alcance y precisión con explosivos arrojados y huecos ilimitados para parches de mejora.",
@@ -167,7 +167,7 @@ window.INVENTORY = {
     {
       id: "phase-lava-rock",
       n: "Phase Lava Rock Potion",
-      es: "Poción de fase de roca de lava",
+      es: "Poción de roca de lava en fase",
       t: "pocion",
       b: 4,
       d: "Poción que Mordecai elabora con el misterioso \"ñame\" de un patrocinador. Con ella Carl atraviesa el cráneo de roca fundida de Chris Andrews y le arranca con la mano el parásito Scree de Maggie My.",
@@ -176,7 +176,7 @@ window.INVENTORY = {
     {
       id: "double-healing",
       n: "Double-healing potion",
-      es: "Poción de doble curación",
+      es: "Poción de curación doble",
       t: "pocion",
       b: 4,
       d: "Al extraer a Maggie, el gusano se mete en el brazo de Carl; la poción de doble curación de Mordecai lo expulsa por su cuello y Mongo lo remata, liberando por fin a Chris.",
@@ -196,7 +196,7 @@ window.INVENTORY = {
     {
       id: "extinction-sigil",
       n: "Extinction Sigil Tattoo (Wall Monitor Race)",
-      es: "Sello de extinción: huella de geco en forma de lágrima",
+      es: "Tatuaje del sello de extinción (raza varano de pared)",
       t: "tatuaje",
       b: 4,
       d: "Diminuta huella de geco justo debajo del ojo izquierdo, en el sitio de un tatuaje de lágrima; Katia le dice que parece una peca. Sale de una caja del botín de Grull (capítulo 2): quita la hostilidad automática de los enemigos naturales de los lagartos, pero los lagartos le hacen un 20 % más de daño y los varanos, un 150 % más. Solo se puede tapar con una manga de cobertura.",
@@ -204,8 +204,8 @@ window.INVENTORY = {
     },
     {
       id: "emberus-suns",
-      n: "Tatuajes de Emberus",
-      es: "Soles tribales en el dorso de las manos",
+      n: "Emberus Tattoos",
+      es: "Tatuajes de Emberus",
       t: "tatuaje",
       b: 4,
       d: "Soles redondos de estilo tribal, negros con un brillo anaranjado, en el dorso de ambas manos (rayos rizados en la derecha, triangulares en la izquierda). Aparecen al final del piso 5, cuando Carl elige adorar a Emberus casi por accidente al lanzar una granada celestial frente a Quan Ch; lo marcan como fiel del dios, rango que en el piso 8 sube a Devoto.",
@@ -215,7 +215,7 @@ window.INVENTORY = {
     {
       id: "pawnas-tears",
       n: "Pawna's Tears",
-      es: "Lágrimas de Pawna",
+      es: "Las lágrimas de Pawna",
       t: "pocion",
       b: 4,
       d: "Poción legendaria del botín de Grull (capítulo 2) que suma +5 a cualquier hechizo o habilidad a elección y no caduca.",
@@ -225,7 +225,7 @@ window.INVENTORY = {
     {
       id: "toe-ring-leprous-bandit",
       n: "Enchanted Toe Ring of the Leprous Bandit",
-      es: "Anillo de pie del bandido leproso",
+      es: "Anillo de pie encantado del bandido leproso",
       t: "equipo",
       b: 4,
       d: "Del mismo botín de Grull: Sticky Feet (caminar por paredes y techos durante Destreza×2 segundos cada 6 horas) y Super Spreader (pasar un debuff activo a otro objetivo una vez por hora). Con Sticky Feet quema desde el techo a la ooze Mrs. Ghazi.",
@@ -235,7 +235,7 @@ window.INVENTORY = {
     {
       id: "kerchief-of-disorder",
       n: "Drakea's Enchanted Kerchief of Disorder",
-      es: "Pañuelo del desorden de Drakea",
+      es: "Pañuelo encantado del desorden de Drakea",
       t: "equipo",
       b: 4,
       d: "Bandana negra de cachemir blanco, premio por matar al jefe Ruckus, que Carl se ata a la cabeza pese a Donut: +5 a Detect Traps, el hechizo Tripper (dispara todas las trampas en un radio, cada 5 horas) y Remote Detonator para hacer estallar a distancia sus explosivos. Lleva el nombre de Drakea, autor de la 22.ª edición del Cookbook.",
@@ -253,7 +253,7 @@ window.INVENTORY = {
     {
       id: "web-of-suffering",
       n: "The Night Wyrm's Nasty Little Web of Suffering",
-      es: "Telaraña del Gremio del Sufrimiento",
+      es: "La pequeña y asquerosa telaraña del sufrimiento del Wyrm Nocturno",
       t: "tatuaje",
       b: 5,
       d: "Gran telaraña en el codo que le aparece al usar por primera vez el Night Wyrm's Ring of Divine Suffering, en su ataque a Zockau. Le da acceso al Gremio del Sufrimiento, un culto al semidiós Night Wyrm.",
@@ -263,7 +263,7 @@ window.INVENTORY = {
     {
       id: "enemy-church-tattoo",
       n: "Enemy of the Church Tattoo",
-      es: "Tatuaje de enemigo de la Iglesia (bola de serpientes en llamas)",
+      es: "Tatuaje de enemigo de la Iglesia",
       t: "tatuaje",
       b: 5,
       d: "Gran bola de serpientes en llamas en la parte superior del brazo izquierdo; una cabeza baja y se enrosca en la telaraña del codo. Sale de una caja dorada Apostate por el logro Temple Defiler en el piso 6: no puede adorar a Diwata, sus fieles le atacan nada más verlo fuera del Club Vanquisher y les hace un 25 % más de daño (50 % al ser fiel de Emberus). No se puede tapar.",
@@ -282,7 +282,7 @@ window.INVENTORY = {
     {
       id: "paupers-ring",
       n: "Enchanted Pauper's Ring of the Steadfast Emberus",
-      es: "Anillo del pobre de Emberus",
+      es: "Anillo encantado del pobre del firme Emberus",
       t: "equipo",
       b: 6,
       d: "Su anillo de Fuerza del primer piso, reforjado en el Club Vanquisher por un joyero sátiro devoto de Emberus. Para los fieles, anula los efectos (no el debuff en sí) de la mayoría de debuffs de sangrado y enfermedad, como la viruela de babosa; para cualquier otro es un objeto maldito. Cuesta un millón de oro: 10.000 de entrada y un préstamo de 990.000 del templo que le impide renunciar a su religión mientras lo deba.",
@@ -292,7 +292,7 @@ window.INVENTORY = {
     {
       id: "eye-bedlam-bride",
       n: "The Eye of the Bedlam Bride",
-      es: "El Ojo de la Novia de Bedlam",
+      es: "El ojo de la novia de Bedlam",
       t: "tatuaje",
       b: 6,
       d: "Tatuaje en el esternón que Shi Maria le hace mientras controla su cuerpo, para no depender de su carta. El sistema solo dice su nombre; Carl siente \"un agujero sin fondo\".",
@@ -302,7 +302,7 @@ window.INVENTORY = {
     {
       id: "right-back-atcha",
       n: "Enchanted Right Back Atcha Personal Shield",
-      es: "Escudo personal «de vuelta pa' ti»",
+      es: "Escudo personal encantado «Ahí te lo devuelvo»",
       t: "equipo",
       b: 6,
       d: "Brazal de una caja Legendary Scourge que sustituye a la rodela del hueso de melocotón: para golpes físicos según su Destreza y proyectiles mágicos según su Inteligencia, con un 75 % de devolverlos y un 25 % de duplicar la potencia del rebote.",
@@ -311,7 +311,7 @@ window.INVENTORY = {
     {
       id: "nipple-ring-defiler",
       n: "Enchanted Nipple Ring of the Defiler",
-      es: "Pezonera del profanador",
+      es: "Pezonera encantada del profanador",
       t: "equipo",
       b: 6,
       d: "Aro de plata con un ojo colgando, de una caja Platinum Apostate por sobrevivir a la marca de muerte de Diwata; solo lo puede llevar quien ha sido marcado por un dios. Revela la religión de mobs y crawlers cercanos, permite destruir santuarios sin represalias divinas, +25 % de daño contra clérigos y Black Nimbus una vez por hora.",
@@ -320,7 +320,7 @@ window.INVENTORY = {
     {
       id: "ratchet-automaton-kit",
       n: "Doctor Ratchet's Automaton Build-It Kit",
-      es: "Kit de autómatas del doctor Ratchet",
+      es: "Kit de montaje de autómatas del doctor Ratchet",
       t: "objeto",
       b: 6,
       d: "Cofre steampunk de una caja Legendary Scourge por matar más cazadores en el piso 6, con piezas para más de quince autómatas: justo lo que le faltaba para la mesa de autómatas robada al Dr. Ratchet. Al final del piso 8 apenas le queda un autómata.",
@@ -329,7 +329,7 @@ window.INVENTORY = {
     {
       id: "prison-tattoo-kit",
       n: "Enchanted Prison Tattoo Kit",
-      es: "Kit de tatuaje carcelario",
+      es: "Kit de tatuaje carcelario encantado",
       t: "objeto",
       b: 6,
       d: "Kit de aguja y tinta de una caja de misión de Vengeance of the Daughter para tatuar a un objetivo, consienta o no. Carl no sabe qué hacer con él; Shi Maria lo usa con su cuerpo para tatuarle el Ojo de la Novia de Bedlam.",
@@ -358,7 +358,7 @@ window.INVENTORY = {
     {
       id: "velma",
       n: "Velma",
-      es: "Velma, el lanzallamas de Tserendolgor",
+      es: "Velma (lanzallamas)",
       t: "arma",
       b: 6,
       d: "Lanzallamas encantado, mitad peto y mitad arma, que Tserendolgor (Ren) le lega al morir en El Capitolio de La Habana, junto con su inventario «para el esfuerzo de guerra». Carl no llega a leer su descripción en el libro.",
@@ -367,7 +367,7 @@ window.INVENTORY = {
     {
       id: "toe-ring-well-balanced",
       n: "Enchanted Toe Ring of the Well-Balanced",
-      es: "Anillo de pie del equilibrio",
+      es: "Anillo de pie encantado del bien equilibrado",
       t: "equipo",
       b: 7,
       d: "Anillo para el meñique izquierdo con Heart, Mind y Physical Balance. Mind Balance protege de la esclavitud y la conscripción y es lo que impide a Shi Maria apoderarse de su cuerpo.",
@@ -377,7 +377,7 @@ window.INVENTORY = {
     {
       id: "hell-kissed-conscription",
       n: "Hell-Kissed Potion of Conscription",
-      es: "Poción de conscripción besada por el infierno",
+      es: "Poción de reclutamiento besada por el infierno",
       t: "pocion",
       b: 7,
       d: "Conscripción de nivel 18, elaborada por Krakaren Prime, capaz de reclutar incluso a la mayoría de dioses. Li Na la duplica y le da la copia; Carl se la estampa en la cabeza a Lucia Mar y la recluta para la Princess Posse.",
@@ -385,8 +385,8 @@ window.INVENTORY = {
     },
     {
       id: "profane-iron",
-      n: "Tatuaje de Profane Iron",
-      es: "Dragón de cadenas en el antebrazo derecho",
+      n: "Profane Iron Tattoo",
+      es: "Tatuaje de Hierro Profano",
       t: "tatuaje",
       b: 7,
       d: "Dragón de cadenas que Katia le tatúa con tinta de toralina y sangre que Li Na da voluntariamente, por el método de Rosetta. Le presta la habilidad de cadenas Profane Iron una vez al día. Es su primer tatuaje en ese brazo y el sistema le da calidad experta.",
@@ -395,7 +395,7 @@ window.INVENTORY = {
     {
       id: "gloom-wraith-potion",
       n: "Hell-Kissed Celestial Skill Potion of the Prince of Woe",
-      es: "Poción celestial de Gloom Wraith Phase",
+      es: "Poción celestial de habilidad besada por el infierno del Príncipe de la Aflicción",
       t: "pocion",
       b: 7,
       d: "Poción parlante besada por el infierno de una caja celestial (la trae un kit de batería demoníaco). Le da la habilidad Gloom Wraith Phase a nivel 13: embestidas incorpóreas que atraviesan materia no encantada y deshacen la carne sin armadura, a costa de la mitad del maná. Con ella mata al Architect Houston.",
@@ -404,7 +404,7 @@ window.INVENTORY = {
     {
       id: "hairbrush-beefmaster",
       n: "The Enchanted Hairbrush of the Beefmaster",
-      es: "Cepillo del maestro cachas",
+      es: "El cepillo encantado del maestro cachas",
       t: "objeto",
       b: 7,
       d: "Objeto celestial de una caja por el ataque al Club Vanquisher. Solo funciona en hombres con el pelo de 25 cm o más (la melena del tónico de Katia): cinco minutos de cepillado al día dan durante 30 horas Shining Charisma, Speedster, +25 % de Constitución y Entourage nivel 10. Grita.",
@@ -413,7 +413,7 @@ window.INVENTORY = {
     {
       id: "tooth-cap-hi-yo-silver",
       n: "Enchanted Tooth Cap of Hi-Yo Silver",
-      es: "Funda dental «¡Arre, Silver!»",
+      es: "Funda dental encantada de «¡Arre, Silver!»",
       t: "equipo",
       b: 7,
       d: "Funda donada para monturas que Carl pone en el único diente de su mascota Rend: lo atrae hacia Carl a gran velocidad desde hasta 5 km, a través de paredes, cada 3 minutos. Combinada con Wrecking Ball, parte en dos a Gustavo 3, el rottweiler de Lucia Mar.",
@@ -431,7 +431,7 @@ window.INVENTORY = {
     {
       id: "stayfast-ink",
       n: "Stayfast Ink and Adept's Fountain Pen",
-      es: "Tinta indeleble y pluma de adepto",
+      es: "Tinta Stayfast y pluma estilográfica de adepto",
       t: "objeto",
       b: 7,
       d: "Regalo de despedida de la crawler Milk: 825 ml de tinta que nada puede borrar y una pluma, para escribir habilidades y hechizos en el Book of Voodoo. Sustituye a la tinta de toralina, ya agotada.",
@@ -458,7 +458,7 @@ window.INVENTORY = {
     {
       id: "mark-of-the-damned",
       n: "Mark of the Damned",
-      es: "Marca del Condenado",
+      es: "Marca de los condenados",
       t: "tatuaje",
       b: 8,
       d: "Cicatrices en relieve con forma de sol en el dorso de las manos, lo que queda de los tatuajes de Emberus tras renegar de él y confesar que mató a Geyrun, su hijo. El sistema solo les da nombre, sin ningún efecto.",
@@ -467,7 +467,7 @@ window.INVENTORY = {
     {
       id: "memorial-crystal-emberus",
       n: "Memorial Crystal: Emberus",
-      es: "Cristal conmemorativo de Emberus",
+      es: "Cristal conmemorativo: Emberus",
       t: "objeto",
       b: 8,
       d: "Cristal ámbar que encuentra medio enterrado en la arena del piso 11 justo después de que Taranis mate a su hermano Emberus. Los cristales conmemorativos guardan los hechizos y conocimientos del dios; Carl lo guarda sin examinarlo.",
@@ -476,7 +476,7 @@ window.INVENTORY = {
     {
       id: "tracking-tag-kyryap",
       n: "Tracking Tag",
-      es: "Etiqueta de rastreo del Kyryap",
+      es: "Etiqueta de rastreo",
       t: "objeto",
       b: 8,
       d: "Dardo que descubre clavado en la pierna tras el clímax del piso 11, sin saber cuándo se lo pusieron: «The Kyryap has claimed you. Fucked = you.». Hilo abierto para el libro 9.",
@@ -496,7 +496,7 @@ window.INVENTORY = {
     {
       id: "crown-sepsis-whore",
       n: "Enchanted Crown of the Sepsis Whore",
-      es: "Corona de la Ramera Séptica",
+      es: "Corona encantada de la Ramera Séptica",
       t: "equipo",
       b: 1,
       d: "Tiara legendaria y maldita (+5 Inteligencia, 15 % de infligir Sepsis) que se pone sin terminar de leer porque es morada. La inscribe para siempre en la línea sucesoria del Sultanato de Sangre del piso 9.",
@@ -507,7 +507,7 @@ window.INVENTORY = {
     {
       id: "fae-scale-crupper",
       n: "Enchanted Fae Scale Quadruped Crupper of the Fleet",
-      es: "Grupera de escamas feéricas",
+      es: "Grupera cuadrúpeda encantada de escamas feéricas del veloz",
       t: "equipo",
       b: 1,
       d: "Armadura de acero feérico que lleva como faldita sobre los cuartos traseros: +2 Destreza. Llega en el mismo reparto de botín que su Desperado Pass (la corona venía de otra caja, la Legendary Quadruped Box).",
@@ -537,7 +537,7 @@ window.INVENTORY = {
     {
       id: "fur-brush-ecclesiastic",
       n: "Enchanted Fur Brush of the Ecclesiastic",
-      es: "Cepillo del eclesiástico",
+      es: "Cepillo para el pelo encantado del eclesiástico",
       t: "objeto",
       b: 1,
       d: "Cepillo de una caja de jefe. Si Carl la cepilla diez minutos cada noche, gana +2 Constitución durante 30 horas; uno de los pocos remedios contra su fragilidad, aunque solo la sube a 4.",
@@ -546,7 +546,7 @@ window.INVENTORY = {
     {
       id: "anklet-fallen-oak",
       n: "Enchanted Anklet of the Fallen Oak",
-      es: "Tobillera del Roble Caído",
+      es: "Tobillera encantada del roble caído",
       t: "equipo",
       b: 2,
       d: "Saqueada de una crawler muerta por los lémures del circo: +1 Destreza, +1 Constitución y +3 a Double Tap. Primera respuesta a su fragilidad; la lleva en una pata trasera, oculta en el pelo.",
@@ -555,7 +555,7 @@ window.INVENTORY = {
     {
       id: "tizheruk-fang-caps",
       n: "Enchanted Fang Caps of the Expectorating Tizheruk",
-      es: "Fundas de colmillo del tizheruk",
+      es: "Fundas de colmillo encantadas del tizheruk escupidor",
       t: "equipo",
       b: 2,
       d: "Fundas de colmillo de una Platinum Quest Box (+50 % al daño de mordisco, con probabilidad de envenenar y paralizar). Donut no les saca partido.",
@@ -565,7 +565,7 @@ window.INVENTORY = {
     {
       id: "mongoliensis-saddle",
       n: "Enchanted Mongoliensis Saddle",
-      es: "Silla de montar de Mongo",
+      es: "Silla de montar encantada de mongoliensis",
       t: "equipo",
       b: 3,
       d: "Regalo de los fans que convierte a Mongo en su montura: ella gana +15 % de daño de hechizos ofensivos y él +20 % de Constitución y de daño cuerpo a cuerpo mientras está montado.",
@@ -574,7 +574,7 @@ window.INVENTORY = {
     {
       id: "tiara-mana-genita",
       n: "Enchanted Tiara of Mana Genita",
-      es: "Tiara de Mana Genita",
+      es: "Tiara encantada de Mana Genita",
       t: "equipo",
       b: 3,
       d: "Tiara de cristal blanco que sustituye a la corona perdida: +3 Inteligencia, más alcance de detección de enemigos y sin hostilidad automática de los adoradores de Mana Genita.",
@@ -584,7 +584,7 @@ window.INVENTORY = {
     {
       id: "prism-goggles",
       n: "Prism Industries Capacitating and Focusing Goggles",
-      es: "Gafas de Prism Industries",
+      es: "Gafas capacitadoras y de enfoque de Prism Industries",
       t: "equipo",
       b: 3,
       d: "Gafas únicas firmadas por la princesa D'Nadia, de su primera caja de patrocinio: protegen de la ceguera mágica, potencian la visión y concentran los hechizos que salen de los ojos. Con ellas ve los virotes invisibles que Hekla dispara contra Katia, y convierten su Magic Missile en un láser de disparo doble.",
@@ -593,7 +593,7 @@ window.INVENTORY = {
     {
       id: "belt-of-buoyancy",
       n: "Belt of Buoyancy",
-      es: "Cinturón de flotación",
+      es: "Cinturón de flotabilidad",
       t: "equipo",
       b: 4,
       d: "Lo único que saca de una caja plateada \"I'm Wet\" tras la necrópolis sumergida: un cinturón sencillo que le impide hundirse, pero solo en el agua. Se pasa tres minutos quejándose.",
@@ -602,7 +602,7 @@ window.INVENTORY = {
     {
       id: "obsidian-bracelet",
       n: "Enchanted Obsidian Bracelet of the Raggle Rouser",
-      es: "Brazalete de obsidiana",
+      es: "Brazalete encantado de obsidiana del alborotador",
       t: "equipo",
       b: 5,
       d: "Carl lo saquea del cazador Akland y se lo da: +10 Constitución, +5 Destreza y una Fireball de nivel 10 cada 20 minutos. Con ella remata al jefe Claude Sludgington y se enfrenta a Lucia Mar.",
@@ -611,7 +611,7 @@ window.INVENTORY = {
     {
       id: "silver-bracelet-ab-solar",
       n: "Enchanted Silver Bracelet of the Ab-solar",
-      es: "Brazalete de plata del Ab-solar",
+      es: "Brazalete encantado de plata del Ab-solar",
       t: "equipo",
       b: 5,
       d: "Pulsera para la pata de una Gold Benefactor Box del Apothecary: protege del vampirismo y la licantropía y da +25 % de daño mágico contra muertos vivientes sapientes. Llega justo antes de que la plaga vampírica se extienda por el piso 6.",
@@ -620,7 +620,7 @@ window.INVENTORY = {
     {
       id: "collar-charm-effete",
       n: "Enchanted Collar Charm of the Effete Bourgeoisie",
-      es: "Colgante de la burguesía afectada",
+      es: "Colgante encantado de collar de la burguesía afectada",
       t: "equipo",
       b: 5,
       d: "Lo recibe al conquistar Point Mongo: cada asentamiento que controla le añade una gema con bonificaciones y un estipendio de oro cada diez días. La primera, turquesa, da +8 Destreza, +4 Inteligencia y la habilidad Snitch (llama a los guardias). Hace pareja con el collar de Carl.",
@@ -629,7 +629,7 @@ window.INVENTORY = {
     {
       id: "charm-mongoliensis-potion",
       n: "Charm Mongoliensis (Charm Animal Potion)",
-      es: "Poción de encantar mongoliensis",
+      es: "Encantar mongoliensis (poción de encantar animales)",
       t: "pocion",
       b: 5,
       d: "Mordecai la elabora con una receta del Apothecary y más de un litro de sangre de Mongo que Donut tiene que sacarle ella misma. Encanta al animal más cercano para el resto del piso.",
@@ -638,8 +638,8 @@ window.INVENTORY = {
     },
     {
       id: "charm-cat-potion",
-      n: "Charm Animal Potion (gatos)",
-      es: "Poción de encantar gatos",
+      n: "Charm Animal Potion (Cat)",
+      es: "Poción de encantar animales (gatos)",
       t: "pocion",
       b: 5,
       d: "Segunda poción de encantamiento, esta vez para gatos, pensada para Ferdinand, el gato de nivel 100 que sirve de familiar a la reina Imogen.",
@@ -659,7 +659,7 @@ window.INVENTORY = {
     {
       id: "fire-demon-nipple-ring",
       n: "Enchanted Nipple Ring of the Superior Fire Demon's Hand Maiden",
-      es: "Piercing de la doncella del demonio de fuego",
+      es: "Pezonera encantada de la doncella del demonio de fuego superior",
       t: "equipo",
       b: 6,
       d: "Premio por seducir a Ferdinand: sus hechizos de fuego hacen un (Inteligencia) % más de daño, es inmune al fuego natural y a la lava y puede lanzar Bitch, What? (berserker) una vez al día.",
@@ -668,7 +668,7 @@ window.INVENTORY = {
     {
       id: "dragonfly-tiara",
       n: "Enchanted Tiara of the Inebriated Dragonfly",
-      es: "Tiara de la libélula ebria",
+      es: "Tiara encantada de la libélula ebria",
       t: "equipo",
       b: 6,
       d: "Hecha con la gema de la reina Imogen: −50 % de enfriamiento de pociones, +10 Inteligencia, protección contra veneno y Hover de nivel 10. Donut por fin puede \"volar\".",
@@ -687,7 +687,7 @@ window.INVENTORY = {
     {
       id: "bull-rush-shield",
       n: "The Bull Rush, Bespoke Personal Shield",
-      es: "Escudo personal Bull Rush",
+      es: "La Embestida, escudo personal a medida",
       t: "equipo",
       b: 6,
       d: "Insignia con forma de toro de Hereford War Machines que se prende en el collar, desbloqueada con un pergamino Cracker Jack. La envuelve en una burbuja móvil, más potente que el escudo de Carl, y su modo montura protege también a Mongo (o un vehículo, con menos fuerza).",
@@ -696,7 +696,7 @@ window.INVENTORY = {
     {
       id: "tiara-thousand-lights",
       n: "The Tiara of a Thousand Lights",
-      es: "Tiara de las mil luces",
+      es: "La tiara de las mil luces",
       t: "equipo",
       b: 7,
       d: "Regalo celestial de su nuevo patrocinador Long Haul: solo da +10 Carisma, pero sus 99 joyas de absorción almacenan para siempre los efectos de cualquier sombrero encantado que deje en su cojín.",
@@ -716,7 +716,7 @@ window.INVENTORY = {
     {
       id: "kina-knee-pads",
       n: "Enchanted Spiked Knee Pads of Kina",
-      es: "Rodilleras de la diosa Kina",
+      es: "Rodilleras encantadas con pinchos de Kina",
       t: "equipo",
       b: 7,
       d: "Rodilleras divinas hechas con pestañas de la diosa Kina (25 % de reflejo cuerpo a cuerpo, respirar bajo el agua, Iron Stomach). Katia se las regala y Donut las lleva al acabar con Huanxin Jinx.",
@@ -726,7 +726,7 @@ window.INVENTORY = {
     {
       id: "scorpions-bite",
       n: "Quadruped Weapon Mount \"The Scorpion's Bite\"",
-      es: "Montura de armas \"El aguijón del escorpión\"",
+      es: "Montura de armas cuadrúpeda «El aguijón del escorpión»",
       t: "equipo",
       b: 7,
       d: "Arnés no mágico enviado por el Apothecary que le permite montar armas a distancia en la espalda y dispararlas desde el inventario. Con él maneja la ballesta repetidora de Katia, más grande que ella.",
@@ -746,7 +746,7 @@ window.INVENTORY = {
     {
       id: "myspace-photo-potion",
       n: "MySpace Photo (Charisma Cheat)",
-      es: "Poción «Foto de MySpace»",
+      es: "Foto de MySpace (truco de Carisma)",
       t: "pocion",
       b: 7,
       d: "Poción de Mordecai que, durante dos minutos, hace creer al sistema que su Carisma es 30 puntos más alto (193 en vez de 163).",
@@ -755,8 +755,8 @@ window.INVENTORY = {
     },
     {
       id: "bijanbi-tattoo",
-      n: "Bijanbi spell tattoo",
-      es: "Tatuaje del perro (Bijanbi)",
+      n: "Bijanbi Spell Tattoo",
+      es: "Tatuaje del hechizo Bijanbi",
       t: "tatuaje",
       b: 7,
       d: "Edgar le tatúa en el flanco derecho afeitado un perrito de líneas que se mueve, con el hechizo Bijanbi (una variante de Dinner Bell que arrastra a los enemigos) sacado de un clérigo caído de Wepwawet. Milk lo cubre con caligrafía de Words of Power para subirlo a nivel 15. Donut solo acepta si Carl se hace otro a juego.",
@@ -766,7 +766,7 @@ window.INVENTORY = {
     {
       id: "assassins-veil",
       n: "The Assassin's Veil",
-      es: "El velo de la asesina",
+      es: "El velo del asesino",
       t: "equipo",
       b: 8,
       d: "Tocado egipcio de cuentas de su clase Assassin of Sekhmet: +10 % Destreza y Precognición (avisa de hechizos ofensivos o de atadura cercanos), a cambio de ser hostil para todos los enemigos de Sekhmet.",
@@ -784,7 +784,7 @@ window.INVENTORY = {
     {
       id: "danforth-bolts",
       n: "The Danforth",
-      es: "Virotes Danforth",
+      es: "Los Danforth (virotes)",
       t: "arma",
       b: 8,
       d: "Diez virotes encantados que no hacen daño, pero clavan en el sitio la parte del cuerpo donde impactan (2 segundos por nivel de Ballesta del tirador). Los dispara de dos en dos con la montura The Scorpion's Bite.",
@@ -796,7 +796,7 @@ window.INVENTORY = {
     {
       id: "constitution-ring",
       n: "Constitution Ring (+15)",
-      es: "Anillo de Constitución +15",
+      es: "Anillo de Constitución (+15)",
       t: "equipo",
       b: 2,
       d: "Su principal pieza para acumular estadística y uno de los motivos de su Constitución desmesurada, la base de su papel de tanque.",
@@ -805,7 +805,7 @@ window.INVENTORY = {
     {
       id: "gear-head-potion",
       n: "Earth Hobby Potion (Gear Head)",
-      es: "Poción de afición terrestre (Gear Head)",
+      es: "Poción de afición terrestre (Mecánica)",
       t: "pocion",
       b: 2,
       d: "La poción obligatoria de afición terrestre que acompaña a su clase de base terrestre le da la habilidad Gear Head (competencia con motores): conocimiento mecánico que usa sin llegar a entenderlo del todo y que es el origen de su faceta de ingeniera.",
@@ -815,7 +815,7 @@ window.INVENTORY = {
     {
       id: "scavenger-crossbow",
       n: "Enchanted Repeating Crossbow of the Scavenger Mother of Mothers",
-      es: "Ballesta repetidora de la Madre de Madres",
+      es: "Ballesta repetidora encantada de la Madre de Madres carroñera",
       t: "arma",
       b: 3,
       d: "La ballesta de Hekla, recuperada tras matarla Katia por accidente: munición básica infinita, +15 Destreza, +10 Fuerza y +25 % de daño y cadencia por cada mujer del grupo. La monta en un trípode formado con su propio cuerpo.",
@@ -826,7 +826,7 @@ window.INVENTORY = {
     {
       id: "gorgo-belt",
       n: "Enchanted Wrestling Belt of the Great Gorgo",
-      es: "Cinturón de lucha del Gran Gorgo",
+      es: "Cinturón de lucha encantado del Gran Gorgo",
       t: "equipo",
       b: 3,
       d: "Premio de los fans por matar con ataques de impulso: +5 % Fuerza, +5 % Constitución y Avalanche, que hace que su cuerpo en movimiento golpee como si pesara el doble.",
@@ -835,7 +835,7 @@ window.INVENTORY = {
     {
       id: "riot-shield",
       n: "Enchanted Shade Gnoll Riot Forces Crowd Control Shield",
-      es: "Escudo antidisturbios de los gnolls de sombra",
+      es: "Escudo encantado de control de masas de las fuerzas antidisturbios gnoll de sombra",
       t: "equipo",
       b: 3,
       d: "Escudo de dos metros con \"GET BACK\" pintado: +5 % Constitución, +5 a Rooted in Place y convierte su Rush en Crowd Blast, un ataque en cono cada cinco minutos. Llega con una porra telescópica a juego.",
@@ -865,7 +865,7 @@ window.INVENTORY = {
     {
       id: "ugly-ass-backpack",
       n: "Ugly Ass Backpack",
-      es: "Mochila \"fea de narices\"",
+      es: "Mochila fea de narices",
       t: "objeto",
       b: 3,
       d: "Truco de inventario diseñado por Carl: Katia equipa más de una tonelada de chatarra de robots enanos como masa propia y se convierte en un gigante acorazado de más de tres metros.",
@@ -875,7 +875,7 @@ window.INVENTORY = {
     {
       id: "katia-auto-buckler",
       n: "Enchanted Auto Buckler of the Peach Pit",
-      es: "Rodela automática del Hueso de Melocotón",
+      es: "Rodela automática encantada del hueso de melocotón",
       t: "equipo",
       b: 3,
       d: "Brazalete de una de sus cajas de botín de principios del piso 4 que forma una rodela metálica al sacudir la muñeca. Su encantamiento Shatter da un 1,5 % de probabilidad de desarmar al atacante. Katia lo usaba sobre todo para añadir masa.",
@@ -894,7 +894,7 @@ window.INVENTORY = {
     {
       id: "katia-club-vanquisher-pass",
       n: "Club Vanquisher Pass",
-      es: "Pase del Club Vanquisher (tatuaje)",
+      es: "Pase del Club Vanquisher",
       t: "tatuaje",
       b: 3,
       d: "Tatuaje de facción que se forma solo a partir de una de sus cajas de botín de la recompensa por Hekla. Le da acceso al Club Vanquisher, la contrapartida del Desperado Club para quienes matan a otros crawlers.",
@@ -902,8 +902,8 @@ window.INVENTORY = {
     },
     {
       id: "apothecary-beanie",
-      n: "Apothecary beanie (\"I Need My Personal Space\")",
-      es: "Gorro de punto del Apothecary",
+      n: "Apothecary Beanie (\"I Need My Personal Space\")",
+      es: "Gorro del Apothecary («Necesito mi espacio personal»)",
       t: "equipo",
       b: 5,
       d: "Gorro de su patrocinador: +3 % a todas sus estadísticas y el hechizo I Need My Personal Space, que empuja violentamente a todos los que la rodean.",
@@ -913,7 +913,7 @@ window.INVENTORY = {
     {
       id: "crown-sepsis-whore",
       n: "Enchanted Crown of the Sepsis Whore",
-      es: "Corona de la Ramera Séptica",
+      es: "Corona encantada de la Ramera Séptica",
       t: "equipo",
       b: 5,
       d: "La corona regenerada que Eva Sigrid se saca de la armadura al morir y que vuela a la cabeza de Katia: la mete en la sucesión del Sultanato de Sangre y la enfrenta a Donut, porque solo una podrá bajar del piso 9.",
@@ -935,7 +935,7 @@ window.INVENTORY = {
     {
       id: "orchid-eileithyia",
       n: "Orchid of Eileithyia's Grace",
-      es: "Orquídea de la Gracia de Eileithyia",
+      es: "Orquídea de la gracia de Ilitía",
       t: "pocion",
       b: 6,
       d: "Va dentro de la Engaged Lock Box of the Night Wyrm, el premio de su caja celestial por abrir la Puerta de los Dioses Salvajes e inundar Larracos, que guarda en secreto. Tiene tres sellos: matar a un antiguo compañero de grupo (Eva), matar a un jefe de país o de nivel (la reina Imogen) y cumplir un encargo del Gremio del Sufrimiento (matar a Astrid). Con el tercer sello cumplido, la Orquídea es suya en el capítulo 33. Al comerla queda una hora inconsciente al 1 % de vida y la diosa le concede uno de tres dones: Constitución triple, asistente celestial o volver a ser humana y quedar embarazada.",
@@ -944,8 +944,8 @@ window.INVENTORY = {
     },
     {
       id: "katia-annie-card",
-      n: "Annie (crow totem card)",
-      es: "Annie, carta tótem del cuervo",
+      n: "Annie (Crow Totem Card)",
+      es: "Annie (carta tótem de cuervo)",
       t: "objeto",
       b: 6,
       d: "Carta tótem T'Ghee de un pájaro con cráneo de bebé que lleva desde el piso 8 y a la que pone el nombre de la niña que no pudo adoptar. El cuervo le arranca los ojos a Astrid en el asesinato que rompe el tercer sello.",
@@ -955,7 +955,7 @@ window.INVENTORY = {
     {
       id: "kina-knee-pads",
       n: "Enchanted Spiked Knee Pads of Kina",
-      es: "Rodilleras de la diosa Kina",
+      es: "Rodilleras encantadas con pinchos de Kina",
       t: "equipo",
       b: 7,
       d: "Objeto divino de su caja celestial por el asalto al Club Vanquisher. Con su habilidad Iron Stomach se come montones de objetos mágicos desechables para subir su Inteligencia.",
@@ -964,7 +964,7 @@ window.INVENTORY = {
     },
     {
       id: "katia-cybernetic-prosthetics",
-      n: "Cybernetic prosthetics",
+      n: "Cybernetic Prosthetics",
       es: "Prótesis cibernéticas",
       t: "equipo",
       b: 7,
