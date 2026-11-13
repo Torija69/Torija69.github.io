@@ -157,7 +157,8 @@ q.addEventListener('keydown',e=>{ if(!hits.length) return;
 document.addEventListener('keydown',e=>{ if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}});
 document.addEventListener('click',e=>{ if(!e.target.closest('.search')) res.style.display='none';});
 
-function setLevel(n){level=n; try{history.replaceState(null,'','#libro='+n);}catch(e){} paintBooks(); render(); renderPanel(); if(view==='list') paintList(); setTimeout(()=>fit(),900);}
+function syncInvLink(){const a=document.getElementById('invLink'); if(a) a.href='objetos/index.html?libro='+level;}
+function setLevel(n){level=n; try{history.replaceState(null,'','#libro='+n);}catch(e){} syncInvLink(); paintBooks(); render(); renderPanel(); if(view==='list') paintList(); setTimeout(()=>fit(),900);}
 paintBooks(); render(); renderPanel();
 setTimeout(()=>fit(false),50); setTimeout(()=>fit(),1400);
 // Abrir una ficha desde un enlace externo (p. ej. la vista del Iron Tangle): ?p=<id>
@@ -165,4 +166,5 @@ setTimeout(()=>fit(false),50); setTimeout(()=>fit(),1400);
 window.addEventListener('resize',()=>fit(false));
 // Aviso de spoilers y autoría: se cierra para esta visita (sin localStorage, ver spec)
 document.getElementById('noticeClose').onclick=()=>{document.getElementById('notice').hidden=true; setTimeout(()=>fit(false),50);};
+syncInvLink();
 })();

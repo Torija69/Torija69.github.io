@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventario · Carl, Princess Donut y Katia por libro · Dungeon Crawler Carl</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23292c23'/%3E%3Crect x='8' y='11' width='16' height='13' rx='2' fill='none' stroke='%23d1dc76' stroke-width='2.4'/%3E%3Cpath d='M12 11V8h8v3' fill='none' stroke='%23d1dc76' stroke-width='2.4'/%3E%3C/svg%3E">
+<link href="../styles/torija-fonts.css" rel="stylesheet">
+<link href="../styles/torija-tokens.css" rel="stylesheet">
+<link href="../styles/torija-components.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body class="torija" data-app-version="1.4.0" data-design-version="1.0.0">
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="brand">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <div>
+        <div class="kicker">Dungeon Crawler Carl · objetos, pociones y tatuajes</div>
+        <div class="brand-name">Inventario <span class="torija-signature">/ Torija</span></div>
+      </div>
+    </div>
+    <nav class="links" aria-label="Otras vistas">
+      <a class="back" id="backMap" href="../index.html">← Mapa de Crawlers</a>
+      <a class="alt" href="../iron-tangle/index.html">Trenes del Iron Tangle</a>
+    </nav>
+  </div>
+</header>
+
+<div class="notice" id="notice" role="note">
+  <div class="wrap notice-inner">
+    <span class="tag">Spoilers</span>
+    <p>Esta página contiene <b>spoilers de los libros 1 a 8</b>. Elige abajo el libro por el que vas y se ocultará todo lo posterior. <i>Dungeon Crawler Carl</i> y todos sus personajes, nombres, objetos y textos citados pertenecen a su autor, <b>Matt Dinniman</b>, y a sus editoriales. Web de fans no oficial y sin ánimo de lucro.</p>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="intro">
+    <h1>Lo que llevan encima</h1>
+    <p class="lead">El equipo, los objetos clave, las pociones y los tatuajes más importantes de Carl, Princess Donut y Katia, ordenados por el libro en que los consiguen. Cada ficha cuenta para qué sirven, cómo evolucionan y cuándo se pierden o se sustituyen.</p>
+    <div class="stats" id="stats" aria-live="polite"></div>
+  </section>
+
+  <section class="controls" aria-label="Filtros">
+    <div class="ctl">
+      <span class="ctl-l" id="lblBook">Voy por el libro</span>
+      <div class="seg" id="books" role="group" aria-labelledby="lblBook"></div>
+    </div>
+    <div class="ctl">
+      <span class="ctl-l" id="lblWho">Personaje</span>
+      <div class="seg" id="who" role="group" aria-labelledby="lblWho"></div>
+    </div>
+    <div class="ctl">
+      <span class="ctl-l" id="lblMode">Vista</span>
+      <div class="seg" id="mode" role="group" aria-labelledby="lblMode"></div>
+    </div>
+    <div class="ctl">
+      <span class="ctl-l" id="lblType">Tipo</span>
+      <div class="tj-filters" id="types" role="group" aria-labelledby="lblType"></div>
+    </div>
+    <label class="ctl find">
+      <span class="ctl-l">Buscar</span>
+      <input id="q" class="tj-input" type="search" placeholder="Nombre del objeto, p. ej. guantelete, tiara, ballesta" autocomplete="off">
+    </label>
+  </section>
+
+  <div id="out"></div>
+
+  <section class="sources" id="fuentes">
+    <h2>Fuentes</h2>
+    <p>Datos recopilados de wikis y compendios de fans, sobre todo del <a href="https://github.com/cdkolb/dcc-compendium" target="_blank" rel="noopener">compendio de cdkolb</a>. Cada ficha enlaza su fuente concreta. Puede haber matices que las fuentes no recogen.</p>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <p>Web de fans no oficial y sin ánimo de lucro. <i>Dungeon Crawler Carl</i> © Matt Dinniman y sus editoriales.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
