@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Ludoteca del Tori: la colección de juegos de mesa de Antonio. Consulta los 1.113 juegos y expansiones y los que están a la venta.">
+    <meta name="theme-color" content="#292c23">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://ymkojmxilsitilfpmfxc.supabase.co https://cf.geekdo-images.com; connect-src 'self' https://ymkojmxilsitilfpmfxc.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <title>Ludoteca del Tori</title>
+    <link rel="icon" href="./meeple.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./assets/torija-fonts.css">
+    <link rel="stylesheet" href="./assets/torija-tokens.css">
+    <link rel="stylesheet" href="./assets/torija-components.css">
+    <script type="module" crossorigin src="./assets/index-DWGAk9WF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CudqGy0Y.css">
+  </head>
+  <body class="torija">
+    <a class="skip" href="#principal">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href="#" data-home aria-label="Ludoteca del Tori, inicio"><span class="wordmark-icon" data-icon="meeple"></span><span>Ludoteca <strong>del Tori</strong></span></a>
+        <nav class="main-nav" aria-label="Secciones">
+          <button type="button" class="nav-button" data-view="catalogo" aria-current="page">Catálogo</button>
+          <button type="button" class="nav-button" data-view="venta">En venta <span class="nav-count" id="nav-venta">0</span></button>
+          <button type="button" class="nav-button" data-view="cola" data-admin hidden>Cola Vinted <span class="nav-count" id="nav-cola">0</span></button>
+          <button type="button" class="nav-button" data-view="solicitudes" data-admin hidden>Solicitudes <span class="nav-count" id="nav-solicitudes">0</span></button>
+          <button type="button" class="nav-button" data-view="ventas" data-admin hidden>Ventas</button>
+        </nav>
+        <button type="button" id="account" class="account-button"></button>
+      </div>
+    </header>
+    <main id="principal" tabindex="-1">
+      <section class="intro" id="intro" aria-labelledby="titulo">
+        <div>
+          <p class="eyebrow"><span class="small-rule"></span> <span id="eyebrow">UNA ESTANTERÍA DE JUEGOS DE MESA</span></p>
+          <h1 id="titulo">Juegos que se quedan.<br>Y algunos que buscan nueva mesa.</h1>
+          <p class="intro-copy">La colección de juegos de mesa de Antonio, con los datos de BoardGameGeek.<br>Busca un juego, mira cuáles están a la venta y escribe si te interesa alguno.</p>
+        </div>
+        <div class="collection-note" aria-live="polite">
+          <span class="note-icon" data-icon="dados"></span>
+          <div><span id="total" class="collection-total">…</span><span class="collection-caption">títulos en la ludoteca</span></div>
+          <dl class="collection-bottom"><div><dt>Juegos</dt><dd id="total-juegos">…</dd></div><div><dt>Expansiones</dt><dd id="total-expansiones">…</dd></div><div><dt>En venta</dt><dd id="total-venta">…</dd></div></dl>
+        </div>
+      </section>
+
+      <section id="vista-catalogo" class="catalogue" aria-labelledby="catalogo-titulo">
+        <div class="section-heading"><div><p class="eyebrow" id="catalogo-eyebrow">LA COLECCIÓN</p><h2 id="catalogo-titulo">En la estantería</h2></div></div>
+        <div class="toolbar">
+          <label class="search-control"><span data-icon="buscar"></span><span class="sr-only">Buscar por nombre, editorial o edición</span><input id="buscar" type="search" placeholder="Busca un juego, editorial o edición…" autocomplete="off" maxlength="120"><kbd aria-hidden="true">/</kbd></label>
+          <label class="select-control"><span>Ordenar por</span><select id="orden"><option value="nombre">Nombre A–Z</option><option value="anio">Año (recientes)</option><option value="valoracion">Valoración BGG</option><option value="ranking">Ranking BGG</option><option value="precio">Precio (menor)</option></select></label>
+        </div>
+        <div class="filter-rows">
+          <div class="filter-group" role="group" aria-label="Tipo"><span class="filter-label">Tipo</span><div class="tj-filters" id="filtro-tipo"></div></div>
+          <div class="filter-group" role="group" aria-label="Estado de venta"><span class="filter-label">Estado</span><div class="tj-filters" id="filtro-estado"></div></div>
+          <div class="filter-selects">
+            <label class="select-control"><span>Jugadores</span><select id="filtro-jugadores"><option value="">Cualquiera</option><option value="1">1 (solitario)</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6+">6 o más</option></select></label>
+            <label class="select-control"><span>Duración</span><select id="filtro-duracion"><option value="">Cualquiera</option><option value="corta">Hasta 30 min</option><option value="media">31–60 min</option><option value="larga">61–120 min</option><option value="epica">Más de 120 min</option></select></label>
+            <button type="button" id="limpiar" class="tj-button tj-button--secondary">Limpiar filtros</button>
+          </div>
+        </div>
+        <p id="contador" class="result-count" role="status" aria-live="polite">Cargando la ludoteca…</p>
+        <div id="rejilla" class="game-grid" aria-busy="true"><div class="loading-state"><span class="spinner"></span> Abriendo las cajas…</div></div>
+        <div class="more-row"><button type="button" id="mas" class="tj-button tj-button--secondary" hidden>Mostrar más juegos</button><span id="centinela" aria-hidden="true"></span></div>
+      </section>
+
+      <section id="vista-cola" class="admin-view" aria-labelledby="cola-titulo" hidden>
+        <div class="section-heading"><div><p class="eyebrow">ADMINISTRACIÓN</p><h2 id="cola-titulo">Cola Vinted</h2></div></div>
+        <p class="tj-muted">Juegos marcados con «Enviar a Vinted». Abre cada ficha para fijar precio, hacer fotos y copiar el anuncio.</p>
+        <div id="cola-lista" class="admin-list"></div>
+      </section>
+      <section id="vista-solicitudes" class="admin-view" aria-labelledby="solicitudes-titulo" hidden>
+        <div class="section-heading"><div><p class="eyebrow">ADMINISTRACIÓN</p><h2 id="solicitudes-titulo">Solicitudes</h2></div><button type="button" id="recargar-solicitudes" class="tj-button tj-button--secondary"><span data-icon="recargar"></span>Actualizar</button></div>
+        <div class="tj-filters" id="filtro-solicitudes" role="group" aria-label="Mostrar solicitudes"></div>
+        <div id="solicitudes-lista" class="admin-list"></div>
+      </section>
+      <section id="vista-ventas" class="admin-view" aria-labelledby="ventas-titulo" hidden>
+        <div class="section-heading"><div><p class="eyebrow">ADMINISTRACIÓN</p><h2 id="ventas-titulo">Ventas</h2></div></div>
+        <div id="ventas-resumen" class="stats"></div>
+        <div id="ventas-lista" class="admin-list"></div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>Ludoteca del Tori</span><span>Datos de juegos: <a href="https://boardgamegeek.com/" rel="noopener noreferrer" target="_blank">BoardGameGeek</a></span><span>Torija · v1.0.0</span></footer>
+
+    <dialog id="ficha" aria-labelledby="ficha-titulo"></dialog>
+    <dialog id="login" aria-labelledby="login-titulo">
+      <div class="dialog-top"><span class="eyebrow">ACCESO PRIVADO</span><button type="button" class="icon-button" data-close aria-label="Cerrar"><span data-icon="cerrar"></span></button></div>
+      <h2 id="login-titulo">Administrar la ludoteca</h2>
+      <p class="tj-muted">El catálogo es público. Para gestionar ventas, fotos y solicitudes, entra con la cuenta de administrador.</p>
+      <form id="login-form" novalidate>
+        <label class="tj-label" for="login-email">Correo electrónico</label><input class="tj-input" id="login-email" name="email" type="email" required autocomplete="username">
+        <label class="tj-label" for="login-password">Contraseña</label><input class="tj-input" id="login-password" name="password" type="password" required autocomplete="current-password">
+        <p id="login-error" class="form-error" role="alert"></p>
+        <button class="tj-button full" type="submit">Entrar</button>
+      </form>
+      <p class="fine-print">Sin registro público. La sesión dura mientras la pestaña esté abierta; no se guarda en el navegador.</p>
+    </dialog>
+    <dialog id="confirmar" aria-labelledby="confirmar-titulo">
+      <h2 id="confirmar-titulo">¿Seguro?</h2><p id="confirmar-texto" class="tj-muted"></p>
+      <div class="dialog-actions"><button type="button" class="tj-button tj-button--secondary" value="no">Cancelar</button><button type="button" class="tj-button danger" value="si">Borrar</button></div>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
