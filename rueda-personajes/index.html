@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personajes de La Rueda del Tiempo</title>
+<meta name="description" content="Personajes, relaciones y apariciones por libro de La Rueda del Tiempo, con control de spoilers.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23292c23'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23d1dc76' stroke-width='2.4'/%3E%3Cpath d='M16 7v18M7 16h18M9.6 9.6l12.8 12.8M22.4 9.6 9.6 22.4' stroke='%23d1dc76' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./styles/torija-fonts.css">
+<link rel="stylesheet" href="./styles/torija-tokens.css">
+<link rel="stylesheet" href="./styles/torija-components.css">
+<link rel="stylesheet" href="./style.css?v=1.0.0">
+</head>
+<body class="torija">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="tj-header top">
+  <div class="brandline">
+    <span class="tj-brand">Torija</span>
+    <span class="apptitle">Personajes de La Rueda del Tiempo</span>
+  </div>
+  <nav class="tabs" aria-label="Vistas">
+    <button type="button" class="tab" data-view="lista" aria-pressed="true">Lista</button>
+    <button type="button" class="tab" data-view="red" aria-pressed="false">Red de relaciones</button>
+  </nav>
+</header>
+
+<section class="spoiler" aria-labelledby="spTitle">
+  <div class="sp-head">
+    <h2 id="spTitle">Leído hasta</h2>
+    <p id="spNow" class="sp-now"></p>
+    <label class="np"><input type="checkbox" id="npToggle"> Incluir Nueva Primavera</label>
+  </div>
+  <div class="books" id="books" role="group" aria-label="Libro leído"></div>
+  <p class="sp-help">Solo se muestra lo que ocurre hasta el libro elegido. Para avanzar hay que confirmarlo.</p>
+</section>
+
+<main id="contenido">
+  <section class="filters" aria-label="Búsqueda y filtros">
+    <div class="f-search">
+      <label class="tj-label" for="q">Buscar</label>
+      <input class="tj-input" id="q" type="search" placeholder="Nombre, nombre original o alias" autocomplete="off">
+    </div>
+    <div><label class="tj-label" for="fCat">Facción</label><select class="tj-input" id="fCat"></select></div>
+    <div><label class="tj-label" for="fNac">Nación</label><select class="tj-input" id="fNac"></select></div>
+    <div><label class="tj-label" for="fLib">Aparece en</label><select class="tj-input" id="fLib"></select></div>
+    <div><label class="tj-label" for="fEst">Estado</label>
+      <select class="tj-input" id="fEst"><option value="">Todos</option><option value="vivo">Vivos</option><option value="muerto">Muertos</option></select></div>
+    <div><label class="tj-label" for="fOrd">Orden</label>
+      <select class="tj-input" id="fOrd"><option value="nombre">Nombre</option><option value="aparicion">Primera aparición</option><option value="relaciones">Más relaciones</option></select></div>
+  </section>
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <section id="vLista" class="cards" aria-label="Personajes"></section>
+
+  <section id="vRed" class="graphwrap" hidden aria-label="Red de relaciones">
+    <div class="legend" id="legend"></div>
+    <svg id="graph" role="img" aria-label="Red de relaciones entre los personajes filtrados"></svg>
+    <p class="hint">Arrastra para mover, rueda o pellizca para ampliar. Pulsa un personaje para ver su ficha.</p>
+  </section>
+</main>
+
+<aside id="ficha" class="ficha" hidden aria-labelledby="fNombre" tabindex="-1">
+  <button type="button" class="close tj-button tj-button--secondary" id="fClose" aria-label="Cerrar ficha">Cerrar</button>
+  <div id="fBody"></div>
+</aside>
+
+<dialog id="confirm" class="confirm">
+  <form method="dialog">
+    <h2 id="cTitle">¿Mostrar más libros?</h2>
+    <p id="cText"></p>
+    <div class="c-actions">
+      <button value="no" class="tj-button tj-button--secondary">Cancelar</button>
+      <button value="si" class="tj-button" id="cYes">Sí, mostrar</button>
+    </div>
+  </form>
+</dialog>
+
+<footer class="foot">
+  <p>Personajes de La Rueda del Tiempo v1.0.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="./data.js?v=1.0.0"></script>
+<script src="./app.js?v=1.0.0"></script>
+</body>
+</html>
