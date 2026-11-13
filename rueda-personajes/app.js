@@ -277,18 +277,83 @@ function highlight(id) {
   linkSel.classed("dim", l => l.source.id !== id && l.target.id !== id).classed("hot", l => l.source.id === id || l.target.id === id);
 }
 
-// ---------- mapa (solo la imagen, sin personajes)
-let mapZoom = null;
+// ---------- reinos y regiones del mapa (coordenadas en píxeles de la imagen 1542×1080; textos sin spoilers de trama)
+const REINOS = [
+  { id: "andor", n: "Andor", t: "Reino", x: 869, y: 584, d: "El gran reino del centro de las Tierras Occidentales. Su capital es Caemlyn y lo gobierna una reina; su estandarte es el León Blanco. La heredera al trono es por tradición la hija mayor de la reina. Dos Ríos forma parte de Andor, aunque allí casi nadie lo recuerde." },
+  { id: "dosrios", n: "Dos Ríos", t: "Región de Andor", x: 716, y: 560, d: "Comarca rural y aislada del oeste de Andor, entre el río Blanco y el Manetherendrelle. Sus aldeas principales son Campo de Emond, Colina del Vigía, Deven Ride y Embarcadero de Taren. Vive de la lana y el tabaco, y sus arqueros con arco largo tienen fama." },
+  { id: "cairhien", n: "Cairhien", t: "Reino", x: 1210, y: 494, d: "Reino junto al río Alguenya cuya capital lleva el mismo nombre. Su nobleza practica el Juego de las Casas (Daes Dae'mar), un juego de intrigas y apariencias. La Guerra de Aiel, unos veinte años antes del inicio de la saga, arrasó buena parte de sus tierras." },
+  { id: "tarvalon", n: "Tar Valon", t: "Ciudad isla", x: 1098, y: 376, d: "Ciudad construida en una isla del río Erinin, sede de la Torre Blanca y de las Aes Sedai. Su gobierno corresponde a la Sede Amyrlin. Muy cerca se alza el Monte del Dragón, una montaña solitaria que destaca sobre la llanura." },
+  { id: "tear", n: "Tear", t: "Reino", x: 1192, y: 828, d: "Gran puerto en la desembocadura del Erinin, gobernado por los Grandes Señores. Su fortaleza, la Ciudadela de Tear, es la más antigua del mundo y, según las Profecías del Dragón, solo caerá cuando llegue el Dragón Renacido. Allí encauzar está prohibido." },
+  { id: "illian", n: "Illian", t: "Reino", x: 1005, y: 813, d: "Ciudad portuaria del Mar de las Tormentas con un rey, el Consejo de los Nueve y la Asamblea. Es rival histórica de Tear. Desde Illian suele partir la Gran Cacería del Cuerno, la búsqueda del legendario Cuerno de Valere." },
+  { id: "mayene", n: "Mayene", t: "Ciudad estado", x: 1348, y: 905, d: "Pequeña ciudad estado al este de Tear, gobernada por la Primera de Mayene. Se mantiene independiente gracias a su flota pesquera, que conoce las rutas de los bancos de peces aceite." },
+  { id: "murandy", n: "Murandy", t: "Reino", x: 939, y: 713, d: "Reino de capital Lugard, con un rey de poco poder frente a una nobleza díscola. Sus vecinos Andor e Illian lo miran con interés." },
+  { id: "altara", n: "Altara", t: "Reino", x: 819, y: 819, d: "Reino del sur con capital en Ebou Dar, ciudad portuaria conocida por los duelos y los cuchillos de su gente. El poder real apenas llega más allá de la capital." },
+  { id: "ghealdan", n: "Ghealdan", t: "Reino", x: 674, y: 692, d: "Pequeño reino de capital Jehannah, al pie de las Montañas de la Niebla y vecino de Amadicia." },
+  { id: "amadicia", n: "Amadicia", t: "Reino", x: 656, y: 800, d: "Reino de capital Amador donde tienen su Fortaleza de la Luz los Hijos de la Luz, los Capas Blancas. Allí encauzar está prohibido y las Aes Sedai no son bienvenidas." },
+  { id: "tarabon", n: "Tarabon", t: "Reino", x: 487, y: 692, d: "Reino costero de capital Tanchico, gobernado por un rey y una Panarch. Mantiene una larga disputa con Arad Doman por la Llanura de Almoth." },
+  { id: "almoth", n: "Llanura de Almoth", t: "Región", x: 536, y: 520, d: "Extensa llanura entre Tarabon y Arad Doman que ambos reinos se disputan desde hace generaciones." },
+  { id: "aradoman", n: "Arad Doman", t: "Reino", x: 530, y: 427, d: "Reino de mercaderes con capital en Bandar Eban, en la costa del océano Aryth. Su rey lo elige el Consejo de Mercaderes." },
+  { id: "saldaea", n: "Saldaea", t: "Tierras Fronterizas", x: 782, y: 289, d: "La más occidental de las Tierras Fronterizas, con capital en Maradon. Como sus vecinos, vive en guardia permanente contra la Llaga y los trollocs." },
+  { id: "kandor", n: "Kandor", t: "Tierras Fronterizas", x: 975, y: 270, d: "Reino de las Tierras Fronterizas con capital en Chachin, en primera línea frente a la Llaga." },
+  { id: "arafel", n: "Arafel", t: "Tierras Fronterizas", x: 1119, y: 248, d: "Reino de las Tierras Fronterizas con capital en Shol Arbela. Sus guerreros llevan dos espadas a la espalda y trenzas con campanillas." },
+  { id: "shienar", n: "Shienar", t: "Tierras Fronterizas", x: 1234, y: 271, d: "El reino más oriental de las Tierras Fronterizas, con capital en Fal Moran. La fortaleza de Fal Dara vigila el paso hacia la Llaga y sus soldados llevan la cabeza rapada con un moño en lo alto." },
+  { id: "malkier", n: "Malkier", t: "Reino perdido", x: 1216, y: 150, d: "Antiguo reino de las Tierras Fronterizas que la Llaga engulló hace décadas. Hoy solo queda su recuerdo." },
+  { id: "llaga", n: "La Gran Llaga", t: "Tierra corrompida", x: 843, y: 84, d: "Tierra del norte corrompida por el Oscuro, de donde salen trollocs y Myrddraal. En su interior se encuentra Shayol Ghul." },
+  { id: "aiel", n: "Desierto Aiel", t: "Región", x: 1475, y: 349, d: "Tierra árida al otro lado de la Columna del Dragón, hogar de los clanes Aiel. Pocos forasteros la cruzan; los buhoneros y los Tuatha'an son de los pocos admitidos." },
+  { id: "tremalking", n: "Tremalking", t: "Islas", x: 138, y: 963, d: "Gran isla del Pueblo del Mar (Atha'an Miere), navegantes que surcan todos los mares con sus barcos." }
+];
+
+// ---------- mapa (imagen con nombres de reinos pulsables, sin personajes)
+let mapZoom = null, mapT = null;
+function placePins() {
+  if (!mapT) return;
+  document.querySelectorAll("#mapPins .reino").forEach(b => {
+    b.style.left = (b.dataset.x * mapT.k + mapT.x) + "px";
+    b.style.top = (b.dataset.y * mapT.k + mapT.y) + "px";
+  });
+}
+function openReino(id) {
+  const r = REINOS.find(z => z.id === id), box = document.getElementById("mapInfo");
+  if (!r) return;
+  document.querySelectorAll("#mapPins .reino").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id ? "true" : "false"));
+  box.querySelector(".mi-tipo").textContent = r.t;
+  box.querySelector("h3").textContent = r.n;
+  box.querySelector(".mi-desc").textContent = r.d;
+  box.hidden = false;
+}
+function closeReino() {
+  document.getElementById("mapInfo").hidden = true;
+  document.querySelectorAll("#mapPins .reino").forEach(b => b.setAttribute("aria-pressed", "false"));
+}
 function showMap() {
-  const stage = document.getElementById("mapStage"), img = document.getElementById("mapImg");
+  const stage = document.getElementById("mapStage"), img = document.getElementById("mapImg"), pins = document.getElementById("mapPins");
   if (!window.d3) return;
   const fit = () => {
-    const w = stage.clientWidth, h = stage.clientHeight, k = Math.min(w / 1542, h / 1080);
+    const w = stage.clientWidth, h = stage.clientHeight;
+    // en pantallas estrechas el mapa ocupa todo el alto y se desplaza en horizontal para que los nombres no se pisen
+    const k = w < 600 ? h / 1080 : Math.min(w / 1542, h / 1080);
     return d3.zoomIdentity.translate((w - 1542 * k) / 2, (h - 1080 * k) / 2).scale(k);
   };
   if (!mapZoom) {
+    REINOS.forEach(r => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "reino"; b.textContent = r.n;
+      b.dataset.id = r.id; b.dataset.x = r.x; b.dataset.y = r.y;
+      b.setAttribute("aria-pressed", "false");
+      b.addEventListener("pointerdown", e => e.stopPropagation());
+      b.addEventListener("click", e => { e.stopPropagation(); openReino(r.id); });
+      pins.appendChild(b);
+    });
+    document.getElementById("miClose").addEventListener("click", closeReino);
+    const tog = document.getElementById("mNombres");
+    tog.addEventListener("click", () => {
+      const on = tog.getAttribute("aria-pressed") !== "true";
+      tog.setAttribute("aria-pressed", on ? "true" : "false");
+      pins.hidden = !on; if (!on) closeReino();
+    });
     mapZoom = d3.zoom().scaleExtent([0.2, 4]).on("zoom", e => {
-      const t = e.transform; img.style.transform = `translate(${t.x}px,${t.y}px) scale(${t.k})`;
+      const t = mapT = e.transform; img.style.transform = `translate(${t.x}px,${t.y}px) scale(${t.k})`;
+      placePins();
     });
     d3.select(stage).call(mapZoom);
     document.getElementById("mMas").addEventListener("click", () => d3.select(stage).transition().duration(200).call(mapZoom.scaleBy, 1.4));

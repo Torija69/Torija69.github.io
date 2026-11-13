@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./styles/torija-fonts.css">
 <link rel="stylesheet" href="./styles/torija-tokens.css">
 <link rel="stylesheet" href="./styles/torija-components.css">
-<link rel="stylesheet" href="./style.css?v=1.2.0">
+<link rel="stylesheet" href="./style.css?v=1.3.0">
 </head>
 <body class="torija">
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -64,11 +64,19 @@
       <button type="button" class="tj-button tj-button--secondary" id="mMas" aria-label="Ampliar">+</button>
       <button type="button" class="tj-button tj-button--secondary" id="mMenos" aria-label="Reducir">−</button>
       <button type="button" class="tj-button tj-button--secondary" id="mAjustar">Ajustar</button>
+      <button type="button" class="tj-button tj-button--secondary" id="mNombres" aria-pressed="true">Nombres</button>
     </div>
     <div class="map-stage" id="mapStage">
-      <img id="mapImg" src="./img/mapa-tierras-occidentales.jpg?v=1.2.0" width="1542" height="1080" alt="Mapa de las Tierras Occidentales de La Rueda del Tiempo, del océano Aryth a la Columna del Dragón" draggable="false">
+      <img id="mapImg" src="./img/mapa-tierras-occidentales.jpg?v=1.3.0" width="1542" height="1080" alt="Mapa de las Tierras Occidentales de La Rueda del Tiempo, del océano Aryth a la Columna del Dragón" draggable="false">
+      <div class="map-pins" id="mapPins"></div>
+      <div class="map-info" id="mapInfo" hidden role="region" aria-live="polite" aria-label="Descripción del reino">
+        <button type="button" class="tj-button tj-button--secondary" id="miClose" aria-label="Cerrar descripción">×</button>
+        <p class="mi-tipo"></p>
+        <h3></h3>
+        <p class="mi-desc"></p>
+      </div>
     </div>
-    <p class="hint">Arrastra para mover, rueda o pellizca para ampliar.</p>
+    <p class="hint">Arrastra para mover, rueda o pellizca para ampliar. Pulsa el nombre de un reino para leer su descripción.</p>
     <p class="map-credit">Mapa de las Tierras Occidentales. El mundo de La Rueda del Tiempo y sus nombres pertenecen a Robert Jordan, a sus herederos y a Tor Books; la ilustración pertenece a su autor. Se muestra solo como referencia, sin ánimo de lucro.</p>
   </section>
 </main>
@@ -103,11 +111,11 @@
 </dialog>
 
 <footer class="foot">
-  <p>Web de fans no oficial y sin ánimo de lucro: no tiene publicidad, no vende nada y no recoge datos personales. Personajes de La Rueda del Tiempo v1.2.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
+  <p>Web de fans no oficial y sin ánimo de lucro: no tiene publicidad, no vende nada y no recoge datos personales. Personajes de La Rueda del Tiempo v1.3.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
-<script src="./data.js?v=1.2.0"></script>
-<script src="./app.js?v=1.2.0"></script>
+<script src="./data.js?v=1.3.0"></script>
+<script src="./app.js?v=1.3.0"></script>
 </body>
 </html>

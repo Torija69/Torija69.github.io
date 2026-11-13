@@ -137,3 +137,15 @@ body.gated main, body.gated .spoiler, body.gated .ficha { visibility: hidden; }
 .map-stage img { position: absolute; left: 0; top: 0; width: 1542px; height: 1080px; max-width: none; transform-origin: 0 0; user-select: none; }
 .map-credit { font-size: 12px; color: var(--tj-muted); margin: 4px 0 0; max-width: 80ch; }
 @media (max-width: 600px) { .map-stage { height: auto; min-height: 0; aspect-ratio: 1542 / 1080; } }
+.map-tools .tj-button[aria-pressed="true"] { background: var(--tj-ink, #1f2328); color: #fff; }
+.map-pins { position: absolute; inset: 0; pointer-events: none; }
+.map-pins[hidden] { display: none; }
+.reino { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; font: 600 12px/1.1 var(--tj-font-body, sans-serif); color: #fff; background: rgba(31,35,40,.82); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 4px 9px; white-space: nowrap; cursor: pointer; min-height: 24px; }
+.reino:hover, .reino:focus-visible { background: #1f2328; outline: 2px solid var(--tj-accent, #b5c73a); outline-offset: 1px; }
+.reino[aria-pressed="true"] { background: var(--tj-accent, #b5c73a); color: #1f2328; border-color: #1f2328; }
+.map-info { position: absolute; left: 12px; top: 12px; width: min(360px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto; background: var(--tj-surface, #fff); color: var(--tj-text, #1f2328); border: 1px solid var(--tj-border); border-radius: 14px; padding: 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,.25); cursor: auto; }
+.map-info h3 { margin: 0 0 6px; font-size: 20px; }
+.map-info .mi-tipo { margin: 0 0 2px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--tj-muted); }
+.map-info .mi-desc { margin: 0; font-size: 14px; line-height: 1.5; }
+.map-info #miClose { position: absolute; top: 8px; right: 8px; min-width: 36px; min-height: 36px; padding: 0; }
+@media (max-width: 600px) { .reino { font-size: 10px; padding: 2px 6px; min-height: 0; } .map-stage { aspect-ratio: auto; height: 62vh; min-height: 380px; } .map-info { left: 8px; right: 8px; top: auto; bottom: 8px; width: auto; } }
