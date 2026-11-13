@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./styles/torija-fonts.css">
 <link rel="stylesheet" href="./styles/torija-tokens.css">
 <link rel="stylesheet" href="./styles/torija-components.css">
-<link rel="stylesheet" href="./style.css?v=1.0.0">
+<link rel="stylesheet" href="./style.css?v=1.1.0">
 </head>
 <body class="torija">
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -19,8 +19,8 @@
     <span class="apptitle">Personajes de La Rueda del Tiempo</span>
   </div>
   <nav class="tabs" aria-label="Vistas">
-    <button type="button" class="tab" data-view="lista" aria-pressed="true">Lista</button>
-    <button type="button" class="tab" data-view="red" aria-pressed="false">Red de relaciones</button>
+    <button type="button" class="tab" data-view="lista" aria-pressed="false">Lista</button>
+    <button type="button" class="tab" data-view="red" aria-pressed="true">Red de relaciones</button>
   </nav>
 </header>
 
@@ -50,9 +50,9 @@
   </section>
   <p class="count" id="count" aria-live="polite"></p>
 
-  <section id="vLista" class="cards" aria-label="Personajes"></section>
+  <section id="vLista" class="cards" hidden aria-label="Personajes"></section>
 
-  <section id="vRed" class="graphwrap" hidden aria-label="Red de relaciones">
+  <section id="vRed" class="graphwrap" aria-label="Red de relaciones">
     <div class="legend" id="legend"></div>
     <svg id="graph" role="img" aria-label="Red de relaciones entre los personajes filtrados"></svg>
     <p class="hint">Arrastra para mover, rueda o pellizca para ampliar. Pulsa un personaje para ver su ficha.</p>
@@ -63,6 +63,19 @@
   <button type="button" class="close tj-button tj-button--secondary" id="fClose" aria-label="Cerrar ficha">Cerrar</button>
   <div id="fBody"></div>
 </aside>
+
+<dialog id="inicio" class="confirm inicio">
+  <form method="dialog">
+    <h2>¿Hasta dónde has leído?</h2>
+    <p>Esta web contiene spoilers de La Rueda del Tiempo. Elige el último libro que has terminado y solo verás personajes, relaciones, cambios de bando y muertes hasta ese punto.</p>
+    <label class="tj-label" for="iLibro">Leído hasta</label>
+    <select class="tj-input" id="iLibro"></select>
+    <label class="np i-np"><input type="checkbox" id="iNp"> Incluir Nueva Primavera (precuela)</label>
+    <div class="c-actions">
+      <button value="si" class="tj-button" id="iYes">Entrar</button>
+    </div>
+  </form>
+</dialog>
 
 <dialog id="confirm" class="confirm">
   <form method="dialog">
@@ -76,11 +89,11 @@
 </dialog>
 
 <footer class="foot">
-  <p>Personajes de La Rueda del Tiempo v1.0.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
+  <p>Personajes de La Rueda del Tiempo v1.1.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
-<script src="./data.js?v=1.0.0"></script>
-<script src="./app.js?v=1.0.0"></script>
+<script src="./data.js?v=1.1.0"></script>
+<script src="./app.js?v=1.1.0"></script>
 </body>
 </html>

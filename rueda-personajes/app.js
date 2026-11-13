@@ -20,7 +20,7 @@ const REL_ORDER = ["familia", "pareja", "guardian", "maestro", "alumno", "lealta
 const LS = window.localStorage;
 let level = 1, np = false;
 try { const v = +LS.getItem("rt-libro"); if (v >= 1 && v <= 14) level = v; np = LS.getItem("rt-np") === "1"; } catch (e) { /* sin almacenamiento */ }
-let view = "lista", openId = null;
+let view = "red", openId = null;
 const inc = b => b === 0 ? np : (b != null && b <= level);
 const bookName = n => { const b = BOOKS[n]; return n === 0 ? b.t : `Libro ${n} · ${b.t}`; };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -299,13 +299,24 @@ function render() {
   if (openId) { if (isVisible(byId[openId])) openFicha(openId); else closeFicha(); }
 }
 
-// ---------- arranque
-render();
+// ---------- arranque: aviso de spoilers antes de mostrar nada
 const params = new URLSearchParams(location.search);
 const want = +params.get("libro");
 const wantP = params.get("p");
-const openWanted = () => { if (wantP && byId[wantP] && isVisible(byId[wantP])) openFicha(wantP); };
-if (want >= 1 && want <= 14 && want > level) { const prev = onYes; askLevel(want); const fn = onYes; onYes = () => { fn && fn(); openWanted(); }; void prev; }
-else if (want >= 1 && want <= 14) { level = want; save(); render(); openWanted(); }
-else openWanted();
+const ini = document.getElementById("inicio"), iLib = document.getElementById("iLibro"), iNp = document.getElementById("iNp");
+for (let n = 1; n <= 14; n++) iLib.add(new Option(bookName(n), n));
+iLib.value = String(want >= 1 && want <= 14 ? want : level);
+iNp.checked = np;
+document.body.classList.add("gated");
+const enter = () => {
+  level = +iLib.value || 1; np = iNp.checked; save();
+  document.body.classList.remove("gated");
+  render();
+  if (wantP && byId[wantP] && isVisible(byId[wantP])) openFicha(wantP);
+};
+ini.addEventListener("cancel", e => e.preventDefault()); // no se cierra con Escape sin elegir
+ini.addEventListener("close", () => {
+  if (ini.returnValue === "si") enter(); else ini.showModal(); // Escape no salta el aviso
+});
+if (ini.showModal) ini.showModal(); else enter();
 })();

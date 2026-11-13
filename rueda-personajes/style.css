@@ -122,3 +122,8 @@ body.has-ficha .foot { margin-right: 440px; }
   .ficha { padding: 16px 16px 40px; }
 }
 @media (prefers-reduced-motion: reduce) { main { transition: none; } }
+
+/* aviso de inicio: nada visible hasta elegir libro */
+body.gated main, body.gated .spoiler, body.gated .ficha { visibility: hidden; }
+.inicio select { width: 100%; margin-bottom: 12px; }
+.inicio .i-np { display: flex; gap: 8px; align-items: center; margin-bottom: 18px; }
