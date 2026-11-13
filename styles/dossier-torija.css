@@ -44,6 +44,8 @@ body.torija {
 .torija .card .body { padding:24px; gap:16px; }
 .torija .card h3 { font-family:var(--tj-font-display); font-size:24px; font-weight:700; letter-spacing:-.02em; line-height:1.2; overflow-wrap:anywhere; }
 .torija .card p { line-height:1.7; }
+.torija .card .zones { margin:0; padding-left:20px; line-height:1.6; display:grid; gap:6px; }
+.torija .card .zones b { font-weight:700; }
 .torija .meta { color:var(--tj-muted); align-items:center; font-size:13px; }
 .torija code { background:var(--tj-soft); color:var(--tj-text); }
 .torija dl { font-size:14px; }
