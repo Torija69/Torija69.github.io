@@ -300,6 +300,7 @@ const REINOS = [
   { id: "malkier", n: "Malkier", t: "Reino perdido", x: 1216, y: 150, d: "Antiguo reino de las Tierras Fronterizas que la Llaga engulló hace décadas. Hoy solo queda su recuerdo." },
   { id: "llaga", n: "La Gran Llaga", t: "Tierra corrompida", x: 843, y: 84, d: "Tierra del norte corrompida por el Oscuro, de donde salen trollocs y Myrddraal. En su interior se encuentra Shayol Ghul." },
   { id: "aiel", n: "Desierto Aiel", t: "Región", x: 1475, y: 349, d: "Tierra árida al otro lado de la Columna del Dragón, hogar de los clanes Aiel. Pocos forasteros la cruzan; los buhoneros y los Tuatha'an son de los pocos admitidos." },
+  { id: "seanchan", n: "Seanchan", t: "Imperio al otro lado del océano", x: 100, y: 300, desde: 2, d: "Imperio de un continente situado al oeste, al otro lado del océano Aryth, fuera de este mapa; el emblema de la esquina es su estandarte. Lo fundaron los descendientes de los ejércitos que Artur Hawkwing envió allí hace unos mil años. Aparece por primera vez en La Gran Cacería." },
   { id: "tremalking", n: "Tremalking", t: "Islas", x: 138, y: 963, d: "Gran isla del Pueblo del Mar (Atha'an Miere), navegantes que surcan todos los mares con sus barcos." }
 ];
 
@@ -319,11 +320,20 @@ function openReino(id) {
   box.querySelector(".mi-tipo").textContent = r.t;
   box.querySelector("h3").textContent = r.n;
   box.querySelector(".mi-desc").textContent = r.d;
+  box.classList.toggle("der", r.x < 500); // la ficha no tapa el nombre pulsado
   box.hidden = false;
 }
 function closeReino() {
   document.getElementById("mapInfo").hidden = true;
   document.querySelectorAll("#mapPins .reino").forEach(b => b.setAttribute("aria-pressed", "false"));
+}
+function pinsByBook() {
+  // los lugares con «desde» solo se muestran a partir de ese libro, para no destripar su aparición
+  document.querySelectorAll("#mapPins .reino").forEach(b => {
+    const r = REINOS.find(z => z.id === b.dataset.id);
+    b.hidden = !!r.desde && level < r.desde;
+    if (b.hidden && b.getAttribute("aria-pressed") === "true") closeReino();
+  });
 }
 function showMap() {
   const stage = document.getElementById("mapStage"), img = document.getElementById("mapImg"), pins = document.getElementById("mapPins");
@@ -361,6 +371,7 @@ function showMap() {
     document.getElementById("mAjustar").addEventListener("click", () => d3.select(stage).transition().duration(250).call(mapZoom.transform, fit()));
     d3.select(stage).call(mapZoom.transform, fit());
   }
+  pinsByBook();
 }
 
 // ---------- vistas
