@@ -102,3 +102,10 @@ body.torija {
   .torija th { background:#fff; }
   .torija a { color:#000; }
 }
+
+/* Histórico de nuevas aplicaciones (1.3.18) */
+.torija ol.historico { list-style:none; margin:0; padding:0; max-width:760px; }
+.torija ol.historico li { display:grid; grid-template-columns:150px 1fr; gap:16px; padding:10px 0; border-bottom:1px solid var(--tj-field-border); font-size:15px; }
+.torija ol.historico time { font-weight:700; }
+.torija ol.historico small { opacity:.7; font-size:13px; }
+@media (max-width:640px){ .torija ol.historico li { grid-template-columns:1fr; gap:2px; } }
