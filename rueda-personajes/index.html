@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./styles/torija-fonts.css">
 <link rel="stylesheet" href="./styles/torija-tokens.css">
 <link rel="stylesheet" href="./styles/torija-components.css">
-<link rel="stylesheet" href="./style.css?v=1.1.0">
+<link rel="stylesheet" href="./style.css?v=1.2.0">
 </head>
 <body class="torija">
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -21,6 +21,7 @@
   <nav class="tabs" aria-label="Vistas">
     <button type="button" class="tab" data-view="lista" aria-pressed="false">Lista</button>
     <button type="button" class="tab" data-view="red" aria-pressed="true">Red de relaciones</button>
+    <button type="button" class="tab" data-view="mapa" aria-pressed="false">Mapa</button>
   </nav>
 </header>
 
@@ -35,7 +36,7 @@
 </section>
 
 <main id="contenido">
-  <section class="filters" aria-label="Búsqueda y filtros">
+  <section class="filters" id="filtros" aria-label="Búsqueda y filtros">
     <div class="f-search">
       <label class="tj-label" for="q">Buscar</label>
       <input class="tj-input" id="q" type="search" placeholder="Nombre, nombre original o alias" autocomplete="off">
@@ -48,7 +49,7 @@
     <div><label class="tj-label" for="fOrd">Orden</label>
       <select class="tj-input" id="fOrd"><option value="nombre">Nombre</option><option value="aparicion">Primera aparición</option><option value="relaciones">Más relaciones</option></select></div>
   </section>
-  <p class="count" id="count" aria-live="polite"></p>
+  <p class="count" id="count" data-no-mapa aria-live="polite"></p>
 
   <section id="vLista" class="cards" hidden aria-label="Personajes"></section>
 
@@ -56,6 +57,19 @@
     <div class="legend" id="legend"></div>
     <svg id="graph" role="img" aria-label="Red de relaciones entre los personajes filtrados"></svg>
     <p class="hint">Arrastra para mover, rueda o pellizca para ampliar. Pulsa un personaje para ver su ficha.</p>
+  </section>
+
+  <section id="vMapa" class="mapwrap" hidden aria-label="Mapa de las Tierras Occidentales">
+    <div class="map-tools">
+      <button type="button" class="tj-button tj-button--secondary" id="mMas" aria-label="Ampliar">+</button>
+      <button type="button" class="tj-button tj-button--secondary" id="mMenos" aria-label="Reducir">−</button>
+      <button type="button" class="tj-button tj-button--secondary" id="mAjustar">Ajustar</button>
+    </div>
+    <div class="map-stage" id="mapStage">
+      <img id="mapImg" src="./img/mapa-tierras-occidentales.jpg?v=1.2.0" width="1542" height="1080" alt="Mapa de las Tierras Occidentales de La Rueda del Tiempo, del océano Aryth a la Columna del Dragón" draggable="false">
+    </div>
+    <p class="hint">Arrastra para mover, rueda o pellizca para ampliar.</p>
+    <p class="map-credit">Mapa de las Tierras Occidentales. El mundo de La Rueda del Tiempo y sus nombres pertenecen a Robert Jordan, a sus herederos y a Tor Books; la ilustración pertenece a su autor. Se muestra solo como referencia, sin ánimo de lucro.</p>
   </section>
 </main>
 
@@ -89,11 +103,11 @@
 </dialog>
 
 <footer class="foot">
-  <p>Personajes de La Rueda del Tiempo v1.1.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
+  <p>Web de fans no oficial y sin ánimo de lucro: no tiene publicidad, no vende nada y no recoge datos personales. Personajes de La Rueda del Tiempo v1.2.0 · Robert Jordan y Brandon Sanderson. Datos recogidos de <a href="https://wot.fandom.com/" rel="noopener">A Wheel of Time Wiki</a> y Wikipedia; las páginas de origen contienen spoilers de toda la saga.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
-<script src="./data.js?v=1.1.0"></script>
-<script src="./app.js?v=1.1.0"></script>
+<script src="./data.js?v=1.2.0"></script>
+<script src="./app.js?v=1.2.0"></script>
 </body>
 </html>

@@ -127,3 +127,13 @@ body.has-ficha .foot { margin-right: 440px; }
 body.gated main, body.gated .spoiler, body.gated .ficha { visibility: hidden; }
 .inicio select { width: 100%; margin-bottom: 12px; }
 .inicio .i-np { display: flex; gap: 8px; align-items: center; margin-bottom: 18px; }
+
+/* vista Mapa */
+.mapwrap { position: relative; }
+.map-tools { display: flex; gap: 8px; margin: 16px 0 8px; }
+.map-tools .tj-button { min-width: 44px; }
+.map-stage { position: relative; overflow: hidden; height: calc(100vh - 330px); min-height: 460px; background: #c9d3dc; border: 1px solid var(--tj-border); border-radius: 16px; touch-action: none; cursor: grab; }
+.map-stage:active { cursor: grabbing; }
+.map-stage img { position: absolute; left: 0; top: 0; width: 1542px; height: 1080px; max-width: none; transform-origin: 0 0; user-select: none; }
+.map-credit { font-size: 12px; color: var(--tj-muted); margin: 4px 0 0; max-width: 80ch; }
+@media (max-width: 600px) { .map-stage { height: auto; min-height: 0; aspect-ratio: 1542 / 1080; } }

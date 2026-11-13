@@ -277,6 +277,27 @@ function highlight(id) {
   linkSel.classed("dim", l => l.source.id !== id && l.target.id !== id).classed("hot", l => l.source.id === id || l.target.id === id);
 }
 
+// ---------- mapa (solo la imagen, sin personajes)
+let mapZoom = null;
+function showMap() {
+  const stage = document.getElementById("mapStage"), img = document.getElementById("mapImg");
+  if (!window.d3) return;
+  const fit = () => {
+    const w = stage.clientWidth, h = stage.clientHeight, k = Math.min(w / 1542, h / 1080);
+    return d3.zoomIdentity.translate((w - 1542 * k) / 2, (h - 1080 * k) / 2).scale(k);
+  };
+  if (!mapZoom) {
+    mapZoom = d3.zoom().scaleExtent([0.2, 4]).on("zoom", e => {
+      const t = e.transform; img.style.transform = `translate(${t.x}px,${t.y}px) scale(${t.k})`;
+    });
+    d3.select(stage).call(mapZoom);
+    document.getElementById("mMas").addEventListener("click", () => d3.select(stage).transition().duration(200).call(mapZoom.scaleBy, 1.4));
+    document.getElementById("mMenos").addEventListener("click", () => d3.select(stage).transition().duration(200).call(mapZoom.scaleBy, 1 / 1.4));
+    document.getElementById("mAjustar").addEventListener("click", () => d3.select(stage).transition().duration(250).call(mapZoom.transform, fit()));
+    d3.select(stage).call(mapZoom.transform, fit());
+  }
+}
+
 // ---------- vistas
 document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
   view = t.dataset.view;
@@ -289,7 +310,10 @@ function renderView() {
   countEl.textContent = `${list.length} de ${lastVis.length} personajes conocidos hasta ${bookName(level)}${np ? " (con Nueva Primavera)" : ""}.`;
   document.getElementById("vLista").hidden = view !== "lista";
   document.getElementById("vRed").hidden = view !== "red";
-  if (view === "lista") renderList(list); else renderGraph(list);
+  document.getElementById("vMapa").hidden = view !== "mapa";
+  document.getElementById("filtros").hidden = view === "mapa";
+  countEl.hidden = view === "mapa";
+  if (view === "lista") renderList(list); else if (view === "red") renderGraph(list); else showMap();
 }
 function render() {
   paintBooks();
