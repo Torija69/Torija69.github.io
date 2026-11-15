@@ -159,7 +159,7 @@
   });
 
   // Arranque
-  $("version").textContent = VERSION;
+  $("version").textContent = "v" + VERSION;
   fetch("data/anios.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (a) {
     var sel = $("anio");
     a.anios.slice().sort().reverse().forEach(function (y) { var o = el("option", null, String(y)); o.value = y; sel.appendChild(o); });
