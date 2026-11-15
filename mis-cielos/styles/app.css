@@ -1,0 +1,107 @@
+/* Mis cielos v1.0.0 · capa propia sobre Torija v1.0.0 */
+html { scroll-behavior: smooth; }
+body.torija { margin: 0; min-height: 100dvh; }
+.torija img { display: block; max-width: 100%; height: auto; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.saltar { position: absolute; left: -999px; top: 8px; background: var(--tj-accent); color: var(--tj-text); padding: 8px 12px; border-radius: 8px; z-index: 10; }
+.saltar:focus { left: 8px; }
+
+/* Cabecera */
+.torija .cabecera { border-radius: 0; position: sticky; top: 0; z-index: 5; padding: var(--tj-space-3) clamp(var(--tj-space-4),3vw,var(--tj-space-8)); }
+.marca { gap: var(--tj-space-2); text-decoration: none; }
+.cabecera nav { display: flex; gap: var(--tj-space-4); margin-left: auto; }
+.cabecera nav a { text-decoration: none; font-size: var(--tj-text-sm); font-weight: 500; opacity: .9; }
+.cabecera nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.selector-anio select { min-height: 44px; padding: 0 var(--tj-space-3); border-radius: var(--tj-radius-control); background: transparent; color: var(--tj-surface); border: 1px solid rgb(251 250 245 / 40%); font-weight: 700; }
+.selector-anio select option { color: var(--tj-text); }
+.selector-anio select:focus-visible { outline: 3px solid var(--tj-accent); outline-offset: 2px; }
+
+/* Portada */
+.portada { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(var(--tj-space-6), 4vw, var(--tj-space-12)); align-items: center; max-width: var(--tj-width); margin: 0 auto; padding: clamp(var(--tj-space-6),4vw,var(--tj-space-12)) clamp(var(--tj-space-4),3vw,var(--tj-space-8)); }
+.portada-foto { margin: 0; border-radius: var(--tj-radius-card); overflow: hidden; background: var(--tj-soft); aspect-ratio: 4 / 3; }
+.foto-boton { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.foto-boton img { width: 100%; height: 100%; object-fit: cover; }
+.antetitulo { margin: 0 0 var(--tj-space-2); font-size: var(--tj-text-sm); font-weight: 700; color: var(--tj-muted); text-transform: uppercase; letter-spacing: .06em; }
+.portada .tj-hero { margin: 0 0 var(--tj-space-4); }
+.entrada { margin: 0 0 var(--tj-space-6); max-width: 40ch; }
+.cifras { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--tj-space-3); margin: 0; }
+.cifras div { background: var(--tj-surface); border: 1px solid var(--tj-border); border-radius: var(--tj-radius-card); padding: var(--tj-space-3) var(--tj-space-4); }
+.cifras div:first-child { background: var(--tj-accent); border-color: transparent; }
+.cifras dt { font-size: var(--tj-text-xs); color: var(--tj-text); font-weight: 500; }
+.cifras dd { margin: 0; font-family: var(--tj-font-display); font-size: var(--tj-text-xl); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+
+/* Bloques */
+.bloque { padding-top: var(--tj-space-10); }
+.bloque-cabeza { margin-bottom: var(--tj-space-6); }
+.bloque-cabeza p { margin: 0; max-width: 60ch; }
+
+/* Meses destacados */
+.meses { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--tj-space-4); }
+.mes { position: relative; border-radius: var(--tj-radius-card); overflow: hidden; background: var(--tj-soft); aspect-ratio: 3 / 4; }
+.mes button { all: unset; display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.mes button:focus-visible { outline: 3px solid var(--tj-text); outline-offset: -3px; }
+.mes img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.mes button:hover img { transform: scale(1.03); }
+.mes-pie { position: absolute; inset: auto 0 0 0; padding: var(--tj-space-6) var(--tj-space-3) var(--tj-space-3); background: linear-gradient(transparent, rgb(41 44 35 / 85%)); color: var(--tj-surface); }
+.mes-pie strong { display: block; font-family: var(--tj-font-display); font-size: var(--tj-text-lg); line-height: 1.2; }
+.mes-pie span { font-size: var(--tj-text-xs); }
+.mes--vacio { display: grid; place-items: center; border: 1px dashed var(--tj-field-border); background: transparent; color: var(--tj-muted); text-align: center; padding: var(--tj-space-4); font-size: var(--tj-text-sm); }
+.mes--vacio strong { display: block; font-family: var(--tj-font-display); color: var(--tj-text); font-size: var(--tj-text-lg); }
+
+/* Calendario */
+.tj-filters { margin-bottom: var(--tj-space-6); }
+.cal-mes { margin-bottom: var(--tj-space-8); }
+.cal-mes h3 { font-family: var(--tj-font-display); font-size: var(--tj-text-lg); margin: 0 0 var(--tj-space-3); display: flex; align-items: baseline; gap: var(--tj-space-2); }
+.cal-mes h3 small { font-family: var(--tj-font-body); font-size: var(--tj-text-xs); color: var(--tj-muted); font-weight: 500; }
+.cal-semana, .cal-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cal-semana { font-size: var(--tj-text-xs); color: var(--tj-muted); font-weight: 700; text-align: center; margin-bottom: 4px; }
+.cal-dia { position: relative; aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: var(--tj-soft); }
+.cal-dia--fuera { background: transparent; }
+.cal-dia--sin { background: transparent; border: 1px dashed var(--tj-border); }
+.cal-dia--futuro { background: transparent; border: 1px solid var(--tj-border); opacity: .5; }
+.cal-dia button { all: unset; display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.cal-dia button:focus-visible { outline: 3px solid var(--tj-text); outline-offset: -3px; border-radius: 6px; }
+.cal-dia img { width: 100%; height: 100%; object-fit: cover; }
+.cal-num { position: absolute; top: 3px; left: 5px; font-size: 11px; font-weight: 700; line-height: 1; color: var(--tj-surface); text-shadow: 0 1px 2px rgb(0 0 0 / 70%); pointer-events: none; }
+.cal-dia--sin .cal-num, .cal-dia--futuro .cal-num { color: var(--tj-muted); text-shadow: none; }
+.cal-dia--atenuado img { opacity: .2; filter: grayscale(1); }
+.cal-dia--atenuado button { cursor: default; }
+
+/* Vídeo */
+.video-hueco { background: var(--tj-text); color: var(--tj-surface); border-radius: var(--tj-radius-card); padding: clamp(var(--tj-space-6),5vw,var(--tj-space-12)); }
+.video-hueco .antetitulo { color: var(--tj-accent); }
+.video-hueco .tj-muted { color: rgb(251 250 245 / 78%); margin: 0; max-width: 60ch; }
+
+/* Pie */
+.pie { border-top: 1px solid var(--tj-border); margin-top: var(--tj-space-12); }
+.pie-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--tj-space-2); padding-block: var(--tj-space-6) !important; font-size: var(--tj-text-sm); }
+
+/* Visor */
+#visor { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgb(20 22 17 / 96%); color: var(--tj-surface); }
+#visor::backdrop { background: rgb(20 22 17 / 90%); }
+.visor-in { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+.visor-barra { display: flex; justify-content: space-between; align-items: center; gap: var(--tj-space-4); padding: var(--tj-space-3) var(--tj-space-4); }
+.visor-fecha { margin: 0; font-family: var(--tj-font-display); font-size: var(--tj-text-lg); font-weight: 700; }
+.visor-info { margin: 0; padding: var(--tj-space-3) var(--tj-space-4) var(--tj-space-4); text-align: center; font-size: var(--tj-text-sm); color: rgb(251 250 245 / 78%); }
+.visor-foto { position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 0 var(--tj-space-2); touch-action: pan-y; }
+.visor-foto img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+.visor-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgb(251 250 245 / 30%); background: rgb(41 44 35 / 70%); color: var(--tj-surface); cursor: pointer; }
+.visor-btn:hover { background: var(--tj-text); border-color: var(--tj-accent); }
+.visor-btn:focus-visible { outline: 3px solid var(--tj-accent); outline-offset: 2px; }
+.visor-btn:disabled { opacity: .3; cursor: default; }
+.visor-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; }
+#visor-ant { left: var(--tj-space-3); }
+#visor-sig { right: var(--tj-space-3); }
+
+@media (max-width: 760px) {
+  .portada { grid-template-columns: 1fr; }
+  .cabecera nav { display: none; }
+  .selector-anio { margin-left: auto; }
+}
+@media (max-width: 420px) {
+  .cifras dd { font-size: var(--tj-text-lg); }
+  .cal-semana, .cal-dias { gap: 3px; }
+  .cal-num { font-size: 10px; }
+}
+@media (min-width: 640px) { .meses { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .meses { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
