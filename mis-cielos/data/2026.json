@@ -2220,6 +2220,13 @@
    "tipo": "amanecer",
    "destacada": true,
    "video": true
+  },
+  {
+   "fecha": "2026-11-16",
+   "hora": "08:13",
+   "tipo": "amanecer",
+   "destacada": false,
+   "video": false
   }
  ]
 }
